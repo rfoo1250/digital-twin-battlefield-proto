@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+client_venv/
 .env
 .env.development
 .env.production

@@ -2214,6 +2214,7 @@ export default function ScenarioMap({
     setDrawerOpen(false);
   }
 
+  // GUI START
   return (
     <>
       <Toolbar
@@ -2672,4 +2673,6 @@ export default function ScenarioMap({
       )}
     </>
   );
+
+  // END
 }

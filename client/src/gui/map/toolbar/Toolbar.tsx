@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Menu } from "@/gui/shared/ui/MuiComponents";
 import { visuallyHidden } from "@mui/utils";
+import SendIcon from '@mui/icons-material/Send';
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
@@ -427,6 +428,33 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
       return [...filtersWithNewSide, ...newSelectedSides];
     });
   };
+  
+  // AI agent
+  const [messages, setMessages] = useState([
+    { id: 1, text: "Welcome! How can I help you plan your scenario?", sender: "bot" },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSendMessage = () => {
+    if (inputValue.trim() === "") return;
+
+    const userMessage = {
+      id: messages.length + 1,
+      text: inputValue,
+      sender: "user",
+    };
+
+    // For the prototype, the bot gives a canned response.
+    const botResponse = {
+        id: messages.length + 2,
+        text: "Acknowledged. I will process your request.",
+        sender: "bot",
+    }
+
+    setMessages([...messages, userMessage, botResponse]);
+    setInputValue(""); // Clear the input field
+  };
+
 
   const saveScenarioToCloud = async () => {
     if (!import.meta.env.VITE_ENV || import.meta.env.VITE_ENV === "standalone")
@@ -1897,44 +1925,53 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
               }}
               open={true}
             />
+            {/* START: Chatbot Interface */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '300px', // Set a fixed height for the chat window
+                borderTop: '1px solid #ccc',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              {/* Message Display Area */}
+              <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 2 }}>
+                {messages.map((message) => (
+                  <Typography
+                    key={message.id}
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      textAlign: message.sender === 'user' ? 'right' : 'left',
+                    }}
+                  >
+                    {message.text}
+                  </Typography>
+                ))}
+              </Box>
+
+              {/* Input Area */}
+              <Stack direction="row" spacing={1} sx={{ p: 1, borderTop: '1px solid #ccc' }}>
+                <TextField
+                  id="chatbot-input" // The custom component requires an 'id' prop
+                  fullWidth
+                  size="small"
+                  placeholder="Type a message..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={(e) => { if (e.key === 'Enter') handleSendMessage(); }}
+                />
+                <IconButton color="primary" onClick={handleSendMessage}>
+                  <SendIcon />
+                </IconButton>
+              </Stack>
+            </Box>
+            {/* END: Chatbot Interface */}
           </List>
         </Container>
         {/** Drawer Footer */}
-        <Box
-          sx={{
-            marginTop: "auto",
-            padding: 2,
-            backgroundColor: COLOR_PALETTE.LIGHT_GRAY,
-            borderRight: "1px solid",
-            borderRightColor: COLOR_PALETTE.DARK_GRAY,
-          }}
-        >
-          <Divider sx={{ marginBottom: 2 }} />
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <Typography variant="body2">Panopticon AI</Typography>
-            <Typography variant="body2">•</Typography>
-            <Typography variant="body2">
-              ©{new Date().getFullYear()}
-            </Typography>
-            <Typography variant="body2">•</Typography>
-            <IconButton
-              href="https://github.com/Panopticon-AI-team/panopticon"
-              target="_blank"
-              color="inherit"
-              aria-label="GitHub"
-            >
-              <Avatar
-                alt="Github Logo"
-                src={GitHubIcon}
-                sx={{ width: 24, height: 24 }}
-              />
-            </IconButton>
-          </Stack>
-        </Box>
+        
       </Drawer>
     </>
   );

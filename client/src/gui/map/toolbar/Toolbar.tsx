@@ -66,7 +66,7 @@ import { FeatureEntityState } from "@/gui/map/mapLayers/FeatureLayers";
 import RecordingPlayer from "@/gui/map/toolbar/RecordingPlayer";
 import blankScenarioJson from "@/scenarios/blank_scenario.json";
 import defaultScenarioJson from "@/scenarios/default_scenario.json";
-import SCSScenarioJson from "@/scenarios/SCS.json";
+import armyDemoScenarioJson from "@/scenarios/army_demo_1.json";
 import SideSelect from "@/gui/map/toolbar/SideSelect";
 import {
   COLOR_PALETTE,
@@ -555,8 +555,8 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
         scenarioJson = defaultScenarioJson;
         handleLoadScenarioIconClose();
         break;
-      case "SCS":
-        scenarioJson = SCSScenarioJson;
+      case "army_demo":
+        scenarioJson = armyDemoScenarioJson;
         handleLoadScenarioIconClose();
         break;
       case "_upload":
@@ -861,7 +861,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
 
   const ScenarioDb = [
     { name: "default_scenario", displayName: "Panopticon Demo" },
-    { name: "SCS", displayName: "South China Sea Strike" },
+    { name: "army_demo", displayName: "Digital Twin Demo" },
     { name: "_upload", displayName: "Upload..." },
   ];
 
@@ -1553,7 +1553,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             </Tooltip>
           )}
           <Stack direction={"row"} sx={{ alignItems: "center" }}>
-            <IconButton
+            {/* <IconButton
               href="https://panopticon-ai.com/"
               target="_blank"
               disableRipple
@@ -1568,7 +1568,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
               }}
             >
               <PanopticonLogoSvg />
-            </IconButton>
+            </IconButton> */}
             <Typography
               variant="h6"
               noWrap
@@ -1585,7 +1585,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
                 transform: "none",
               }}
             >
-              Panopticon AI
+              Digital Twin (proto)
             </Typography>
             {!props.mobileView && (
               <>

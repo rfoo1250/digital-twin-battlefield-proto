@@ -5,7 +5,7 @@ import ScenarioMap from "@/gui/map/ScenarioMap";
 import Scenario from "@/game/Scenario";
 import Game from "@/game/Game";
 import { DEFAULT_OL_PROJECTION_CODE } from "@/utils/constants";
-import SCSScenarioJson from "@/scenarios/SCS.json";
+import armyDemoScenarioJson from "@/scenarios/army_demo_1.json";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@mui/material";
 import WelcomePopover from "@/WelcomePopover";
@@ -33,7 +33,7 @@ export default function App() {
   const theGame = new Game(currentScenario);
   const projection = getProjection(DEFAULT_OL_PROJECTION_CODE) ?? undefined;
 
-  theGame.loadScenario(JSON.stringify(SCSScenarioJson)); // loads default scenario for easier testing
+  theGame.loadScenario(JSON.stringify(armyDemoScenarioJson)); // loads default scenario for easier testing
 
   return (
     <Box className="App" sx={{ display: "flex" }}>
@@ -48,10 +48,13 @@ export default function App() {
         projection={projection}
         mobileView={isMobile}
       />
-      <WelcomePopover
-        open={openWelcomePopover}
-        onClose={() => setOpenWelcomePopover(false)}
-      />
     </Box>
   );
 }
+
+/*
+<WelcomePopover
+  open={openWelcomePopover}
+  onClose={() => setOpenWelcomePopover(false)}
+/>
+*/

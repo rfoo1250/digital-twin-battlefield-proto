@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Menu } from "@/gui/shared/ui/MuiComponents";
 import { visuallyHidden } from "@mui/utils";
+import SendIcon from '@mui/icons-material/Send';
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
@@ -65,7 +66,7 @@ import { FeatureEntityState } from "@/gui/map/mapLayers/FeatureLayers";
 import RecordingPlayer from "@/gui/map/toolbar/RecordingPlayer";
 import blankScenarioJson from "@/scenarios/blank_scenario.json";
 import defaultScenarioJson from "@/scenarios/default_scenario.json";
-import SCSScenarioJson from "@/scenarios/SCS.json";
+import armyDemoScenarioJson from "@/scenarios/army_demo_1.json";
 import SideSelect from "@/gui/map/toolbar/SideSelect";
 import {
   COLOR_PALETTE,
@@ -81,6 +82,8 @@ import {
   SetUnitDbContext,
   UnitDbContext,
 } from "@/gui/contextProviders/contexts/UnitDbContext";
+import { useChatbot } from "@/gui/agent/chatbot";
+import type { ChatMessage } from "@/gui/agent/chatbot.types";
 
 interface ToolBarProps {
   mobileView: boolean;
@@ -168,6 +171,7 @@ interface CloudScenario {
 }
 
 export default function Toolbar(props: Readonly<ToolBarProps>) {
+  // Hooks and State
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [cloudScenarios, setCloudScenarios] = useState<CloudScenario[]>([]);
   const getCloudScenarios = async () => {
@@ -242,6 +246,13 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
     ]);
   const [scenarioEditNameAnchorEl, setScenarioEditNameAnchorEl] =
     useState<null | HTMLElement>(null);
+
+  // AI agent
+  const [isChatInputFocused, setIsChatInputFocused] = useState(false);
+  
+  // Component Logic
+  // AI agent
+  const { messages, inputValue, setInputValue, handleSendMessage, isLoading } = useChatbot();
 
   const handleOpenScenarioEditNameMenu = (
     event: React.MouseEvent<HTMLElement>
@@ -544,8 +555,8 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
         scenarioJson = defaultScenarioJson;
         handleLoadScenarioIconClose();
         break;
-      case "SCS":
-        scenarioJson = SCSScenarioJson;
+      case "army_demo":
+        scenarioJson = armyDemoScenarioJson;
         handleLoadScenarioIconClose();
         break;
       case "_upload":
@@ -747,6 +758,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
     toastContext?.addToast(`Eraser:  ${props.game.eraserMode ? "ON" : "OFF"}`);
   };
 
+  // handles "hotkey" mechanic
   const keyboardEventHandler = (event: KeyboardEvent) => {
     const key = event.key;
     switch (key) {
@@ -837,7 +849,11 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
     }
   };
 
-  if (props.keyboardShortcutsEnabled && !scenarioEditNameAnchorEl) {
+  if (
+    props.keyboardShortcutsEnabled &&
+    !scenarioEditNameAnchorEl &&
+    !isChatInputFocused
+  ) {
     document.onkeydown = keyboardEventHandler;
   } else {
     document.onkeydown = null;
@@ -845,7 +861,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
 
   const ScenarioDb = [
     { name: "default_scenario", displayName: "Panopticon Demo" },
-    { name: "SCS", displayName: "South China Sea Strike" },
+    { name: "army_demo", displayName: "Digital Twin Demo" },
     { name: "_upload", displayName: "Upload..." },
   ];
 
@@ -1001,6 +1017,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
       return <MenuItem disabled>No items available</MenuItem>;
     }
 
+    //Return statement (core visuals)
     return (
       <Stack spacing={1} direction="column">
         {sideMissions.map((mission) => (
@@ -1278,7 +1295,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             <EntityIcon type="referencePoint" />
           </IconButton>
         </Tooltip>
-        {/**  Unit Db Functions */}
+        {/** Unit Db Functions */}
         <Tooltip title="Database Tools">
           <IconButton onClick={handleUnitDbToolsIconClick}>
             <Storage />
@@ -1357,7 +1374,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             Import Unit Database
           </MenuItem>
         </Menu>
-        {/**  Enable Eraser */}
+        {/** Enable Eraser */}
         <Tooltip title="Eraser">
           <IconButton onClick={handleEraserModeToggle}>
             <img
@@ -1373,7 +1390,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             />
           </IconButton>
         </Tooltip>
-        {/**  Enable God Mode */}
+        {/** Enable God Mode */}
         <Tooltip title="God Mode">
           <IconButton onClick={handleGodModeToggle}>
             <GodModeIcon
@@ -1385,7 +1402,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             />
           </IconButton>
         </Tooltip>
-        {/**  Open Simulation Logs*/}
+        {/** Open Simulation Logs*/}
         <Tooltip title="Simulation Logs">
           <IconButton onClick={props.openSimulationLogs}>
             <Message
@@ -1536,7 +1553,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
             </Tooltip>
           )}
           <Stack direction={"row"} sx={{ alignItems: "center" }}>
-            <IconButton
+            {/* <IconButton
               href="https://panopticon-ai.com/"
               target="_blank"
               disableRipple
@@ -1551,7 +1568,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
               }}
             >
               <PanopticonLogoSvg />
-            </IconButton>
+            </IconButton> */}
             <Typography
               variant="h6"
               noWrap
@@ -1568,7 +1585,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
                 transform: "none",
               }}
             >
-              Panopticon AI
+              Digital Twin (proto)
             </Typography>
             {!props.mobileView && (
               <>
@@ -1619,322 +1636,361 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
           disableGutters
           sx={{
             backgroundColor: COLOR_PALETTE.LIGHT_GRAY,
-            padding: 1,
+            // The container is now a flex column to manage the main layout.
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
             flexGrow: 1,
             borderRight: "1px solid",
             borderRightColor: COLOR_PALETTE.DARK_GRAY,
-            overflowX: "hidden",
+            overflow: "hidden", // Hide overflow here, child will handle scrolling
           }}
         >
           <DrawerHeader />
-          {/** Scenario Section */}
-          <Stack>
-            {/** Scenario Name */}
-            <Stack direction={"row"} sx={{ pl: 2, mb: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 200 }}>
-                {props.game.currentScenario.name}
-              </Typography>
-            </Stack>
-            {/** Context Notification Text Section */}
-            <Stack spacing={0.5} direction="column" sx={{ p: 0, mt: 0 }}>
-              <CurrentActionContextDisplay />
-            </Stack>
-            {/** Scenario Actions */}{" "}
-            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-              <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={1}
-                sx={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Tooltip title="New Scenario">
-                  <IconButton onClick={newScenario}>
-                    <InsertDriveFileIcon
-                      fontSize="medium"
-                      sx={{ color: "#000000" }}
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Load Scenario">
-                  <IconButton onClick={handleLoadScenarioIconClick}>
-                    <UploadFileOutlinedIcon
-                      fontSize="medium"
-                      sx={{ color: "#171717" }}
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip
-                  title={
-                    isAuthenticated
-                      ? cloudScenarios.length > 4
-                        ? "Cloud save limit reached. Please delete a scenario from the cloud to save a new one."
-                        : "Save to cloud"
-                      : "Login to save senario to cloud"
-                  }
+          {/* Two boxes for the side drawer, utils and chatbot */}
+          {/* This new Box contains all the scrollable content. */}
+          {/* It will grow to fill available space, pushing the chatbot down. */}
+          <Box sx={{ flexGrow: 1, overflowY: 'auto', padding: 1 }}>
+            {/** Scenario Section */}
+            <Stack>
+              {/** Scenario Name */}
+              <Stack direction={"row"} sx={{ pl: 2, mb: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 200 }}>
+                  {props.game.currentScenario.name}
+                </Typography>
+              </Stack>
+              {/** Context Notification Text Section */}
+              <Stack spacing={0.5} direction="column" sx={{ p: 0, mt: 0 }}>
+                <CurrentActionContextDisplay />
+              </Stack>
+              {/** Scenario Actions */}{" "}
+              <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <IconButton onClick={saveScenarioToCloud}>
-                    <Save
-                      fontSize="medium"
-                      sx={{
-                        color: isAuthenticated
-                          ? "#171717"
-                          : COLOR_PALETTE.DARK_GRAY,
-                      }}
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip
-                  title={
-                    isAuthenticated || import.meta.env.VITE_ENV !== "production"
-                      ? "Download Scenario"
-                      : "Login to download scenario"
-                  }
-                >
-                  <IconButton onClick={exportScenario}>
-                    <FileDownloadOutlinedIcon
-                      fontSize="medium"
-                      sx={{
-                        color:
-                          isAuthenticated ||
-                          import.meta.env.VITE_ENV !== "production"
+                  <Tooltip title="New Scenario">
+                    <IconButton onClick={newScenario}>
+                      <InsertDriveFileIcon
+                        fontSize="medium"
+                        sx={{ color: "#000000" }}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Load Scenario">
+                    <IconButton onClick={handleLoadScenarioIconClick}>
+                      <UploadFileOutlinedIcon
+                        fontSize="medium"
+                        sx={{ color: "#171717" }}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    title={
+                      isAuthenticated
+                        ? cloudScenarios.length > 4
+                          ? "Cloud save limit reached. Please delete a scenario from the cloud to save a new one."
+                          : "Save to cloud"
+                        : "Login to save senario to cloud"
+                    }
+                  >
+                    <IconButton onClick={saveScenarioToCloud}>
+                      <Save
+                        fontSize="medium"
+                        sx={{
+                          color: isAuthenticated
                             ? "#171717"
                             : COLOR_PALETTE.DARK_GRAY,
+                        }}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    title={
+                      isAuthenticated || import.meta.env.VITE_ENV !== "production"
+                        ? "Download Scenario"
+                        : "Login to download scenario"
+                    }
+                  >
+                    <IconButton onClick={exportScenario}>
+                      <FileDownloadOutlinedIcon
+                        fontSize="medium"
+                        sx={{
+                          color:
+                            isAuthenticated ||
+                            import.meta.env.VITE_ENV !== "production"
+                              ? "#171717"
+                              : COLOR_PALETTE.DARK_GRAY,
+                        }}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  {/* Scenario Name Edit Menu/Button  */}
+                  <Tooltip title="Edit Scenario Name">
+                    <IconButton onClick={handleOpenScenarioEditNameMenu}>
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Stack>
+              </CardActions>
+              <Menu
+                anchorEl={scenarioEditNameAnchorEl}
+                open={Boolean(scenarioEditNameAnchorEl)}
+                onClose={handleCloseScenarioEditNameMenu}
+                slotProps={{
+                  root: { sx: { ".MuiList-root": { padding: 0 } } },
+                }}
+              >
+                <Typography variant="h6" sx={{ textAlign: "center", p: 1 }}>
+                  Edit Scenario Name
+                </Typography>
+
+                <form
+                  onSubmit={handleScenarioNameSubmit}
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <Stack direction={"column"} spacing={1} sx={{ p: 1 }}>
+                    <TextField
+                      error={scenarioNameError}
+                      helperText={
+                        scenarioNameError
+                          ? 'Must be alphanumeric, ":,-" allowed, max 25'
+                          : ""
+                      }
+                      autoComplete="off"
+                      id="scenario-name-text-field"
+                      label="Scenario Name"
+                      sx={{ width: "100%" }}
+                      onChange={handleScenarioNameChange}
+                      defaultValue={scenarioName}
+                    />
+                    <Stack direction={"row"} spacing={1}>
+                      <Button
+                        disabled={
+                          !scenarioName.length ||
+                          props.game.currentScenario.name === scenarioName
+                        }
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        size="small"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        onClick={handleCloseScenarioEditNameMenu}
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        size="small"
+                        color="error"
+                      >
+                        Cancel
+                      </Button>
+                    </Stack>
+                  </Stack>
+                </form>
+              </Menu>
+              {presetScenarioSelectionMenu()}
+              <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Tooltip title="Step Scenario">
+                    <Chip
+                      variant="outlined"
+                      label="Step"
+                      onClick={handleStepClick}
+                    />
+                  </Tooltip>
+                  <Tooltip title="Restart Scenario">
+                    <IconButton onClick={reloadScenario}>
+                      <RestartAltIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title={"Undo"}>
+                    <IconButton onClick={handleUndo}>{<Undo />}</IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    title={!scenarioPaused ? "Pause Scenario" : "Play Scenario"}
+                  >
+                    <IconButton onClick={handlePlayClick}>
+                      {!scenarioPaused ? <Pause /> : <PlayArrow />}
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Toggle Scenario Speed">
+                    <Chip
+                      onClick={props.toggleScenarioTimeCompressionOnClick}
+                      variant="outlined"
+                      label={props.scenarioTimeCompression + "x"}
+                      sx={{
+                        minWidth: "52px",
                       }}
                     />
-                  </IconButton>
-                </Tooltip>
-                {/* Scenario Name Edit Menu/Button  */}
-                <Tooltip title="Edit Scenario Name">
-                  <IconButton onClick={handleOpenScenarioEditNameMenu}>
-                    <EditIcon />
-                  </IconButton>
-                </Tooltip>
-              </Stack>
-            </CardActions>
-            <Menu
-              anchorEl={scenarioEditNameAnchorEl}
-              open={Boolean(scenarioEditNameAnchorEl)}
-              onClose={handleCloseScenarioEditNameMenu}
-              slotProps={{
-                root: { sx: { ".MuiList-root": { padding: 0 } } },
-              }}
-            >
-              <Typography variant="h6" sx={{ textAlign: "center", p: 1 }}>
-                Edit Scenario Name
-              </Typography>
-
-              <form
-                onSubmit={handleScenarioNameSubmit}
-                style={{
-                  width: "100%",
-                }}
-              >
-                <Stack direction={"column"} spacing={1} sx={{ p: 1 }}>
-                  <TextField
-                    error={scenarioNameError}
-                    helperText={
-                      scenarioNameError
-                        ? 'Must be alphanumeric, ":,-" allowed, max 25'
-                        : ""
-                    }
-                    autoComplete="off"
-                    id="scenario-name-text-field"
-                    label="Scenario Name"
-                    sx={{ width: "100%" }}
-                    onChange={handleScenarioNameChange}
-                    defaultValue={scenarioName}
-                  />
-                  <Stack direction={"row"} spacing={1}>
-                    <Button
-                      disabled={
-                        !scenarioName.length ||
-                        props.game.currentScenario.name === scenarioName
-                      }
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      size="small"
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      onClick={handleCloseScenarioEditNameMenu}
-                      type="button"
-                      fullWidth
-                      variant="contained"
-                      size="small"
-                      color="error"
-                    >
-                      Cancel
-                    </Button>
-                  </Stack>
+                  </Tooltip>
                 </Stack>
-              </form>
-            </Menu>
-            {presetScenarioSelectionMenu()}
-            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-              <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={1}
-                sx={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Tooltip title="Step Scenario">
-                  <Chip
-                    variant="outlined"
-                    label="Step"
-                    onClick={handleStepClick}
-                  />
-                </Tooltip>
-                <Tooltip title="Restart Scenario">
-                  <IconButton onClick={reloadScenario}>
-                    <RestartAltIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={"Undo"}>
-                  <IconButton onClick={handleUndo}>{<Undo />}</IconButton>
-                </Tooltip>
-                <Tooltip
-                  title={!scenarioPaused ? "Pause Scenario" : "Play Scenario"}
+              </CardActions>
+            </Stack>
+            {/** Toolbar Feature Controls Dropdown/List Section */}
+            <List
+              sx={{
+                py: 0,
+                width: "100%",
+                backgroundColor: COLOR_PALETTE.LIGHT_GRAY,
+                display: "flex",
+                flexDirection: "column",
+                gap: "15px",
+              }}
+              component="nav"
+              aria-labelledby="feature-controls-dropdown-list"
+              subheader={
+                <ListSubheader
+                  color="inherit"
+                  component="div"
+                  id="feature-controls-dropdown-list"
+                  sx={{
+                    ...visuallyHidden, // screen reader only
+                    backgroundColor: "transparent",
+                  }}
                 >
-                  <IconButton onClick={handlePlayClick}>
-                    {!scenarioPaused ? <Pause /> : <PlayArrow />}
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Toggle Scenario Speed">
-                  <Chip
-                    onClick={props.toggleScenarioTimeCompressionOnClick}
-                    variant="outlined"
-                    label={props.scenarioTimeCompression + "x"}
-                    sx={{
-                      minWidth: "52px",
-                    }}
-                  />
-                </Tooltip>
-              </Stack>
-            </CardActions>
-          </Stack>
-          {/** Toolbar Feature Controls Dropdown/List Section */}
-          <List
-            sx={{
-              py: 0,
-              width: "100%",
-              backgroundColor: COLOR_PALETTE.LIGHT_GRAY,
-              display: "flex",
-              flexDirection: "column",
-              gap: "15px",
-            }}
-            component="nav"
-            aria-labelledby="feature-controls-dropdown-list"
-            subheader={
-              <ListSubheader
-                color="inherit"
-                component="div"
-                id="feature-controls-dropdown-list"
-                sx={{
-                  ...visuallyHidden, // screen reader only
-                  backgroundColor: "transparent",
-                }}
-              >
-                Feature Controls
-              </ListSubheader>
-            }
-          >
-            <ToolbarCollapsible
-              title="Recording"
-              prependIcon={RadioButtonCheckedIcon}
-              content={recordingSection()}
-              open={false}
-            />
-            <ToolbarCollapsible
-              title="Entities"
-              prependIcon={DocumentScannerOutlinedIcon}
-              content={entitiesSection()}
-              enableFilter={true}
-              filterProps={{
-                options: [
-                  { label: "Aircraft", value: "aircraft" },
-                  { label: "Airbase", value: "airbase" },
-                  { label: "Sam", value: "facility" },
-                  { label: "Ship", value: "ship" },
-                  { label: "Reference Point", value: "referencePoint" },
-                ],
-                onApplyFilterOptions: (selectedOptions: string[]) => {
-                  const sideIds = props.game.currentScenario.sides.map(
-                    (side) => side.id
-                  );
-                  const selectedSideIds =
-                    entityFilterSelectedOptions.filter((item) =>
-                      sideIds.includes(item)
-                    ) || [];
-                  const updatedOptions = [
-                    ...selectedSideIds,
-                    ...selectedOptions,
-                  ];
-                  setEntityFilterSelectedOptions(updatedOptions);
-                },
-              }}
-              open={false}
-            />
-            <ToolbarCollapsible
-              title="Missions"
-              prependIcon={AirlineStopsOutlinedIcon}
-              content={missionSection()}
-              appendIcon={AddBoxIcon}
-              appendIconProps={{
-                tooltipProps: {
-                  title: "Add Mission",
-                },
-                onClick: () => {
-                  props.toggleMissionCreator();
-                },
-              }}
-              open={true}
-            />
-          </List>
-        </Container>
-        {/** Drawer Footer */}
-        <Box
-          sx={{
-            marginTop: "auto",
-            padding: 2,
-            backgroundColor: COLOR_PALETTE.LIGHT_GRAY,
-            borderRight: "1px solid",
-            borderRightColor: COLOR_PALETTE.DARK_GRAY,
-          }}
-        >
-          <Divider sx={{ marginBottom: 2 }} />
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <Typography variant="body2">Panopticon AI</Typography>
-            <Typography variant="body2">•</Typography>
-            <Typography variant="body2">
-              ©{new Date().getFullYear()}
-            </Typography>
-            <Typography variant="body2">•</Typography>
-            <IconButton
-              href="https://github.com/Panopticon-AI-team/panopticon"
-              target="_blank"
-              color="inherit"
-              aria-label="GitHub"
+                  Feature Controls
+                </ListSubheader>
+              }
             >
-              <Avatar
-                alt="Github Logo"
-                src={GitHubIcon}
-                sx={{ width: 24, height: 24 }}
+              <ToolbarCollapsible
+                title="Recording"
+                prependIcon={RadioButtonCheckedIcon}
+                content={recordingSection()}
+                open={false}
               />
-            </IconButton>
-          </Stack>
-        </Box>
+              <ToolbarCollapsible
+                title="Entities"
+                prependIcon={DocumentScannerOutlinedIcon}
+                content={entitiesSection()}
+                enableFilter={true}
+                filterProps={{
+                  options: [
+                    { label: "Aircraft", value: "aircraft" },
+                    { label: "Airbase", value: "airbase" },
+                    { label: "Sam", value: "facility" },
+                    { label: "Ship", value: "ship" },
+                    { label: "Reference Point", value: "referencePoint" },
+                  ],
+                  onApplyFilterOptions: (selectedOptions: string[]) => {
+                    const sideIds = props.game.currentScenario.sides.map(
+                      (side) => side.id
+                    );
+                    const selectedSideIds =
+                      entityFilterSelectedOptions.filter((item) =>
+                        sideIds.includes(item)
+                      ) || [];
+                    const updatedOptions = [
+                      ...selectedSideIds,
+                      ...selectedOptions,
+                    ];
+                    setEntityFilterSelectedOptions(updatedOptions);
+                  },
+                }}
+                open={false}
+              />
+              <ToolbarCollapsible
+                title="Missions"
+                prependIcon={AirlineStopsOutlinedIcon}
+                content={missionSection()}
+                appendIcon={AddBoxIcon}
+                appendIconProps={{
+                  tooltipProps: {
+                    title: "Add Mission",
+                  },
+                  onClick: () => {
+                    props.toggleMissionCreator();
+                  },
+                }}
+                open={true}
+              />
+            </List>
+          </Box>
+          {/* The chatbot interface is now outside the scrollable Box and a direct */}
+          {/* child of the main flex container, making it stick to the bottom. */}
+          <Box
+            sx={{
+              flexShrink: 0, 
+              display: 'flex',
+              flexDirection: 'column',
+              borderTop: '1px solid #ccc',
+              backgroundColor: '#e4e4e4',
+            }}
+          >
+            {/* Chatbot Label */}
+            <Box sx={{ p: 1.5, borderBottom: '1px solid #e0e0e0' }}>
+              <Typography variant="h5" sx={{ textAlign: 'center', fontWeight: 400 }}>
+                Chatbot
+              </Typography>
+            </Box>
+            {/* Message Display Area */}
+            <Box sx={{ height: '250px', overflowY: 'auto', p: 2 }}>
+              {messages.map((message) => {
+                // Determine if the message is from the user to align it right
+                const isUser = message.sender === 'user';
+                return (
+                  <Box
+                    key={message.id}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: isUser ? 'flex-end' : 'flex-start', // Align bubble left or right
+                      mb: 1,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.5, // Padding inside the bubble
+                        borderRadius: 5, // Makes it oval
+                        backgroundColor: isUser ? '#0b93d6' : '#fefefe', // Different colors for user/bot
+                        color: isUser ? 'white' : 'black', // Text color
+                        maxWidth: '70%', // Prevents bubbles from being too wide
+                      }}
+                    >
+                      <Typography variant="body2">
+                        {message.text}
+                      </Typography>
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+
+            {/* Input Area */}
+            <Stack direction="row" spacing={1} sx={{ p: 1, borderTop: '1px solid #ccc' }}>
+              <TextField
+                id="chatbot-input"
+                fullWidth
+                size="small"
+                placeholder="Type a message..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') handleSendMessage(); }}
+                onFocus={() => setIsChatInputFocused(true)}
+                onBlur={() => setIsChatInputFocused(false)}
+              />
+              <IconButton color="primary" onClick={handleSendMessage}>
+                <SendIcon />
+              </IconButton>
+            </Stack>
+          </Box>
+        </Container>
       </Drawer>
     </>
   );

@@ -995,11 +995,14 @@ export default function ScenarioMap({
     };
     input.click();
   }
-
+  
   function handleStepGameClick() {
     game.recordStep(true);
     setGamePaused();
-    stepGameAndDrawFrame();
+    const [observation, reward, terminated, truncated, info] = stepGameAndDrawFrame();
+    // logging as test
+    // console.log("Located in handleStepGameClick()");
+    // console.log("Game Step Info:", { observation, reward, terminated, truncated, info });
   }
 
   function handlePauseGameClick() {
@@ -1065,6 +1068,10 @@ export default function ScenarioMap({
         stepGameAndDrawFrame();
 
       const status = terminated || truncated;
+      if (terminated as boolean || truncated as boolean) {
+        // console.log("Game ended, located in handlePlayGameClick()");
+        // console.log("Info:", { terminated, truncated });
+      }
       gameEnded = status as boolean;
 
       await delay(0);
@@ -2214,6 +2221,7 @@ export default function ScenarioMap({
     setDrawerOpen(false);
   }
 
+  // GUI START
   return (
     <>
       <Toolbar
@@ -2672,4 +2680,6 @@ export default function ScenarioMap({
       )}
     </>
   );
+
+  // END
 }

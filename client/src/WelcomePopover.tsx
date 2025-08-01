@@ -1,3 +1,5 @@
+// NOT USED in the Digital Twin Project, disabled on startup
+
 import React from "react";
 import {
   Popover,

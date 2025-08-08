@@ -32,6 +32,7 @@ export function getTestUnits() {
     id: "4",
     name: "Sample Weapon",
     sideId: "sideId",
+    launcherId: "launcherId",
     className: "Sample Weapon",
     latitude: 0.0,
     longitude: 0.0,

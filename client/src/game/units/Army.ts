@@ -1,8 +1,9 @@
+// import Aircraft from "@/game/units/Aircraft";
+import Weapon from "@/game/units/Weapon";
 import { convertColorNameToSideColor, SIDE_COLOR } from "@/utils/colors";
 
-interface IWeapon {
+interface IArmy {
   id: string;
-  launcherId: string;
   name: string;
   sideId: string;
   className: string;
@@ -16,16 +17,15 @@ interface IWeapon {
   fuelRate: number; // lbs/hr
   range: number;
   route?: number[][];
+  selected?: boolean;
   sideColor?: string | SIDE_COLOR;
-  targetId: string | null;
-  lethality: number;
-  maxQuantity: number;
-  currentQuantity: number;
+  weapons?: Weapon[];
+  // aircraft?: Aircraft[];
+  desiredRoute?: number[][];
 }
 
-export default class Weapon {
+export default class Army {
   id: string;
-  launcherId: string;
   name: string;
   sideId: string;
   className: string;
@@ -39,15 +39,14 @@ export default class Weapon {
   fuelRate: number; // lbs/hr
   range: number; // NM -- currently default -- need to reference from database
   route: number[][];
+  selected: boolean;
   sideColor: SIDE_COLOR;
-  targetId: string | null;
-  lethality: number; // currently default -- need to reference from database
-  maxQuantity: number;
-  currentQuantity: number;
+  weapons: Weapon[];
+  // aircraft: Aircraft[];
+  desiredRoute: number[][] = [];
 
-  constructor(parameters: IWeapon) {
+  constructor(parameters: IArmy) {
     this.id = parameters.id;
-    this.launcherId = parameters.id;
     this.name = parameters.name;
     this.sideId = parameters.sideId;
     this.className = parameters.className;
@@ -61,14 +60,36 @@ export default class Weapon {
     this.fuelRate = parameters.fuelRate;
     this.range = parameters.range;
     this.route = parameters.route ?? [];
+    this.selected = parameters.selected ?? false;
     this.sideColor = convertColorNameToSideColor(parameters.sideColor);
-    this.targetId = parameters.targetId;
-    this.lethality = parameters.lethality;
-    this.maxQuantity = parameters.maxQuantity;
-    this.currentQuantity = parameters.currentQuantity;
+    this.weapons = parameters.weapons ?? [];
+    // this.aircraft = parameters.aircraft ?? [];
+    this.desiredRoute = parameters.desiredRoute ?? [];
   }
 
-  getEngagementRange(): number {
-    return this.speed * (this.currentFuel / this.fuelRate);
+  getTotalWeaponQuantity(): number {
+    let sum = 0;
+    this.weapons.forEach((weapon) => {
+      sum += weapon.currentQuantity;
+    });
+    return sum;
+  }
+
+  getWeaponWithHighestEngagementRange(): Weapon | undefined {
+    if (this.weapons.length === 0) return;
+    return this.weapons.reduce((a, b) =>
+      a.getEngagementRange() > b.getEngagementRange() ? a : b
+    );
+  }
+
+  getWeaponEngagementRange(): number {
+    if (this.weapons.length === 0) return 0;
+    return (
+      this.getWeaponWithHighestEngagementRange()?.getEngagementRange() ?? 0
+    );
+  }
+
+  getDetectionRange(): number {
+    return this.range;
   }
 }

@@ -11,6 +11,7 @@ export enum SimulationLogType {
   WEAPON_HIT = "WEAPON_HIT",
   WEAPON_LAUNCHED = "WEAPON_LAUNCHED",
   WEAPON_MISSED = "WEAPON_MISSED",
+  PATROL_MISSION_SUCCESS = "PATROL_MISSION_SUCCESS",
 }
 
 export interface SimulationLog {

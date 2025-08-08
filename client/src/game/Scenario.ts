@@ -23,6 +23,7 @@ interface IScenario {
   startTime: number;
   currentTime?: number;
   duration: number;
+  endTime?: number;
   sides?: Side[];
   timeCompression?: number;
   aircraft?: Aircraft[];
@@ -42,6 +43,7 @@ export default class Scenario {
   startTime: number;
   currentTime: number;
   duration: number;
+  endTime: number;
   sides: Side[];
   timeCompression: number;
   aircraft: Aircraft[];
@@ -60,6 +62,7 @@ export default class Scenario {
     this.startTime = parameters.startTime;
     this.currentTime = parameters.currentTime ?? parameters.startTime;
     this.duration = parameters.duration;
+    this.endTime = parameters.endTime ?? this.startTime + this.duration;
     this.sides = parameters.sides ?? [];
     this.timeCompression = parameters.timeCompression ?? 1;
     this.aircraft = parameters.aircraft ?? [];
@@ -271,6 +274,7 @@ export default class Scenario {
       }
       const weapon = new Weapon({
         id: randomUUID(),
+        launcherId: "None",
         name: weaponClassName,
         sideId: aircraft.sideId,
         className: weaponClassName,
@@ -359,6 +363,7 @@ export default class Scenario {
       }
       const weapon = new Weapon({
         id: randomUUID(),
+        launcherId: "None",
         name: weaponClassName,
         sideId: facility.sideId,
         className: weaponClassName,
@@ -445,6 +450,7 @@ export default class Scenario {
       }
       const weapon = new Weapon({
         id: randomUUID(),
+        launcherId: "None",
         name: weaponClassName,
         sideId: ship.sideId,
         className: weaponClassName,

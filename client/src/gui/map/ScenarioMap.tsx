@@ -1001,8 +1001,9 @@ export default function ScenarioMap({
     setGamePaused();
     const [observation, reward, terminated, truncated, info] = stepGameAndDrawFrame();
     // logging as test
-    // console.log("Located in handleStepGameClick()");
-    // console.log("Game Step Info:", { observation, reward, terminated, truncated, info });
+    console.log("Located in handleStepGameClick()");
+    console.log("Game Step Info:", { observation });
+    console.log("Current time: ", game.currentScenario.currentTime);
   }
 
   function handlePauseGameClick() {
@@ -1069,8 +1070,8 @@ export default function ScenarioMap({
 
       const status = terminated || truncated;
       if (terminated as boolean || truncated as boolean) {
-        // console.log("Game ended, located in handlePlayGameClick()");
-        // console.log("Info:", { terminated, truncated });
+        console.log("Game ended, located in handlePlayGameClick()");
+        console.log("Info:", { terminated, truncated });
       }
       gameEnded = status as boolean;
 

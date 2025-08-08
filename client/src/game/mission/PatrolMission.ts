@@ -9,6 +9,7 @@ interface IPatrolMission {
   sideId: string;
   assignedUnitIds: string[];
   assignedArea: ReferencePoint[];
+  lastScoringTime?: number;
   active: boolean;
 }
 
@@ -20,6 +21,7 @@ export default class PatrolMission {
   assignedArea: ReferencePoint[];
   active: boolean;
   patrolAreaGeometry: Polygon;
+  lastScoringTime?: number; // <-- CHANGE 1: DECLARE THE PROPERTY
 
   constructor(parameters: IPatrolMission) {
     this.id = parameters.id;
@@ -31,6 +33,7 @@ export default class PatrolMission {
     this.patrolAreaGeometry = this.createPatrolAreaGeometry(
       parameters.assignedArea
     );
+    this.lastScoringTime = parameters.lastScoringTime; // <-- CHANGE 2: INITIALIZE THE PROPERTY
   }
 
   updatePatrolAreaGeometry(): void {

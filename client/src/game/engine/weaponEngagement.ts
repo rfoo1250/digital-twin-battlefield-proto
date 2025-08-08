@@ -20,6 +20,7 @@ import {
 import Airbase from "@/game/units/Airbase";
 import Ship from "@/game/units/Ship";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
+import { processKill, processWeaponIneffective } from "@/game/engine/scoreCalculator"; // <-- IMPORT THE NEW FUNCTION
 
 export type Target = Aircraft | Facility | Weapon | Airbase | Ship;
 
@@ -74,6 +75,17 @@ export function weaponEndgame(
     (currentScenarioWeapon) => currentScenarioWeapon.id !== weapon.id
   );
   if (randomFloat() <= weapon.lethality) {
+    // Find original launcher of weapon, then calculate the score
+    const victor =
+      currentScenario.getAircraft(weapon.launcherId) ??
+      currentScenario.getFacility(weapon.launcherId) ??
+      currentScenario.getShip(weapon.launcherId) ??
+      null;
+    
+    if (victor) {
+      processKill(currentScenario, victor, target);
+    }
+
     if (target instanceof Aircraft) {
       currentScenario.aircraft = currentScenario.aircraft.filter(
         (currentScenarioAircraft) => currentScenarioAircraft.id !== target.id
@@ -138,6 +150,7 @@ export function launchWeapon(
     const nextWeaponLongitude = nextWeaponCoordinates[1];
     const newWeapon = new Weapon({
       id: randomUUID(),
+      launcherId: origin.id,
       name: `${launchedWeapon.name} #${randomInt(1000)}`,
       sideId: origin.sideId,
       className: launchedWeapon.className,
@@ -228,7 +241,10 @@ export function weaponEngagement(
         weapon.longitude = nextWeaponLongitude;
       }
       weapon.currentFuel -= weapon.fuelRate / 3600;
+      // if weapon runs out of fuel too
       if (weapon.currentFuel <= 0) {
+        // only when weapon fuel run out, the weapon is ineffectively fired, does not apply to target does not exist rn
+        processWeaponIneffective(currentScenario, weapon);
         currentScenario.weapons = currentScenario.weapons.filter(
           (currentScenarioWeapon) => currentScenarioWeapon.id !== weapon.id
         );

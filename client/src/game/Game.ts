@@ -36,6 +36,8 @@ import Relationships from "@/game/Relationships";
 import Dba from "@/game/db/Dba";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
 import { DoctrineType, SideDoctrine } from "@/game/Doctrine";
+import { processFuelExhaustion, processPatrolMissionSuccess, processStrikeMissionSuccess } from "@/game/engine/scoreCalculator";
+import { none } from "ol/centerconstraint";
 
 const MAX_HISTORY_SIZE = 20;
 
@@ -244,6 +246,7 @@ export default class Game {
       const weaponQuantity = weaponKeys[weapon.className];
       const newWeapon = new Weapon({
         id: randomUUID(),
+        launcherId: "None",
         name: weapon.className,
         sideId: sideId,
         className: weapon.className,
@@ -1191,6 +1194,7 @@ export default class Game {
       startTime: savedScenario.startTime,
       currentTime: savedScenario.currentTime,
       duration: savedScenario.duration,
+      endTime: savedScenario.endTime,
       sides: savedSides,
       timeCompression: savedScenario.timeCompression,
       relationships: new Relationships({
@@ -1204,6 +1208,7 @@ export default class Game {
         (weapon: Weapon) => {
           return new Weapon({
             id: weapon.id,
+            launcherId: "None",
             name: weapon.name,
             sideId: weapon.sideId,
             className: weapon.className,
@@ -1256,6 +1261,7 @@ export default class Game {
           (weapon: Weapon) => {
             return new Weapon({
               id: weapon.id,
+              launcherId: "None",
               name: weapon.name,
               sideId: weapon.sideId,
               className: weapon.className,
@@ -1319,6 +1325,7 @@ export default class Game {
         (weapon: Weapon) => {
           return new Weapon({
             id: weapon.id,
+            launcherId: "None",
             name: weapon.name,
             sideId: weapon.sideId,
             className: weapon.className,
@@ -1357,6 +1364,7 @@ export default class Game {
     savedScenario.weapons.forEach((weapon: Weapon) => {
       const newWeapon = new Weapon({
         id: weapon.id,
+            launcherId: "None",
         name: weapon.name,
         sideId: weapon.sideId,
         className: weapon.className,
@@ -1385,6 +1393,7 @@ export default class Game {
           (weapon: Weapon) => {
             return new Weapon({
               id: weapon.id,
+            launcherId: "None",
               name: weapon.name,
               sideId: weapon.sideId,
               className: weapon.className,
@@ -1433,6 +1442,7 @@ export default class Game {
       const shipWeapons: Weapon[] = ship.weapons?.map((weapon: Weapon) => {
         return new Weapon({
           id: weapon.id,
+            launcherId: "None",
           name: weapon.name,
           sideId: weapon.sideId,
           className: weapon.className,
@@ -1745,50 +1755,49 @@ export default class Game {
       });
     });
   }
+// in Game.ts
 
   clearCompletedStrikeMissions() {
     this.currentScenario.missions = this.currentScenario.missions.filter(
       (mission) => {
         if (mission instanceof StrikeMission) {
           let isMissionOngoing = true;
+          
+          // SUCCESS CONDITION: Is the primary target destroyed?
           const target =
             this.currentScenario.getFacility(mission.assignedTargetIds[0]) ||
             this.currentScenario.getShip(mission.assignedTargetIds[0]) ||
             this.currentScenario.getAirbase(mission.assignedTargetIds[0]) ||
             this.currentScenario.getAircraft(mission.assignedTargetIds[0]);
+
           if (!target) {
             isMissionOngoing = false;
+            processStrikeMissionSuccess(this.currentScenario, mission);
             this.simulationLogs.addLog(
               mission.sideId,
-              `Strike mission '${mission.name}' has been completed because the target is no longer available`,
+              `Strike mission '${mission.name}' completed: Target destroyed.`,
               this.currentScenario.currentTime,
               SimulationLogType.STRIKE_MISSION_SUCCESS
             );
           }
+
+          // FAILURE CONDITION: Are all assigned attackers destroyed?
           const attackers = mission.assignedUnitIds
             .map((attackerId) => this.currentScenario.getAircraft(attackerId))
             .filter((attacker) => attacker !== undefined);
+            
           if (attackers.length < 1) {
             isMissionOngoing = false;
             this.simulationLogs.addLog(
               mission.sideId,
-              `Strike mission '${mission.name}' has been completed because the attackers are no longer available`,
+              `Strike mission '${mission.name}' failed: All attackers lost.`,
               this.currentScenario.currentTime,
               SimulationLogType.STRIKE_MISSION_ABORTED
             );
           }
-          const allAttackersHaveExpendedWeapons = attackers.every(
-            (attacker) => attacker.getTotalWeaponQuantity() === 0
-          );
-          if (allAttackersHaveExpendedWeapons) {
-            isMissionOngoing = false;
-            this.simulationLogs.addLog(
-              mission.sideId,
-              `Strike mission '${mission.name}' has been completed because the attackers have expended all their weapons`,
-              this.currentScenario.currentTime,
-              SimulationLogType.STRIKE_MISSION_ABORTED
-            );
-          }
+          
+          // "out of ammo" check has been removed entirely, solve race condition, moved to `updateUnitsOnStrikeMission `
+
           if (
             !isMissionOngoing &&
             this.currentScenario.checkSideDoctrine(
@@ -1808,6 +1817,7 @@ export default class Game {
     );
   }
 
+  // TODO: update this with allAttackersHaveExpendedWeapons check
   updateUnitsOnStrikeMission() {
     const activeStrikeMissions = this.currentScenario
       .getAllStrikeMissions()
@@ -1894,6 +1904,36 @@ export default class Game {
     });
   }
 
+  updatePatrolMissionScoring() {
+      // Award points every 300 seconds (5 minutes) of game time
+      const PATROL_SCORING_INTERVAL = 300; 
+
+      const activePatrolMissions = this.currentScenario
+        .getAllPatrolMissions()
+        .filter((m) => m.active);
+
+      activePatrolMissions.forEach(mission => {
+          if (this.currentScenario.currentTime - (mission.lastScoringTime || 0) < PATROL_SCORING_INTERVAL) {
+              return;
+          }
+
+          // Check if the mission is "healthy" (all assigned units are still active and not returning to base)
+          const assignedUnits = mission.assignedUnitIds.map(id => this.currentScenario.getAircraft(id));
+          const isMissionHealthy = assignedUnits.every(unit => unit && !unit.rtb);
+
+          if (isMissionHealthy) {
+              processPatrolMissionSuccess(this.currentScenario, mission);
+              mission.lastScoringTime = this.currentScenario.currentTime; // Update the last scoring time
+              this.simulationLogs.addLog(
+                  mission.sideId,
+                  `Patrol mission '${mission.name}' maintained. Points awarded.`,
+                  this.currentScenario.currentTime,
+                  SimulationLogType.PATROL_MISSION_SUCCESS
+              );
+          }
+      });
+  }
+
   updateOnBoardWeaponPositions() {
     this.currentScenario.aircraft.forEach((aircraft) => {
       aircraft.weapons.forEach((weapon) => {
@@ -1975,7 +2015,9 @@ export default class Game {
       aircraft.currentFuel -= aircraft.fuelRate / 3600;
       const fuelNeededToReturnToBase =
         this.getFuelNeededToReturnToBase(aircraft);
+      // if aircraft runs out of fuel
       if (aircraft.currentFuel <= 0) {
+        processFuelExhaustion(this.currentScenario, aircraft);
         this.removeAircraft(aircraft.id);
         this.simulationLogs.addLog(
           aircraft.sideId,
@@ -2034,7 +2076,9 @@ export default class Game {
           );
         }
         ship.currentFuel -= ship.fuelRate / 3600;
+        // if ship runs out of fuel
         if (ship.currentFuel <= 0) {
+          processFuelExhaustion(this.currentScenario, ship);
           this.removeShip(ship.id);
         }
       }
@@ -2059,6 +2103,7 @@ export default class Game {
     this.updateAllAircraftPosition();
     this.updateAllShipPosition();
     this.updateOnBoardWeaponPositions();
+    this.updatePatrolMissionScoring();
   }
 
   _getObservation(): Scenario {
@@ -2082,6 +2127,25 @@ export default class Game {
   reset() {}
 
   checkGameEnded(): boolean {
+    // 1. Time Limit - works!
+    if (this.currentScenario.currentTime >= this.currentScenario.endTime) {
+      console.log("this.currentScenario.currentTime: ", this.currentScenario.currentTime);
+      console.log("this.currentScenario.duration", this.currentScenario.duration);
+      return true;
+    }
+
+    // 2. Annihilation (Future Implementation)
+    // const sidesWithUnits = this.currentScenario.sides.filter(side => {
+    //   const hasAircraft = this.currentScenario.aircraft.some(u => u.sideId === side.id);
+    //   const hasShips = this.currentScenario.ships.some(u => u.sideId === side.id);
+    //   const hasFacilities = this.currentScenario.facilities.some(u => u.sideId === side.id);
+    //   const hasAirbases = this.currentScenario.airbases.some(u => u.sideId === side.id);
+    //   return hasAircraft || hasShips || hasFacilities || hasAirbases;
+    // });
+    // if (sidesWithUnits.length <= 1) {
+    //   return true;
+    // }
+    
     return false;
   }
 

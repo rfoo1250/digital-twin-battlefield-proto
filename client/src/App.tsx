@@ -24,6 +24,10 @@ export default function App() {
   }, [isAuthenticated]);
 
   const isMobile = useMediaQuery("(max-width:600px)");
+  // TODO: make this dynamic
+  // startTime <-- takes real time
+  // duration <-- remains
+  // endTime <-- startTime + duration
   const currentScenario = new Scenario({
     id: randomUUID(),
     name: "New Scenario",

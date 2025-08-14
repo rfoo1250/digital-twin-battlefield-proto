@@ -71,6 +71,8 @@ import { SetSimulationLogsContext } from "@/gui/contextProviders/contexts/Simula
 import SimulationLogs from "@/gui/map/toolbar/SimulationLogs";
 import { SetScenarioSidesContext } from "@/gui/contextProviders/contexts/ScenarioSidesContext";
 import { SideDoctrine } from "@/game/Doctrine";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ScenarioMapProps {
   zoom: number;
@@ -283,6 +285,8 @@ export default function ScenarioMap({
     controls: [],
   });
   const [theMap, setTheMap] = useState(map);
+
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     if (!import.meta.env.VITE_ENV || import.meta.env.VITE_ENV === "standalone")
@@ -954,6 +958,7 @@ export default function ScenarioMap({
 
   function handleStopRecordingScenarioClick() {
     game.recordingScenario = false;
+    // game.exportRecourseRecording();
     game.exportRecording();
   }
 
@@ -1072,6 +1077,7 @@ export default function ScenarioMap({
       if (terminated as boolean || truncated as boolean) {
         console.log("Game ended, located in handlePlayGameClick()");
         console.log("Info:", { terminated, truncated });
+        setIsGameOver(true);
       }
       gameEnded = status as boolean;
 
@@ -2679,7 +2685,35 @@ export default function ScenarioMap({
           }}
         />
       )}
+      {/* Game Over Pop-up */}
+      <Dialog
+        open={isGameOver}
+        onClose={() => setIsGameOver(false)} // Closes the dialog if the user clicks the background
+        aria-labelledby="game-over-dialog-title"
+      >
+        <DialogTitle id="game-over-dialog-title" sx={{ m: 0, p: 2 }}>
+          Scenario Ended
+          <IconButton
+            aria-label="close"
+            onClick={() => setIsGameOver(false)}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>
+            The simulation has concluded. You can restart the current scenario or load a new one from the toolbar.
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </>
+    // The end of the return
   );
 
   // END

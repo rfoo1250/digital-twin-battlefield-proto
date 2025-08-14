@@ -2116,8 +2116,8 @@ export default class Game {
 
   step(): [Scenario, number, boolean, boolean, null] {
     this.updateGameState();
-    const terminated = false;
-    const truncated = this.checkGameEnded();
+    const terminated = false; // FIXME
+    const truncated = this.checkGameEnded(); //FIXME
     const reward = 0;
     const observation = this._getObservation();
     const info = this._getInfo();
@@ -2125,7 +2125,7 @@ export default class Game {
   }
 
   reset() {}
-
+  // TODO: send string msg instead
   checkGameEnded(): boolean {
     // 1. Time Limit - works!
     if (this.currentScenario.currentTime >= this.currentScenario.endTime) {
@@ -2146,6 +2146,7 @@ export default class Game {
     //   return true;
     // }
     
+    // else
     return false;
   }
 
@@ -2168,6 +2169,10 @@ export default class Game {
 
   exportRecording() {
     this.playbackRecorder.exportRecording(this.currentScenario.currentTime);
+  }
+
+  exportRecourseRecording() {
+    this.playbackRecorder.exportRecourseRecording(this.currentScenario.currentTime);
   }
 
   recordHistory() {

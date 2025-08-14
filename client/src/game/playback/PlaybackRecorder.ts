@@ -1,6 +1,7 @@
 import Scenario from "@/game/Scenario";
 import { RECORDING_INTERVALS_SECONDS } from "@/utils/constants";
 import { unixToLocalTime } from "@/utils/dateTimeFunctions";
+import { DomainVerificationRounded } from "@mui/icons-material";
 
 const FILE_SIZE_LIMIT_MB = 10;
 const CHARACTER_LIMIT = FILE_SIZE_LIMIT_MB * 1024 * 1024;
@@ -90,6 +91,104 @@ class PlaybackRecorder {
     document.body.appendChild(downloadJsonlAnchorNode); // required for firefox
     downloadJsonlAnchorNode.click();
     downloadJsonlAnchorNode.remove();
+  }
+
+  
+  processRecourseData(
+    firstLine: string,
+    lastLine: string
+  ) {
+    /*
+    This function handles the data processing needed for algo recourse.
+    Takes out the needed features and outcome for the csv.
+    Then store in csv.
+    */
+    // assuming recording is json parsable
+    const jsonData = JSON.parse(firstLine);
+    
+    // console.log(jsonData);
+    // const jsonStrUrl =
+    // "data:text/json;charset=utf-8," +
+    // encodeURIComponent(JSON.stringify(jsonData, null, 2));
+
+    // const downloadAnchor = document.createElement("a");
+    // downloadAnchor.setAttribute("href", jsonStrUrl);
+    // downloadAnchor.setAttribute("download", "data.json");
+
+    // document.body.appendChild(downloadAnchor); // Firefox requires it in DOM
+    // downloadAnchor.click();
+    // downloadAnchor.remove();
+
+    // separate data  
+    const { sides, aircrafts, ships, facilities, weapons, missions } = jsonData.currentScenario;
+    // console.log(sides);
+    // console.log(aircrafts);
+    // console.log(ships);
+    // console.log(facilities);
+    // console.log(weapons);
+    // console.log(missions);
+
+    // assign sides first, to side_a or side_b
+    const side_a = sides[0];
+    const side_b = sides[1];
+    let side_a_id = side_a.id;
+    let side_b_id = side_b.id;
+    // console.log("Printing side ids");
+    // console.log(side_a_id);
+    // console.log(side_b_id);
+    // take out needed data only
+    
+    
+    
+    
+    
+    
+    // Get outcomes from lastLine
+    const jsonResult = JSON.parse(lastLine);
+    const side_a_outcome = jsonResult.currentScenario.sides[0].totalScore;
+    const side_b_outcome = jsonResult.currentScenario.sides[1].totalScore;
+    // works!
+    // console.log("Printing side outcomes");
+    // console.log(side_a_outcome);
+    // console.log(side_b_outcome);
+  }
+
+  exportRecourseRecording(
+    recordingEndTimeUnix: number,
+    recordingStartTimeUnix: number = this.recordingStartTime
+  ) {
+    if (this.recording.length === 0) {
+      return;
+    }
+    // non-empty, split the lines
+    const lines = this.recording.trim().split('\n');
+    const firstLine = lines[0];
+    const lastLine = lines[lines.length - 1];
+    // console.log(this.recording.split('\n')[0]); // this is the one
+    this.processRecourseData(firstLine, lastLine);
+    
+    
+    /*
+    const jsonlDataStrUrl =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(this.recording.slice(0, -1));
+    const downloadJsonlAnchorNode = document.createElement("a");
+    downloadJsonlAnchorNode.setAttribute("href", jsonlDataStrUrl);
+    const formattedRecordingStartTime = unixToLocalTime(
+      recordingStartTimeUnix
+    ).replace(/:/g, "");
+    const formattedRecordingEndTime = unixToLocalTime(
+      recordingEndTimeUnix
+    ).replace(/:/g, "");
+    const recordingFileTimespanSuffix = `${formattedRecordingStartTime} - ${formattedRecordingEndTime}`;
+    downloadJsonlAnchorNode.setAttribute(
+      "download",
+      `${this.scenarioName} Recourse-Recording ${recordingFileTimespanSuffix}.jsonl`
+    );
+    document.body.appendChild(downloadJsonlAnchorNode); // required for firefox
+    downloadJsonlAnchorNode.click();
+    downloadJsonlAnchorNode.remove();
+    */
   }
 }
 

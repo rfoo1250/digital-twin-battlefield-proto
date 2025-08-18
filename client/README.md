@@ -10,6 +10,7 @@ Client/gui for BLADE Gymnasium environment.
 
 - [Installation](#installation)
   - [Clone Repository](#clone-repository)
+  - [Quick Start without Server](#quick-start)
   - [Start Development Server](#start-development-server)
 
 ---
@@ -28,6 +29,14 @@ cd panopticon/client
 
 ```bash
 npm install
+```
+---
+
+### [Quick Start without Server](#quick-start)
+
+To run the client without a server:
+```bash
+npm run standalone
 ```
 
 ---

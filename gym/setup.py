@@ -2,6 +2,7 @@ from setuptools import setup
 
 description = """BLADE"""
 
+# allowed to change this, the credits?
 setup(
     name="BLADE",
     version="1.0.0",
@@ -21,6 +22,12 @@ setup(
         "blade.utils",
         "blade.envs",
     ],
-    install_requires=["shapely==2.0.6"],
-    extras_require={"gym": ["gymnasium==0.29.1", "stable-baselines3==2.4.1"]},
+    install_requires=[
+        "shapely==2.0.6",
+        "python-dotenv==1.1.1"
+    ],
+    extras_require={
+        "gym": ["gymnasium==0.29.1", "stable-baselines3==2.4.1"],
+        "genai": ["google-genai==1.27.0"]
+    },
 )

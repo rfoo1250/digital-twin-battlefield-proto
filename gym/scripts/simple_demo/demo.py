@@ -14,6 +14,7 @@ game = Game(
 with open(f"{demo_folder}/simple_demo.json", "r") as scenario_file:
     game.load_scenario(scenario_file.read())
 
+# This is the environment (custom)
 env = gymnasium.make("blade/BLADE-v0", game=game)
 
 observation, info = env.reset()
@@ -70,6 +71,14 @@ def simple_scripted_agent(observation):
     else:
         return ""
 
+def print_step_results(observation, reward, terminated, truncated, info):
+    print("=== Step Results ===")
+    print(f"Observation: {observation}")
+    print(f"Reward: {reward}")
+    print(f"Terminated: {terminated}")
+    print(f"Truncated: {truncated}")
+    print(f"Info: {info}")
+
 
 for filename in os.listdir(demo_folder):
     if (
@@ -83,6 +92,7 @@ steps = 35000
 for step in range(steps):
     action = simple_scripted_agent(observation)
     observation, reward, terminated, truncated, info = env.step(action=action)
+    print_step_results(observation, reward, terminated, truncated, info)
     # env.unwrapped.pretty_print(observation)
     game.record_step()
 

@@ -10,6 +10,7 @@ interface IPatrolMission {
   assignedUnitIds: string[];
   assignedArea: ReferencePoint[];
   lastScoringTime?: number;
+  creationTime: number;
   timeLimit: number;
   active: boolean;
 }
@@ -23,6 +24,7 @@ export default class PatrolMission {
   active: boolean;
   patrolAreaGeometry: Polygon;
   lastScoringTime?: number;
+  creationTime: number;
   timeLimit: number;
 
   constructor(parameters: IPatrolMission) {
@@ -36,6 +38,7 @@ export default class PatrolMission {
       parameters.assignedArea
     );
     this.lastScoringTime = parameters.lastScoringTime;
+    this.creationTime = parameters.creationTime;
     this.timeLimit = parameters.timeLimit ?? 1;
   }
 
@@ -69,6 +72,14 @@ export default class PatrolMission {
         this.assignedArea[0].longitude,
     ];
     return randomCoordinates;
+  }
+
+  /**
+   * Calculates the absolute end time of the mission in the simulation.
+   * @returns {number} The simulation time (in seconds) when the mission is scheduled to end.
+   */
+  getMissionEndTime(): number {
+    return this.creationTime + this.timeLimit;
   }
 
   /**

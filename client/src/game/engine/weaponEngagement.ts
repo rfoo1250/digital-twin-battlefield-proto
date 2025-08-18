@@ -69,7 +69,8 @@ export function weaponEndgame(
   currentScenario: Scenario,
   weapon: Weapon,
   target: Target,
-  simulationLogs: SimulationLogs
+  simulationLogs: SimulationLogs, 
+  destructionHandler: (unit: Target) => void
 ): boolean {
   currentScenario.weapons = currentScenario.weapons.filter(
     (currentScenarioWeapon) => currentScenarioWeapon.id !== weapon.id
@@ -86,33 +87,22 @@ export function weaponEndgame(
       processKill(currentScenario, victor, target);
     }
 
-    if (target instanceof Aircraft) {
-      currentScenario.aircraft = currentScenario.aircraft.filter(
-        (currentScenarioAircraft) => currentScenarioAircraft.id !== target.id
-      );
-    } else if (target instanceof Facility) {
-      currentScenario.facilities = currentScenario.facilities.filter(
-        (currentScenarioFacility) => currentScenarioFacility.id !== target.id
-      );
-    } else if (target instanceof Weapon) {
-      currentScenario.weapons = currentScenario.weapons.filter(
-        (currentScenarioWeapon) => currentScenarioWeapon.id !== target.id
-      );
-    } else if (target instanceof Airbase) {
-      currentScenario.airbases = currentScenario.airbases.filter(
-        (currentScenarioAirbase) => currentScenarioAirbase.id !== target.id
-      );
-    } else if (target instanceof Ship) {
-      currentScenario.ships = currentScenario.ships.filter(
-        (currentScenarioShip) => currentScenarioShip.id !== target.id
-      );
-    }
     simulationLogs.addLog(
       weapon.sideId,
       `${weapon.name} has hit and destroyed ${target.name}`,
       currentScenario.currentTime,
       SimulationLogType.WEAPON_HIT
     );
+
+    // removal of aircraft using centralized function
+    if (!(target instanceof Weapon)) {
+      destructionHandler(target);
+    } else {
+      // If the target IS a weapon, just remove it from the simulation
+      currentScenario.weapons = currentScenario.weapons.filter(
+        (w) => w.id !== target.id
+      );
+    }
     return true;
   }
   simulationLogs.addLog(
@@ -200,7 +190,8 @@ export function launchWeapon(
 export function weaponEngagement(
   currentScenario: Scenario,
   weapon: Weapon,
-  simulationLogs: SimulationLogs
+  simulationLogs: SimulationLogs, 
+  destructionHandler: (unit: Target) => void
 ) {
   const target =
     currentScenario.getAircraft(weapon.targetId) ??
@@ -220,7 +211,12 @@ export function weaponEngagement(
           target.longitude
         ) < 1
       ) {
-        weaponEndgame(currentScenario, weapon, target, simulationLogs);
+        weaponEndgame(
+          currentScenario, 
+          weapon, 
+          target, 
+          simulationLogs, 
+          destructionHandler);
       } else {
         const nextWeaponCoordinates = getNextCoordinates(
           weapon.latitude,

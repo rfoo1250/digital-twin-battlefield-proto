@@ -27,7 +27,8 @@ interface MissionCreatorCardProps {
   createPatrolMission: (
     missionName: string,
     assignedUnits: string[],
-    referencePoints: string[]
+    referencePoints: string[],
+    timeLimit: number
   ) => void;
   createStrikeMission: (
     missionName: string,
@@ -115,7 +116,8 @@ const MissionCreatorCard = (props: MissionCreatorCardProps) => {
     props.createPatrolMission(
       missionName,
       selectedAircraft,
-      selectedReferencePoints
+      selectedReferencePoints,
+      timeLimit
     );
     props.handleCloseOnMap();
   };

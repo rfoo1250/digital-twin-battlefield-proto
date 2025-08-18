@@ -1,11 +1,6 @@
-// new file: src/game/engine/missionCompletionCalculator.ts
+// src/game/engine/missionCompletionCalculator.ts
 
 import Scenario from "@/game/Scenario";
-import Airbase from "@/game/units/Airbase";
-import Facility from "@/game/units/Facility";
-import Aircraft from "@/game/units/Aircraft";
-import Ship from "@/game/units/Ship";
-import Weapon from "@/game/units/Weapon";
 import PatrolMission from "@/game/mission/PatrolMission";
 import StrikeMission from "@/game/mission/StrikeMission";
 
@@ -41,19 +36,17 @@ export function incrementStrikeMissionFailure(scenario: Scenario, mission: Strik
 
 
 /**
- * Increments the success counter for a side after it
- * successfully maintains a patrol for a set duration.
- * Note: This does not increment the main 'missionsCompleted' counter,
- * as the patrol mission is ongoing.
+ * Increments the success and completion counters for a side
+ * after its patrol mission succeeds.
  * @param scenario The current game scenario.
- * @param mission The ongoing patrol mission.
+ * @param mission The successful patrol mission.
  */
-export function incrementPatrolPeriodSuccess(scenario: Scenario, mission: PatrolMission) {
+export function incrementPatrolMissionSuccess(scenario: Scenario, mission: PatrolMission) {
   const side = scenario.getSide(mission.sideId);
   if (side) {
-    // Each successful patrol period contributes to the success count.
+    side.missionsCompleted = (side.missionsCompleted || 0) + 1; // This line was added
     side.missionsSucceeded = (side.missionsSucceeded || 0) + 1;
-    console.log(`${side.name} completed a patrol period. Total Succeeded: ${side.missionsSucceeded}`);
+    console.log(`${side.name} completed a successful patrol mission. Total Succeeded: ${side.missionsSucceeded}`);
   }
 }
 

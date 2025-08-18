@@ -17,6 +17,7 @@ import {
   routeAircraftToStrikePosition,
   weaponEngagement,
   weaponCanEngageTarget,
+  Target
 } from "@/game/engine/weaponEngagement";
 import Airbase from "@/game/units/Airbase";
 import Side from "@/game/Side";
@@ -37,8 +38,10 @@ import Dba from "@/game/db/Dba";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
 import { DoctrineType, SideDoctrine } from "@/game/Doctrine";
 import { processFuelExhaustion, processPatrolMissionSuccess, processStrikeMissionSuccess } from "@/game/engine/scoreCalculator";
-import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolPeriodSuccess, incrementPatrolMissionFailure  } from "@/game/engine/missionCompletionCalculator";
+import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolMissionSuccess, incrementPatrolMissionFailure  } from "@/game/engine/missionCompletionCalculator";
+import { incrementCasualty } from "@/game/engine/casualtiesCalculator";
 import { none } from "ol/centerconstraint";
+import { ThreeSixty } from "@mui/icons-material";
 
 const MAX_HISTORY_SIZE = 20;
 
@@ -57,6 +60,7 @@ interface IAttackParams {
 }
 
 export type Mission = PatrolMission | StrikeMission;
+type DestructibleUnit = Aircraft | Ship | Facility | Airbase;
 
 export default class Game {
   mapView: IMapView = {
@@ -711,15 +715,49 @@ export default class Game {
     });
   }
 
+  processTargetDestruction(target: Target) {
+    if (target instanceof Weapon) {
+      this.removeWeapon(target.id);
+    } else {
+      this.processCasualty(target);
+    }
+  }
+
+  processCasualty(unit: DestructibleUnit) {
+    incrementCasualty(this.currentScenario, unit);
+
+    // optional but good practice
+    this.simulationLogs.addLog(
+      unit.sideId,
+      `${unit.name} has been destroyed.`,
+      this.currentScenario.currentTime,
+      SimulationLogType.UNIT_DESTROYED // You might need to add this enum type
+    );
+
+    // Call the appropriate remove function
+    if (unit instanceof Aircraft) {
+      this.removeAircraft(unit.id);
+    } else if (unit instanceof Ship) {
+      this.removeShip(unit.id);
+    } else if (unit instanceof Facility) {
+      this.removeFacility(unit.id);
+    } else if (unit instanceof Airbase) {
+      this.removeAirbase(unit.id);
+    }
+  }
+
   createPatrolMission(
     missionName: string,
     assignedUnits: string[],
     assignedArea: ReferencePoint[],
     timeLimit: number
-  ) {
+  ): PatrolMission | undefined {
     if (assignedArea.length < 3) return;
+
     this.recordHistory();
     const currentSideId = this.currentScenario.getSide(this.currentSideId)?.id;
+
+    // 1. Create the mission instance
     const patrolMission = new PatrolMission({
       id: randomUUID(),
       name: missionName,
@@ -728,8 +766,27 @@ export default class Game {
       assignedArea: assignedArea,
       timeLimit: timeLimit,
       active: true,
+      creationTime: this.currentScenario.currentTime,
     });
+
+    // 2. Use the instance to perform the validation check
+    if (
+      patrolMission.checkTimeLimit(
+        this.currentScenario.currentTime,
+        this.currentScenario.endTime
+      )
+    ) {
+      // 3. If the check fails, log a warning and abort
+      // TODO: make a pop-up
+      console.warn(
+        `Patrol Mission "${missionName}" not created: Its end time would exceed the simulation time limit.`
+      );
+      return undefined;
+    }
+
+    // 4. If the check passes, add the mission and return it
     this.currentScenario.missions.push(patrolMission);
+    return patrolMission;
   }
 
   updatePatrolMission(
@@ -1529,6 +1586,7 @@ export default class Game {
           new PatrolMission({
             ...baseProps,
             assignedArea: assignedArea,
+            creationTime: mission.creationTime,
             timeLimit: mission.timeLimit,
           })
         );
@@ -1736,6 +1794,87 @@ export default class Game {
     });
   }
 
+  clearCompletedPatrolMissions() {
+    this.currentScenario.missions = this.currentScenario.missions.filter(
+      (mission) => {
+        if (mission instanceof PatrolMission) {
+          let isMissionOngoing = true;
+          const currentTime = this.currentScenario.currentTime;
+          const missionEndTime = mission.getMissionEndTime();
+
+          // FAILURE CONDITION: Are all assigned patrol units destroyed?
+          const assignedUnits = mission.assignedUnitIds
+            .map((unitId) => this.currentScenario.getAircraft(unitId))
+            .filter((unit) => unit !== undefined); // flter out any destroyed/undefined units
+
+          if (assignedUnits.length < 1) {
+            isMissionOngoing = false;
+            incrementPatrolMissionFailure(this.currentScenario, mission);
+            this.simulationLogs.addLog(
+              mission.sideId,
+              `Patrol mission '${mission.name}' failed: All assigned units were lost.`,
+              currentTime,
+              SimulationLogType.PATROL_MISSION_FAILURE
+            );
+            return isMissionOngoing;
+          }
+
+          // COMPLETION CHECK: Has the mission's time limit been reached?
+          if (currentTime >= missionEndTime) {
+            isMissionOngoing = false; // The mission is over, now determine success or failure
+
+            // Check for hostile units within the patrol area
+            const hostileUnitsInArea = this.currentScenario.aircraft.filter(
+              (aircraft) =>
+                this.currentScenario.isHostile(mission.sideId, aircraft.sideId) &&
+                mission.checkIfCoordinatesIsWithinPatrolArea([
+                  aircraft.latitude,
+                  aircraft.longitude,
+                ])
+            );
+
+            if (hostileUnitsInArea.length > 0) {
+              // FAILURE CONDITION: Enemies are present at the end of the mission
+              incrementPatrolMissionFailure(this.currentScenario, mission);
+              this.simulationLogs.addLog(
+                mission.sideId,
+                `Patrol mission '${mission.name}' failed: Hostile units were present in the area at completion.`,
+                currentTime,
+                SimulationLogType.PATROL_MISSION_FAILURE
+              );
+            } else {
+              // SUCCESS CONDITION: Time is up and the area is clear
+              processPatrolMissionSuccess(this.currentScenario, mission);
+              incrementPatrolMissionSuccess(this.currentScenario, mission);
+              this.simulationLogs.addLog(
+                mission.sideId,
+                `Patrol mission '${mission.name}' completed successfully.`,
+                currentTime,
+                SimulationLogType.PATROL_MISSION_SUCCESS
+              );
+            }
+
+            // TODO: Automatically send surviving units home if the doctrine is set
+            // if (
+            //   this.currentScenario.checkSideDoctrine(
+            //     mission.sideId,
+            //     DoctrineType.AIRCRAFT_RTB_WHEN_PATROL_MISSION_COMPLETE // Assuming a similar doctrine exists
+            //   )
+            // ) {
+            //   assignedUnits.forEach(
+            //     (unit) => unit && this.aircraftReturnToBase(unit.id)
+            //   );
+            // }
+          }
+          return isMissionOngoing;
+        } else {
+          return true; // Keep non-PatrolMissions
+        }
+      }
+    );
+  }
+
+
   updateUnitsOnPatrolMission() {
     const activePatrolMissions = this.currentScenario
       .getAllPatrolMissions()
@@ -1763,7 +1902,6 @@ export default class Game {
       });
     });
   }
-// in Game.ts
 
   clearCompletedStrikeMissions() {
     this.currentScenario.missions = this.currentScenario.missions.filter(
@@ -1933,12 +2071,8 @@ export default class Game {
           const isMissionHealthy = assignedUnits.every(unit => unit && !unit.rtb);
 
           if (isMissionHealthy) {
-            // this is the place where it checks mission is still going on
-            // there are no "completion yet"
-            // TODO: add completion for patrol mission - when patrol duration is up or smthg
             processPatrolMissionSuccess(this.currentScenario, mission);
             mission.lastScoringTime = this.currentScenario.currentTime;
-            incrementPatrolPeriodSuccess(this.currentScenario, mission)
             this.simulationLogs.addLog(
                 mission.sideId,
                 `Patrol mission '${mission.name}' maintained. Points awarded.`,
@@ -1946,8 +2080,6 @@ export default class Game {
                 SimulationLogType.PATROL_MISSION_SUCCESS
             );
           }
-
-          // TODO: need to check if PatrolMission failed (crashing while in patrol, enemies present in area too long, etc)
 
       });
   }
@@ -2036,7 +2168,7 @@ export default class Game {
       // if aircraft runs out of fuel
       if (aircraft.currentFuel <= 0) {
         processFuelExhaustion(this.currentScenario, aircraft);
-        this.removeAircraft(aircraft.id);
+        this.processTargetDestruction(aircraft);
         this.simulationLogs.addLog(
           aircraft.sideId,
           `${aircraft.name} has run out of fuel and crashed`,
@@ -2097,7 +2229,7 @@ export default class Game {
         // if ship runs out of fuel
         if (ship.currentFuel <= 0) {
           processFuelExhaustion(this.currentScenario, ship);
-          this.removeShip(ship.id);
+          this.processTargetDestruction(ship);
         }
       }
     });
@@ -2111,17 +2243,23 @@ export default class Game {
     this.aircraftAirToAirEngagement();
 
     this.updateUnitsOnPatrolMission();
+    this.clearCompletedPatrolMissions();
+    this.updatePatrolMissionScoring();
     this.clearCompletedStrikeMissions();
     this.updateUnitsOnStrikeMission();
 
     this.currentScenario.weapons.forEach((weapon) => {
-      weaponEngagement(this.currentScenario, weapon, this.simulationLogs);
+      weaponEngagement(
+        this.currentScenario, 
+        weapon, 
+        this.simulationLogs,
+        (unit) => this.processTargetDestruction(unit)
+      );
     });
 
     this.updateAllAircraftPosition();
     this.updateAllShipPosition();
     this.updateOnBoardWeaponPositions();
-    this.updatePatrolMissionScoring();
   }
 
   _getObservation(): Scenario {

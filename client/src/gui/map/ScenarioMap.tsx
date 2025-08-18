@@ -1705,7 +1705,8 @@ export default function ScenarioMap({
   function handleCreatePatrolMission(
     missionName: string,
     assignedUnits: string[],
-    referencePoints: string[]
+    referencePoints: string[],
+    timeLimit: number
   ) {
     if (referencePoints.length < 3) return;
     const assignedArea = [];
@@ -1716,7 +1717,7 @@ export default function ScenarioMap({
         assignedArea.push(referencePoint);
       }
     }
-    game.createPatrolMission(missionName, assignedUnits, assignedArea);
+    game.createPatrolMission(missionName, assignedUnits, assignedArea, timeLimit);
     toastContext?.addToast(
       `Created patrol mission [${missionName}] successfully!`,
       "success"
@@ -1727,7 +1728,8 @@ export default function ScenarioMap({
     missionId: string,
     missionName?: string,
     assignedUnits?: string[],
-    referencePoints?: string[]
+    referencePoints?: string[],
+    timeLimit?: number
   ) {
     if (referencePoints && referencePoints.length < 3) return;
     const assignedArea = [];
@@ -1744,7 +1746,8 @@ export default function ScenarioMap({
       missionId,
       missionName,
       assignedUnits,
-      assignedArea
+      assignedArea,
+      timeLimit
     );
     toastContext?.addToast(
       `Updated patrol mission [${missionName}] successfully!`,

@@ -10,6 +10,7 @@ interface IPatrolMission {
   assignedUnitIds: string[];
   assignedArea: ReferencePoint[];
   lastScoringTime?: number;
+  timeLimit: number;
   active: boolean;
 }
 
@@ -21,7 +22,8 @@ export default class PatrolMission {
   assignedArea: ReferencePoint[];
   active: boolean;
   patrolAreaGeometry: Polygon;
-  lastScoringTime?: number; // <-- CHANGE 1: DECLARE THE PROPERTY
+  lastScoringTime?: number;
+  timeLimit: number;
 
   constructor(parameters: IPatrolMission) {
     this.id = parameters.id;
@@ -33,7 +35,8 @@ export default class PatrolMission {
     this.patrolAreaGeometry = this.createPatrolAreaGeometry(
       parameters.assignedArea
     );
-    this.lastScoringTime = parameters.lastScoringTime; // <-- CHANGE 2: INITIALIZE THE PROPERTY
+    this.lastScoringTime = parameters.lastScoringTime;
+    this.timeLimit = parameters.timeLimit ?? 1;
   }
 
   updatePatrolAreaGeometry(): void {
@@ -66,5 +69,18 @@ export default class PatrolMission {
         this.assignedArea[0].longitude,
     ];
     return randomCoordinates;
+  }
+
+  /**
+   * Checks if the mission's time limit, when added to the current time,
+   * would exceed the overall simulation time limit.
+   * - for validating mission parameters upon creation.
+   * @param currentTime The current elapsed time in the simulation (in seconds).
+   * @param simulationTimeLimit The absolute maximum duration of the simulation (in seconds).
+   * @returns {boolean} - True if the mission is impossible to complete within the simulation time, false otherwise.
+   */
+  checkTimeLimit(currentTime: number, simulationTimeLimit: number): boolean {
+    
+    return currentTime + this.timeLimit > simulationTimeLimit;
   }
 }

@@ -37,6 +37,7 @@ import Dba from "@/game/db/Dba";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
 import { DoctrineType, SideDoctrine } from "@/game/Doctrine";
 import { processFuelExhaustion, processPatrolMissionSuccess, processStrikeMissionSuccess } from "@/game/engine/scoreCalculator";
+import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolPeriodSuccess, incrementPatrolMissionFailure  } from "@/game/engine/missionCompletionCalculator";
 import { none } from "ol/centerconstraint";
 
 const MAX_HISTORY_SIZE = 20;
@@ -713,7 +714,8 @@ export default class Game {
   createPatrolMission(
     missionName: string,
     assignedUnits: string[],
-    assignedArea: ReferencePoint[]
+    assignedArea: ReferencePoint[],
+    timeLimit: number
   ) {
     if (assignedArea.length < 3) return;
     this.recordHistory();
@@ -724,6 +726,7 @@ export default class Game {
       sideId: currentSideId ?? this.currentSideId,
       assignedUnitIds: assignedUnits,
       assignedArea: assignedArea,
+      timeLimit: timeLimit,
       active: true,
     });
     this.currentScenario.missions.push(patrolMission);
@@ -733,7 +736,8 @@ export default class Game {
     missionId: string,
     missionName?: string,
     assignedUnits?: string[],
-    assignedArea?: ReferencePoint[]
+    assignedArea?: ReferencePoint[],
+    timeLimit?: number
   ) {
     const patrolMission = this.currentScenario.getPatrolMission(missionId);
     if (patrolMission) {
@@ -744,6 +748,9 @@ export default class Game {
       if (assignedArea && assignedArea.length > 2) {
         patrolMission.assignedArea = assignedArea;
         patrolMission.updatePatrolAreaGeometry();
+      }
+      if (timeLimit !== undefined) {
+        patrolMission.timeLimit = timeLimit;
       }
     }
   }
@@ -1522,6 +1529,7 @@ export default class Game {
           new PatrolMission({
             ...baseProps,
             assignedArea: assignedArea,
+            timeLimit: mission.timeLimit,
           })
         );
       } else {
@@ -1773,6 +1781,7 @@ export default class Game {
           if (!target) {
             isMissionOngoing = false;
             processStrikeMissionSuccess(this.currentScenario, mission);
+            incrementStrikeMissionSuccess(this.currentScenario, mission);
             this.simulationLogs.addLog(
               mission.sideId,
               `Strike mission '${mission.name}' completed: Target destroyed.`,
@@ -1788,6 +1797,7 @@ export default class Game {
             
           if (attackers.length < 1) {
             isMissionOngoing = false;
+            incrementStrikeMissionFailure(this.currentScenario, mission);
             this.simulationLogs.addLog(
               mission.sideId,
               `Strike mission '${mission.name}' failed: All attackers lost.`,
@@ -1797,6 +1807,7 @@ export default class Game {
           }
           
           // "out of ammo" check has been removed entirely, solve race condition, moved to `updateUnitsOnStrikeMission `
+          // TODO: add to Code Doc
 
           if (
             !isMissionOngoing &&
@@ -1906,7 +1917,7 @@ export default class Game {
 
   updatePatrolMissionScoring() {
       // Award points every 300 seconds (5 minutes) of game time
-      const PATROL_SCORING_INTERVAL = 300; 
+      const PATROL_SCORING_INTERVAL = 300;
 
       const activePatrolMissions = this.currentScenario
         .getAllPatrolMissions()
@@ -1922,15 +1933,22 @@ export default class Game {
           const isMissionHealthy = assignedUnits.every(unit => unit && !unit.rtb);
 
           if (isMissionHealthy) {
-              processPatrolMissionSuccess(this.currentScenario, mission);
-              mission.lastScoringTime = this.currentScenario.currentTime; // Update the last scoring time
-              this.simulationLogs.addLog(
-                  mission.sideId,
-                  `Patrol mission '${mission.name}' maintained. Points awarded.`,
-                  this.currentScenario.currentTime,
-                  SimulationLogType.PATROL_MISSION_SUCCESS
-              );
+            // this is the place where it checks mission is still going on
+            // there are no "completion yet"
+            // TODO: add completion for patrol mission - when patrol duration is up or smthg
+            processPatrolMissionSuccess(this.currentScenario, mission);
+            mission.lastScoringTime = this.currentScenario.currentTime;
+            incrementPatrolPeriodSuccess(this.currentScenario, mission)
+            this.simulationLogs.addLog(
+                mission.sideId,
+                `Patrol mission '${mission.name}' maintained. Points awarded.`,
+                this.currentScenario.currentTime,
+                SimulationLogType.PATROL_MISSION_SUCCESS
+            );
           }
+
+          // TODO: need to check if PatrolMission failed (crashing while in patrol, enemies present in area too long, etc)
+
       });
   }
 

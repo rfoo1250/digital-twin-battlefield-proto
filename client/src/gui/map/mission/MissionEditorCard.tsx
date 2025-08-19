@@ -379,9 +379,10 @@ const MissionEditorCard = (props: MissionEditorCardProps) => {
   return (
     <div
       style={{
-        position: "absolute",
-        left: "20em",
-        top: "5em",
+        position: "fixed", // Use 'fixed' to position relative to the viewport
+        top: "50%",        // Move the top edge to the middle of the screen
+        left: "50%",       // Move the left edge to the middle of the screen
+        transform: "translate(-50%, -50%)", // Shift the element back by half its own width and height
         zIndex: "1001",
       }}
     >

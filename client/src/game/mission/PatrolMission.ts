@@ -91,7 +91,6 @@ export default class PatrolMission {
    * @returns {boolean} - True if the mission is impossible to complete within the simulation time, false otherwise.
    */
   checkTimeLimit(currentTime: number, simulationTimeLimit: number): boolean {
-    
     return currentTime + this.timeLimit > simulationTimeLimit;
   }
 }

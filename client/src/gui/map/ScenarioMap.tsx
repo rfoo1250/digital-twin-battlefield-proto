@@ -288,6 +288,8 @@ export default function ScenarioMap({
 
   const [isGameOver, setIsGameOver] = useState(false);
 
+  const [missionVersion, setMissionVersion] = useState(0);
+
   useEffect(() => {
     if (!import.meta.env.VITE_ENV || import.meta.env.VITE_ENV === "standalone")
       return;
@@ -1717,11 +1719,21 @@ export default function ScenarioMap({
         assignedArea.push(referencePoint);
       }
     }
-    game.createPatrolMission(missionName, assignedUnits, assignedArea, timeLimit);
-    toastContext?.addToast(
-      `Created patrol mission [${missionName}] successfully!`,
-      "success"
-    );
+    const patrolMission = game.createPatrolMission(missionName, assignedUnits, assignedArea, timeLimit);
+    if (patrolMission) {
+      toastContext?.addToast(
+        `Created patrol mission [${missionName}] successfully!`,
+        "success"
+      );
+    }
+    else {
+      // TODO: pass error message back!
+      toastContext?.addToast(
+        `Patrol mission [${missionName}] could not be created!`,
+        "error"
+      );
+    }
+    setMissionVersion(v => v + 1); // forcing re-render
   }
 
   function handleUpdatePatrolMission(
@@ -1753,6 +1765,8 @@ export default function ScenarioMap({
       `Updated patrol mission [${missionName}] successfully!`,
       "success"
     );
+    
+    setMissionVersion(v => v + 1); // forcing re-render
   }
 
   function handleCreateStrikeMission(
@@ -1765,6 +1779,8 @@ export default function ScenarioMap({
       `Created strike mission [${missionName}] successfully!`,
       "success"
     );
+
+    setMissionVersion(v => v + 1); 
   }
 
   function handleUpdateStrikeMission(
@@ -1778,11 +1794,14 @@ export default function ScenarioMap({
       `Updated strike mission [${missionName}] successfully!`,
       "success"
     );
+
+    setMissionVersion(v => v + 1); 
   }
 
   function handleDeleteMission(missionId: string) {
     game.deleteMission(missionId);
     toastContext?.addToast(`Deleted mission successfully!`, "success");
+    setMissionVersion(v => v + 1); 
   }
 
   function openMissionEditor(selectedMissionId: string = "") {

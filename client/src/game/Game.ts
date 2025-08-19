@@ -778,10 +778,15 @@ export default class Game {
     ) {
       // 3. If the check fails, log a warning and abort
       // TODO: make a pop-up
+      const warningMessage = `Patrol Mission "${missionName}" not created: Its end time would exceed the simulation time limit.`
       console.warn(
-        `Patrol Mission "${missionName}" not created: Its end time would exceed the simulation time limit.`
+        warningMessage
       );
-      return undefined;
+      // putting the warning message in the ID, since it will not be pushed anyways
+      patrolMission.id = warningMessage;
+      patrolMission.name = "failure";
+      // idk how to pass error message back yet
+      return;
     }
 
     // 4. If the check passes, add the mission and return it
@@ -1876,6 +1881,7 @@ export default class Game {
 
 
   updateUnitsOnPatrolMission() {
+    console.log("updateUnitsOnPatrolMission called");
     const activePatrolMissions = this.currentScenario
       .getAllPatrolMissions()
       .filter((mission) => mission.active);
@@ -2242,9 +2248,9 @@ export default class Game {
     this.shipAutoDefense();
     this.aircraftAirToAirEngagement();
 
-    this.updateUnitsOnPatrolMission();
     this.clearCompletedPatrolMissions();
-    this.updatePatrolMissionScoring();
+    this.updateUnitsOnPatrolMission();
+    this.updatePatrolMissionScoring(); // TODO: remove or update this function
     this.clearCompletedStrikeMissions();
     this.updateUnitsOnStrikeMission();
 
@@ -2285,8 +2291,8 @@ export default class Game {
   checkGameEnded(): boolean {
     // 1. Time Limit - works!
     if (this.currentScenario.currentTime >= this.currentScenario.endTime) {
-      console.log("this.currentScenario.currentTime: ", this.currentScenario.currentTime);
-      console.log("this.currentScenario.duration", this.currentScenario.duration);
+      // console.log("this.currentScenario.currentTime: ", this.currentScenario.currentTime);
+      // console.log("this.currentScenario.duration: ", this.currentScenario.duration);
       return true;
     }
 
@@ -2324,6 +2330,7 @@ export default class Game {
   }
 
   exportRecording() {
+    console.log(this.currentScenario.sides);
     this.playbackRecorder.exportRecording(this.currentScenario.currentTime);
   }
 

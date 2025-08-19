@@ -84,6 +84,7 @@ const MissionCreatorCard = (props: MissionCreatorCardProps) => {
     createPlaceholderMissionName(selectedMissionType)
   );
   const toastContext = useContext(ToastContext);
+  const [timeLimitHours, setTimeLimitHours] = useState<number>(2); 
 
   const validateMissionPropertiesInput = () => {
     if (missionName === "") {
@@ -113,6 +114,10 @@ const MissionCreatorCard = (props: MissionCreatorCardProps) => {
 
   const handleCreatePatrolMission = () => {
     if (!validateMissionPropertiesInput()) return;
+
+    // Convert hours to seconds
+    const timeLimit = timeLimitHours * 3600; 
+
     props.createPatrolMission(
       missionName,
       selectedAircraft,
@@ -140,24 +145,35 @@ const MissionCreatorCard = (props: MissionCreatorCardProps) => {
     sortedReferencePoints: ReferencePoint[]
   ) => {
     return (
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <SelectField
-          id="mission-creator-area-selector"
-          labelId="mission-creator-area-selector-label"
-          label="Area"
-          value={selectedReferencePoints}
-          selectItems={sortedReferencePoints.map((item) => {
-            return {
-              name: item.name,
-              value: item.id,
-            };
-          })}
-          onChange={(value) => {
-            setSelectedReferencePoints(value as string[]);
+      <>
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <SelectField
+            id="mission-creator-area-selector"
+            labelId="mission-creator-area-selector-label"
+            label="Area"
+            value={selectedReferencePoints}
+            selectItems={sortedReferencePoints.map((item) => {
+              return {
+                name: item.name,
+                value: item.id,
+              };
+            })}
+            onChange={(value) => {
+              setSelectedReferencePoints(value as string[]);
+            }}
+            multiple
+          />
+        </FormControl>
+        <TextField
+          id="mission-time-limit"
+          label="Time Limit (hours)"
+          type="number"
+          value={timeLimitHours}
+          onChange={(event) => {
+            setTimeLimitHours(parseInt(event.target.value, 10) || 0); 
           }}
-          multiple
         />
-      </FormControl>
+      </>
     );
   };
 
@@ -267,9 +283,10 @@ const MissionCreatorCard = (props: MissionCreatorCardProps) => {
   return (
     <div
       style={{
-        position: "absolute",
-        left: "20em",
-        top: "5em",
+        position: "fixed", // Use 'fixed' to position relative to the viewport
+        top: "50%",        // Move the top edge to the middle of the screen
+        left: "50%",       // Move the left edge to the middle of the screen
+        transform: "translate(-50%, -50%)", // Shift the element back by half its own width and height
         zIndex: "1001",
       }}
     >

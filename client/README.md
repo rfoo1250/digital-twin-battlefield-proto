@@ -1,8 +1,8 @@
-# BLADE
+# GUI / BLADE
 
-Client/gui for BLADE Gymnasium environment.
+Client/gui for Digital Twin.
 
-> Please review the [client project structure](https://github.com/Panopticon-AI-team/panopticon/blob/main/CONTRIBUTING.md#client) to get familiar with the folder and file organization and their intended context.
+> For information reagrding the original Panopticon AI code, please review the [client project structure](https://github.com/Panopticon-AI-team/panopticon/blob/main/CONTRIBUTING.md#client) to get familiar with the folder and file organization and their intended context.
 
 ---
 
@@ -17,14 +17,16 @@ Client/gui for BLADE Gymnasium environment.
 
 ## [Installation](#installation)
 
+Assuming the reader has not cloned nor started with the Quick Start guide at the [initial README.md](./README.md).
+
 ### [Clone Repository](#clone-repository)
 
 ```bash
-git clone git@github.com:Panopticon-AI-team/panopticon.git
+git clone git@git@github.com:rfoo1250/digital-twin-proto.git
 ```
 
 ```bash
-cd panopticon/client
+cd <project-name>/client
 ```
 
 ```bash

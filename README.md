@@ -86,8 +86,8 @@ The documentation for this Digital Twin project is as follows:
 - [Code Documentation](https://docs.google.com/document/d/1fFs3nLwANOcGPW7UW92hnO8h_3fxLdZ_TwPN8es20ao/edit?usp=sharing)
 
 For specific READMEs in `client` and `gym`, they are located in:
-- [gym/README.md](./gym/README.md)
 - [client/README.md](./client/README.md)
+- [gym/README.md](./gym/README.md)
 
 For the official documentation for Panopticon AI, please see the [docs](https://docs.panopticon-ai.com/) for full details.
 

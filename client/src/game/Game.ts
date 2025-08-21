@@ -38,10 +38,10 @@ import Dba from "@/game/db/Dba";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
 import { DoctrineType, SideDoctrine } from "@/game/Doctrine";
 import { processFuelExhaustion, processPatrolMissionSuccess, processStrikeMissionSuccess } from "@/game/engine/scoreCalculator";
-import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolMissionSuccess, incrementPatrolMissionFailure  } from "@/game/engine/missionCompletionCalculator";
+import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolMissionSuccess, incrementPatrolMissionFailure, calculateSideMissionSuccessRate  } from "@/game/engine/missionCompletionCalculator";
 import { incrementCasualty } from "@/game/engine/casualtiesCalculator";
 import { none } from "ol/centerconstraint";
-import { ThreeSixty } from "@mui/icons-material";
+import { ThreeSixty, TrendingUpOutlined } from "@mui/icons-material";
 
 const MAX_HISTORY_SIZE = 20;
 
@@ -1881,7 +1881,6 @@ export default class Game {
 
 
   updateUnitsOnPatrolMission() {
-    console.log("updateUnitsOnPatrolMission called");
     const activePatrolMissions = this.currentScenario
       .getAllPatrolMissions()
       .filter((mission) => mission.active);
@@ -2278,24 +2277,38 @@ export default class Game {
 
   step(): [Scenario, number, boolean, boolean, null] {
     this.updateGameState();
-    const terminated = false; // FIXME
-    const truncated = this.checkGameEnded(); //FIXME
+    // const terminated = false; 
+    const terminated = this.checkWinningConditions(); 
+    // FIXME: add more rules - terminated: in-game-ending conditions
+    // maybe checkWinningConditions()
+    const truncated = this.checkGameEnded(); 
+    // FIXME: add more rules into the function - truncated: outside of game end conditions
+    //[PORTAL]
     const reward = 0;
     const observation = this._getObservation();
     const info = this._getInfo();
     return [observation, reward, terminated, truncated, info];
   }
 
-  reset() {}
+  reset() {} // empty>?
+
+  /**
+   * Should determine if the simulation has ended by in-game-events,
+   * like Side annihilated, Side goal met, etc.
+   * @returns {boolean} value if the game has ended
+   */
   // TODO: send string msg instead
-  checkGameEnded(): boolean {
-    // 1. Time Limit - works!
-    if (this.currentScenario.currentTime >= this.currentScenario.endTime) {
-      // console.log("this.currentScenario.currentTime: ", this.currentScenario.currentTime);
-      // console.log("this.currentScenario.duration: ", this.currentScenario.duration);
-      return true;
+  checkWinningConditions(): boolean {
+    // 1. Mission count and mission success rate meet goal threshold.
+    const sidesWithThresholdSuccessRate = this.currentScenario.sides.filter( (side) => {
+      return side.missionsCompleted > 0 && (calculateSideMissionSuccessRate(this.currentScenario, side.id) > 75);
+    });
+    if (sidesWithThresholdSuccessRate.length > 0) {
+      console.log("sidesWithThresholdSuccessRate.length > 0");
+      return true; // A side has won
     }
 
+    
     // 2. Annihilation (Future Implementation)
     // const sidesWithUnits = this.currentScenario.sides.filter(side => {
     //   const hasAircraft = this.currentScenario.aircraft.some(u => u.sideId === side.id);
@@ -2308,6 +2321,24 @@ export default class Game {
     //   return true;
     // }
     
+    // else
+    return false;
+  }
+
+  /**
+   * Should determine if the simulation has ended by outside of game-events,
+   * but within simulation, like time-limit
+   * @returns {boolean} value if the game has ended
+   */
+  // TODO: send string msg instead
+  checkGameEnded(): boolean {
+    // 1. Time Limit - works!
+    if (this.currentScenario.currentTime >= this.currentScenario.endTime) {
+      // console.log("this.currentScenario.currentTime: ", this.currentScenario.currentTime);
+      // console.log("this.currentScenario.duration: ", this.currentScenario.duration);
+      return true;
+    }
+
     // else
     return false;
   }
@@ -2331,11 +2362,17 @@ export default class Game {
 
   exportRecording() {
     console.log(this.currentScenario.sides);
-    this.playbackRecorder.exportRecording(this.currentScenario.currentTime);
+    this.playbackRecorder.exportRecording(
+      this.currentScenario.currentTime
+    );
   }
 
-  exportRecourseRecording() {
-    this.playbackRecorder.exportRecourseRecording(this.currentScenario.currentTime);
+  exportRecourseRecording(hasGameEnded: boolean) {
+    this.playbackRecorder.exportRecourseRecording(
+      this.currentScenario.currentTime,
+      undefined, 
+      hasGameEnded
+    );
   }
 
   recordHistory() {

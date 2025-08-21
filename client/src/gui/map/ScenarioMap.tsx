@@ -262,6 +262,7 @@ export default function ScenarioMap({
   let routeMeasurementTooltip: Overlay | null = null;
   let routeMeasurementListener: EventsKey | undefined;
   let teleportingUnit = false;
+  let hasGameEnded = false;
 
   const map = new OlMap({
     layers: [
@@ -960,8 +961,8 @@ export default function ScenarioMap({
 
   function handleStopRecordingScenarioClick() {
     game.recordingScenario = false;
-    // game.exportRecourseRecording();
-    game.exportRecording();
+    game.exportRecourseRecording(hasGameEnded);
+    // game.exportRecording();
   }
 
   function handleLoadRecording() {
@@ -1007,6 +1008,8 @@ export default function ScenarioMap({
     game.recordStep(true);
     setGamePaused();
     const [observation, reward, terminated, truncated, info] = stepGameAndDrawFrame();
+    // safe to do this cuz they are returned as bool
+    hasGameEnded = (terminated || truncated) as boolean;
     // logging as test
     console.log("Located in handleStepGameClick()");
     console.log("Game Step Info:", { observation });
@@ -1077,8 +1080,9 @@ export default function ScenarioMap({
 
       const status = terminated || truncated;
       if (terminated as boolean || truncated as boolean) {
-        console.log("Game ended, located in handlePlayGameClick()");
-        console.log("Info:", { terminated, truncated });
+        // truncated: true
+        // console.log("Game ended, located in handlePlayGameClick()");
+        // console.log("Info:", { terminated, truncated });
         setIsGameOver(true);
       }
       gameEnded = status as boolean;

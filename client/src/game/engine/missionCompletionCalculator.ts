@@ -68,16 +68,38 @@ export function incrementPatrolMissionFailure(scenario: Scenario, mission: Patro
 
 /**
  * Calculates the mission success rate for a Side. 
- *  The calculation is as follows:
- *  missionSuccessRate = missionSuccessCount / totalCompletedMissionCount (arbitrary)
- * @param scenario The current game scenario.
- * @param sideId The side's ID that is being calculated.
+ * The calculation is as follows:
+ *     missionSuccessRate = missionSuccessCount / totalCompletedMissionCount (arbitrary)
+ * This function uses live Scenario instance.
+ * @param scenario The final scenario state as a plain object.
+ * @param sideId The ID of the side to calculate the rate for.
+ * @returns The mission success rate as a percentage (0-100).
  */
-export function calculateSideMissionSuccessRate(scenario: Scenario, sideId: string) {
+export function calculateSideMissionSuccessRate(scenario: Scenario, sideId: string): number {
   const side = scenario.getSide(sideId);
-  if (!side || side.missionsCompleted === 0) {
-    return 0; // Return 0 if no missions are completed to avoid division by zero
+
+  if (!side || !side.missionsCompleted || side.missionsCompleted === 0) {
+    return 0;
+  }
+    
+  return (side.missionsSucceeded / side.missionsCompleted) * 100;
+}
+
+/**
+ * Calculates the mission success rate for a Side. 
+ * The calculation is as follows:
+ *     missionSuccessRate = missionSuccessCount / totalCompletedMissionCount (arbitrary)
+ * This function is designed to work with a plain JSON object, not a Scenario class instance.
+ * @param scenario The final scenario state as a plain object.
+ * @param sideId The ID of the side to calculate the rate for.
+ * @returns The mission success rate as a percentage (0-100).
+ */
+export function calculateMissionSuccessRateFromObject(scenario: any, sideId: string): number {
+  const side = scenario.sides.find((s: any) => s.id === sideId);
+
+  if (!side || !side.missionsCompleted || side.missionsCompleted === 0) {
+    return 0;
   }
 
-  return side.missionsSucceeded / side.missionsCompleted;
+  return (side.missionsSucceeded / side.missionsCompleted) * 100;
 }

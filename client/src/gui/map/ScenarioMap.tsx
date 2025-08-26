@@ -959,9 +959,10 @@ export default function ScenarioMap({
     game.startRecording();
   }
 
-  function handleStopRecordingScenarioClick() {
+  async function handleStopRecordingScenarioClick() {
     game.recordingScenario = false;
-    game.exportRecourseRecording(hasGameEnded);
+    // console.log("hasGameEnded: ", hasGameEnded);
+    await game.exportRecourseRecording(hasGameEnded);
     // game.exportRecording();
   }
 
@@ -1073,22 +1074,38 @@ export default function ScenarioMap({
     game.recordStep(true);
     setCurrentGameStatusToContext("Scenario playing");
     game.scenarioPaused = false;
-    let gameEnded = game.checkGameEnded();
+    
+    // simple, separated check to distinguish between code logic
+    const isAlreadyOver = game.checkWinningConditions() || game.checkGameEnded();
+    if (isAlreadyOver) {
+      console.log("Game was already over before starting loop.");
+      setIsGameOver(true);
+      hasGameEnded = true;
+      return;
+    }
+
+    let gameEnded = false;
     while (!game.scenarioPaused && !gameEnded) {
       const [_observation, _reward, terminated, truncated, _info] =
         stepGameAndDrawFrame();
 
-      const status = terminated || truncated;
-      if (terminated as boolean || truncated as boolean) {
+      const status = (terminated as boolean || truncated as boolean);
+      if (status) {
+        console.log("status: ", status);
         // truncated: true
         // console.log("Game ended, located in handlePlayGameClick()");
         // console.log("Info:", { terminated, truncated });
         setIsGameOver(true);
       }
-      gameEnded = status as boolean;
-
+      gameEnded = status;
+      console.log("gameEnded: ", gameEnded);
+      
       await delay(0);
     }
+    
+    // let know that the game has ended
+    hasGameEnded = gameEnded;
+    console.log("hasGameEnded: ", hasGameEnded);
   }
 
   function stepGameForStepSize(

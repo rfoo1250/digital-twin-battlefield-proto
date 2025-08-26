@@ -2279,11 +2279,7 @@ export default class Game {
     this.updateGameState();
     // const terminated = false; 
     const terminated = this.checkWinningConditions(); 
-    // FIXME: add more rules - terminated: in-game-ending conditions
-    // maybe checkWinningConditions()
     const truncated = this.checkGameEnded(); 
-    // FIXME: add more rules into the function - truncated: outside of game end conditions
-    //[PORTAL]
     const reward = 0;
     const observation = this._getObservation();
     const info = this._getInfo();
@@ -2367,8 +2363,8 @@ export default class Game {
     );
   }
 
-  exportRecourseRecording(hasGameEnded: boolean) {
-    this.playbackRecorder.exportRecourseRecording(
+  async exportRecourseRecording(hasGameEnded: boolean) {
+    await this.playbackRecorder.exportRecourseRecording(
       this.currentScenario.currentTime,
       undefined, 
       hasGameEnded

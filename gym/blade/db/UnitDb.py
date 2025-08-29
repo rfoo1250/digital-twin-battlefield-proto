@@ -640,47 +640,47 @@ FacilityDb = [
 ]
 
 ShipDb = [
-    # all values notional
+    # Weapon ranges are notional and based on the longest-range typical weapon system.
     {
         "class_name": "Aircraft Carrier",
         "speed": 35,  # mph
         "max_fuel": 25200000,  # lbs
         "fuel_rate": 1000000,  # lbs/hr
-        "range": 8000,  # NM
+        "range": 27,  # NM, based on Evolved Sea Sparrow Missile (ESSM)
     },
     {
         "class_name": "Destroyer",
         "speed": 40,  # mph
         "max_fuel": 3500000,  # lbs
         "fuel_rate": 100000,  # lbs/hr
-        "range": 5000,  # NM
+        "range": 1350,  # NM, based on Tomahawk cruise missile
     },
     {
         "class_name": "Frigate",
         "speed": 35,  # mph
         "max_fuel": 2800000,  # lbs
         "fuel_rate": 80000,  # lbs/hr
-        "range": 4500,  # NM
+        "range": 150,  # NM, based on modern anti-ship missiles
     },
     {
         "class_name": "Corvette",
         "speed": 32,  # mph
         "max_fuel": 1400000,  # lbs
         "fuel_rate": 60000,  # lbs/hr
-        "range": 3500,  # NM
+        "range": 100,  # NM, based on typical anti-ship missiles
     },
     {
         "class_name": "Amphibious Assault Ship",
         "speed": 25,  # mph
         "max_fuel": 8400000,  # lbs
         "fuel_rate": 200000,  # lbs/hr
-        "range": 6000,  # NM
+        "range": 27,  # NM, based on Evolved Sea Sparrow Missile (ESSM)
     },
     {
         "class_name": "Patrol Boat",
         "speed": 40,  # mph
         "max_fuel": 350000,  # lbs
         "fuel_rate": 30000,  # lbs/hr
-        "range": 1500,  # NM
+        "range": 30,  # NM, based on short-range anti-ship missiles
     },
 ]

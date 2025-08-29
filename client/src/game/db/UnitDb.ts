@@ -686,49 +686,48 @@ export const FacilityDb: IFacilityModel[] = [
 ];
 
 export const ShipDb: IShipModel[] = [
-  // all values notional
-  // TODO: Add additional data fields for Ships in the database (e.g dataSource: {...}, units: {...})
+  // Weapon ranges are notional and based on the longest-range typical weapon system.
   {
     className: "Aircraft Carrier",
     speed: 30.4, // knots
     maxFuel: 25200000, // lbs
     fuelRate: 1000000, // lbs/hr
-    range: 8000, // NM
+    range: 27, // NM, based on Evolved Sea Sparrow Missile (ESSM)
   },
   {
     className: "Destroyer",
     speed: 34.8, // knots
     maxFuel: 3500000, // lbs
     fuelRate: 100000, // lbs/hr
-    range: 5000, // NM
+    range: 1350, // NM, based on Tomahawk cruise missile
   },
   {
     className: "Frigate",
     speed: 30.4, // knots
     maxFuel: 2800000, // lbs
     fuelRate: 80000, // lbs/hr
-    range: 4500, // NM
+    range: 150, // NM, based on modern anti-ship missiles
   },
   {
     className: "Corvette",
     speed: 27.8, // knots
     maxFuel: 1400000, // lbs
     fuelRate: 60000, // lbs/hr
-    range: 3500, // NM
+    range: 100, // NM, based on typical anti-ship missiles
   },
   {
     className: "Amphibious Assault Ship",
     speed: 21.7, // knots
     maxFuel: 8400000, // lbs
     fuelRate: 200000, // lbs/hr
-    range: 6000, // NM
+    range: 27, // NM, based on Evolved Sea Sparrow Missile (ESSM)
   },
   {
     className: "Patrol Boat",
     speed: 34.8, // knots
     maxFuel: 350000, // lbs
     fuelRate: 30000, // lbs/hr
-    range: 1500, // NM
+    range: 30, // NM, based on short-range anti-ship missiles
   },
 ];
 

@@ -1,3 +1,5 @@
+// this file needs refactoring, if python code successfully integrated/translated
+
 import { calculateMissionSuccessRateFromObject } from "@/game/engine/missionCompletionCalculator";
 
 /**
@@ -31,12 +33,12 @@ function parseCsv(csvText: string): { headers: string[], data: { [key: string]: 
 }
 
 /**
- * Fetches and processes the recourse CSV file from the server.
+ * Fetches and processes the recourse CSV file from the client-side.
  * @returns A promise that resolves to the parsed CSV data.
 */
 async function processRecourseCsv(): Promise<{ headers: string[], data: { [key: string]: string }[] }> {
  try {
-    const filePath = "/recourse/results/algo_recourse_results.csv";
+    const filePath = "../recourse/results/algo_recourse_results.csv";
     const response = await fetch(filePath);
 
     if (!response.ok) {
@@ -51,6 +53,30 @@ async function processRecourseCsv(): Promise<{ headers: string[], data: { [key: 
     return { headers: [], data: [] }; // Return the correct object shape on error
   }
 }
+
+/**
+ * Fetches and processes the recourse CSV file from the server.
+ * @returns A promise that resolves to the parsed CSV data.
+*/
+async function server_processRecourseCsv(): Promise<{ headers: string[], data: { [key: string]: string }[] }> {
+ try {
+    const apiUrl = "http://127.0.0.1:8009/data"; 
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch CSV data: ${response.status} ${response.statusText}`);
+    }
+
+    const jsonData = await response.json();
+    
+    return jsonData;
+
+  } catch (error) {
+    console.error("Error fetching or processing the CSV data from the backend:", error);
+    return { headers: [], data: [] }; 
+  }
+}
+
 
 /**
  * Constructs a CSV file from data and triggers a download.
@@ -76,7 +102,42 @@ function constructAndDownloadCsv(headers: string[], existingData: { [key: string
   link.click();
   document.body.removeChild(link);
   console.log("constructAndDownloadCsv finished!");
-} //TRY THIS FIRST
+}
+
+/**
+ * Sends a new data row to the backend server to be appended to the CSV file.
+ * @param newDataRow An object where keys are the CSV headers and values are the new data.
+ */
+async function updateCsvOnServer(newDataRow: { [key: string]: any }) {
+  const apiUrl = "http://127.0.0.1:8009/update";
+
+  console.log("Sending data to server:", newDataRow);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST', // Specify the request method is POST
+      headers: {
+        'Content-Type': 'application/json', // Set the content type to JSON
+      },
+      body: JSON.stringify(newDataRow), // Convert the JavaScript object to a JSON string
+    });
+
+    // Check if the server responded with a success status code (e.g., 200)
+    if (!response.ok) {
+      // If not, get the error message from the server and throw an error
+      const errorData = await response.json();
+      throw new Error(`Server error: ${response.status} - ${errorData.description || 'Unknown error'}`);
+    }
+
+    // If the request was successful, log the confirmation message from the server
+    const result = await response.json();
+    console.log("Server response:", result.message);
+
+  } catch (error) {
+    // Catch any network errors or errors thrown from the response check
+    console.error("Failed to update CSV on server:", error);
+  }
+}
 
 /**
  * Main function to process game state data and generate a recourse CSV file.
@@ -92,7 +153,7 @@ export async function generateRecourseCsv(
   hasGameEnded: boolean
 ) {
   const jsonData = JSON.parse(firstLine);
-  
+
   const { sides, aircraft, ships, facilities, airbases, missions } = jsonData.currentScenario;
 
   const side_a = sides[0];
@@ -197,21 +258,17 @@ export async function generateRecourseCsv(
   const scenarioResult = jsonResult.currentScenario;
   const sidesResult = scenarioResult.sides;
 
-  // TODO: Determine how to calculate outcomes when the game hasn't ended.
-  // For now, we only process data if the game is over.
-  // FIXME: implement hasGameEnded
-  // || scenarioResult.endTime === scenarioResult.currentTime
-  if (true) {
+  if (hasGameEnded) {
     // process current outcome from missionSuccessRate and casualty rate
     const side_a_mission_success_rate = calculateMissionSuccessRateFromObject(scenarioResult, side_a_id);
     const side_b_mission_success_rate = calculateMissionSuccessRateFromObject(scenarioResult, side_b_id);
     
     // Fetch existing CSV data
-    const { headers, data: existingCsvData } = await processRecourseCsv();
-
+    const { headers, data } = await server_processRecourseCsv();
+    
     const side_a_total_initial_units = side_a_total_ships + side_a_total_planes + side_a_total_sam_sites + side_a_total_airbases;
     const side_b_total_initial_units = side_b_total_ships + side_b_total_planes + side_b_total_sam_sites + side_b_total_airbases;
-
+    
     const side_a_casualties = sidesResult[0].casualties;
     const side_b_casualties = sidesResult[1].casualties;
     
@@ -220,7 +277,7 @@ export async function generateRecourseCsv(
     
     const side_a_outcome = (side_a_casualty_rate < 0.5 && side_a_mission_success_rate > 0.75) ? 1 : 0;
     const side_b_outcome = (side_b_casualty_rate < 0.5 && side_b_mission_success_rate > 0.75) ? 1 : 0;
-
+    
     console.log("side_b_outcome: ", side_b_outcome);
     console.log("side_a_outcome: ", side_a_outcome);
     
@@ -228,7 +285,7 @@ export async function generateRecourseCsv(
       // Outcomes
       side_a_outcome,
       side_b_outcome,
-
+      
       // --- Totals ---
       side_a_total_ships,
       side_b_total_ships,
@@ -238,7 +295,7 @@ export async function generateRecourseCsv(
       side_b_total_sam_sites,
       side_a_total_fuel_available,
       side_b_total_fuel_available,
-
+      
       // --- Ship Types ---
       side_a_aircraft_carrier,
       side_b_aircraft_carrier,
@@ -252,7 +309,7 @@ export async function generateRecourseCsv(
       side_b_amphibious_assault_ship,
       side_a_patrol_boat,
       side_b_patrol_boat,
-
+      
       // --- Aircraft Types ---
       side_a_f35a_lightning_ii,
       side_b_f35a_lightning_ii,
@@ -284,7 +341,7 @@ export async function generateRecourseCsv(
       side_b_c12_huron,
       side_a_b52,
       side_b_b52,
-
+      
       // --- SAM Sites ---
       side_a_s400_triumf,
       side_b_s400_triumf,
@@ -294,7 +351,7 @@ export async function generateRecourseCsv(
       side_b_s300,
       side_a_s500,
       side_b_s500,
-
+      
       // --- Missions ---
       side_a_total_missions,
       side_b_total_missions,
@@ -303,9 +360,12 @@ export async function generateRecourseCsv(
       side_a_strike_missions,
       side_b_strike_missions,
     };
-
-    constructAndDownloadCsv(headers, existingCsvData, newDataRow);
+    
+    updateCsvOnServer(newDataRow);
+    // constructAndDownloadCsv(headers, existingCsvData, newDataRow);
   } else {
+    // TODO: Determine how to calculate outcomes when the game hasn't ended.
+    // For now, we only process data if the game is over.
     console.log("Game has not ended, recourse data will not be processed.");
   }
 }

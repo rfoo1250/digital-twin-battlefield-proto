@@ -37,8 +37,18 @@ import Relationships from "@/game/Relationships";
 import Dba from "@/game/db/Dba";
 import SimulationLogs, { SimulationLogType } from "@/game/log/SimulationLogs";
 import { DoctrineType, SideDoctrine } from "@/game/Doctrine";
-import { processFuelExhaustion, processPatrolMissionSuccess, processStrikeMissionSuccess } from "@/game/engine/scoreCalculator";
-import { incrementStrikeMissionSuccess, incrementStrikeMissionFailure, incrementPatrolMissionSuccess, incrementPatrolMissionFailure, calculateSideMissionSuccessRate  } from "@/game/engine/missionCompletionCalculator";
+import { 
+  processFuelExhaustion, 
+  processPatrolMissionSuccess, 
+  processStrikeMissionSuccess 
+} from "@/game/engine/scoreCalculator";
+import { 
+  areAllMissionsCompleteFromSide,
+  incrementStrikeMissionSuccess, 
+  incrementStrikeMissionFailure, 
+  incrementPatrolMissionSuccess, 
+  incrementPatrolMissionFailure, 
+  calculateSideMissionSuccessRate  } from "@/game/engine/missionCompletionCalculator";
 import { incrementCasualty } from "@/game/engine/casualtiesCalculator";
 import { none } from "ol/centerconstraint";
 import { ThreeSixty, TrendingUpOutlined } from "@mui/icons-material";
@@ -562,7 +572,7 @@ export default class Game {
       currentFuel: maxFuel ?? 32000000.0,
       maxFuel: maxFuel ?? 32000000.0,
       fuelRate: fuelRate ?? 7000.0,
-      range: 250,
+      range: range ?? 250,
       route: [],
       selected: false,
       sideColor: this.currentScenario.getSideColor(this.currentSideId),
@@ -1217,6 +1227,7 @@ export default class Game {
     }
   }
 
+  // FIXME
   switchScenarioTimeCompression() {
     const timeCompressions = Object.keys(GAME_SPEED_DELAY_MS).map((speed) =>
       parseInt(speed)
@@ -1253,6 +1264,11 @@ export default class Game {
         id: side.id,
         name: side.name,
         totalScore: side.totalScore,
+        casualties: side.casualties,
+        missionsAssigned: side.missionsAssigned,
+        missionsCompleted: side.missionsCompleted,
+        missionsSucceeded: side.missionsSucceeded,
+        missionsFailed: side.missionsFailed,
         color: side.color,
       });
       return newSide;
@@ -1277,7 +1293,7 @@ export default class Game {
         (weapon: Weapon) => {
           return new Weapon({
             id: weapon.id,
-            launcherId: "None",
+            launcherId: weapon.launcherId,
             name: weapon.name,
             sideId: weapon.sideId,
             className: weapon.className,
@@ -1330,7 +1346,7 @@ export default class Game {
           (weapon: Weapon) => {
             return new Weapon({
               id: weapon.id,
-              launcherId: "None",
+              launcherId: weapon.launcherId,
               name: weapon.name,
               sideId: weapon.sideId,
               className: weapon.className,
@@ -1394,7 +1410,7 @@ export default class Game {
         (weapon: Weapon) => {
           return new Weapon({
             id: weapon.id,
-            launcherId: "None",
+            launcherId: weapon.launcherId,
             name: weapon.name,
             sideId: weapon.sideId,
             className: weapon.className,
@@ -1433,7 +1449,7 @@ export default class Game {
     savedScenario.weapons.forEach((weapon: Weapon) => {
       const newWeapon = new Weapon({
         id: weapon.id,
-            launcherId: "None",
+        launcherId: weapon.launcherId,
         name: weapon.name,
         sideId: weapon.sideId,
         className: weapon.className,
@@ -1462,7 +1478,7 @@ export default class Game {
           (weapon: Weapon) => {
             return new Weapon({
               id: weapon.id,
-            launcherId: "None",
+              launcherId: weapon.launcherId,
               name: weapon.name,
               sideId: weapon.sideId,
               className: weapon.className,
@@ -1511,7 +1527,7 @@ export default class Game {
       const shipWeapons: Weapon[] = ship.weapons?.map((weapon: Weapon) => {
         return new Weapon({
           id: weapon.id,
-            launcherId: "None",
+          launcherId: weapon.launcherId,
           name: weapon.name,
           sideId: weapon.sideId,
           className: weapon.className,
@@ -1949,9 +1965,6 @@ export default class Game {
             );
           }
           
-          // "out of ammo" check has been removed entirely, solve race condition, moved to `updateUnitsOnStrikeMission `
-          // TODO: add to Code Doc
-
           if (
             !isMissionOngoing &&
             this.currentScenario.checkSideDoctrine(
@@ -2078,12 +2091,12 @@ export default class Game {
           if (isMissionHealthy) {
             processPatrolMissionSuccess(this.currentScenario, mission);
             mission.lastScoringTime = this.currentScenario.currentTime;
-            this.simulationLogs.addLog(
-                mission.sideId,
-                `Patrol mission '${mission.name}' maintained. Points awarded.`,
-                this.currentScenario.currentTime,
-                SimulationLogType.PATROL_MISSION_SUCCESS
-            );
+            // this.simulationLogs.addLog(
+            //     mission.sideId,
+            //     `Patrol mission '${mission.name}' maintained. Points awarded.`,
+            //     this.currentScenario.currentTime,
+            //     SimulationLogType.PATROL_MISSION_SUCCESS
+            // );
           }
 
       });
@@ -2297,10 +2310,9 @@ export default class Game {
   checkWinningConditions(): boolean {
     // 1. Mission count and mission success rate meet goal threshold.
     const sidesWithThresholdSuccessRate = this.currentScenario.sides.filter( (side) => {
-      return side.missionsCompleted > 0 && (calculateSideMissionSuccessRate(this.currentScenario, side.id) > 75);
+      return areAllMissionsCompleteFromSide(side) && (calculateSideMissionSuccessRate(side) > 0.75);
     });
     if (sidesWithThresholdSuccessRate.length > 0) {
-      console.log("sidesWithThresholdSuccessRate.length > 0");
       return true; // A side has won
     }
 
@@ -2343,8 +2355,9 @@ export default class Game {
     this.playbackRecorder.startRecording(this.currentScenario);
   }
 
-  recordStep(force: boolean = false) {
+  recordStep(limitFlag: boolean = true, force: boolean = false) {
     if (
+      limitFlag &&
       this.recordingScenario &&
       (this.playbackRecorder.shouldRecord(this.currentScenario.currentTime) ||
         force)

@@ -17,8 +17,8 @@
         "missionsSucceeded": 0,
         "missionsFailed": 0,
         "color": "green"
-    },
-    {
+      },
+      {
         "id": "52eb8c62-8404-44ee-a030-53d657542fab",
         "name": "PINK",
         "totalScore": 0,

@@ -6,6 +6,34 @@ import PatrolMission from "@/game/mission/PatrolMission";
 import StrikeMission from "@/game/mission/StrikeMission";
 
 /**
+ * Checks if the side has completed all assigned missions
+ * @param Scenario current scenario object
+ * @param sideId id of concerned side
+ * @returns boolean
+*/
+export function areAllMissionsCompleteFromScenario(scenario: Scenario, sideId: string): boolean {
+  const side = scenario.getSide(sideId);
+  if (side && side.missionsCompleted === side.missionsAssigned) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Checks if the side has completed all assigned missions
+ * @param Side object
+ * @returns boolean all assigned missions are complete 
+ */
+export function areAllMissionsCompleteFromSide(side: Side): boolean {
+  if (side && side.missionsCompleted === side.missionsAssigned) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
  * Increments the success and completion counters for a side
  * after its strike mission succeeds (target destroyed).
  * @param scenario The current game scenario.
@@ -75,14 +103,13 @@ export function incrementPatrolMissionFailure(scenario: Scenario, mission: Patro
  * @param sideId The ID of the side to calculate the rate for.
  * @returns The mission success rate as a percentage (0-100).
  */
-export function calculateSideMissionSuccessRate(scenario: Scenario, sideId: string): number {
-  const side = scenario.getSide(sideId);
+export function calculateSideMissionSuccessRate(side: Side): number {
 
   if (!side || !side.missionsCompleted || side.missionsCompleted === 0) {
-    return 0;
+    return 0.0;
   }
     
-  return (side.missionsSucceeded / side.missionsCompleted) * 100;
+  return side.missionsSucceeded / side.missionsCompleted;
 }
 
 /**
@@ -98,8 +125,8 @@ export function calculateMissionSuccessRateFromObject(scenario: any, sideId: str
   const side = scenario.sides.find((s: any) => s.id === sideId);
 
   if (!side || !side.missionsCompleted || side.missionsCompleted === 0) {
-    return 0;
+    return 0.0;
   }
 
-  return (side.missionsSucceeded / side.missionsCompleted) * 100;
+  return side.missionsSucceeded / side.missionsCompleted;
 }

@@ -1,0 +1,295 @@
+{
+  "currentScenario": {
+    "id": "d43e7162-3faa-4e09-ace4-49d101d3d307",
+    "name": "New Scenario",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "8e841926-b0c1-46f5-a5a3-5f7ca20eafa1",
+        "name": "B-2 Spirit #56",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "B-2 Spirit",
+        "latitude": 30.51428054540453,
+        "longitude": -87.28058219299916,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "30de0f8a-ca5d-4885-8aee-0fd42da36eb3",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "118b6804-51ee-43e6-8a8f-1fc61b55c89f",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "67826e24-f515-44c4-9263-678eff7eb3ea",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "0b936629-8659-40b2-a810-3c7675eba778",
+        "name": "B-2 Spirit #1845",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "B-2 Spirit",
+        "latitude": 47.02327923010657,
+        "longitude": -122.45806431012154,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "e3c47903-8717-4f1c-80de-c537fde82a80",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "7e49e80c-32e3-409a-a117-6cdac99924ea",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "a85e07d4-7954-42aa-8cac-f7bf4706a303",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [],
+    "airbases": [
+      {
+        "id": "18c1af1e-d748-4f4d-8ce7-9835ba51bd27",
+        "name": "Luke Air Force Base #332",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 33.5386,
+        "longitude": -112.358,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "cff2647a-299f-4636-b251-314db156380e",
+        "name": "Strike Mission #760",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "0b936629-8659-40b2-a810-3c7675eba778",
+          "8e841926-b0c1-46f5-a5a3-5f7ca20eafa1"
+        ],
+        "assignedTargetIds": [
+          "18c1af1e-d748-4f4d-8ce7-9835ba51bd27"
+        ],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -101.51703209308461,
+      34.483897877701196
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 4.6502426626163205
+  }
+}

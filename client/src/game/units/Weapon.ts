@@ -47,7 +47,7 @@ export default class Weapon {
 
   constructor(parameters: IWeapon) {
     this.id = parameters.id;
-    this.launcherId = parameters.id;
+    this.launcherId = parameters.launcherId;
     this.name = parameters.name;
     this.sideId = parameters.sideId;
     this.className = parameters.className;

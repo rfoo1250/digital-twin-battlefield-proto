@@ -1,0 +1,701 @@
+{
+  "currentScenario": {
+    "id": "a4de05f3-0f18-4145-a4b3-14ce330ebeed",
+    "name": "New Scenario",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "752545a2-f914-434e-b17d-614be7e76996",
+        "name": "F-4 Phantom II #325",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-4 Phantom II",
+        "latitude": 38.27679634344341,
+        "longitude": -101.48029040406735,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1217,
+        "currentFuel": 13890,
+        "maxFuel": 13890,
+        "fuelRate": 6700,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "09b71c29-ec06-44c5-955f-f4eb700d6a40",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "30612056-0f5b-4373-9036-df16faaa59e8",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "aa5dafdb-58e0-4142-91b7-e8a9a0b0f1a3",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "4f40ee26-b09b-4f96-b906-d55d58d466e5",
+        "name": "F-4 Phantom II #3",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-4 Phantom II",
+        "latitude": 36.99781983628111,
+        "longitude": -102.70724080146681,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1217,
+        "currentFuel": 13890,
+        "maxFuel": 13890,
+        "fuelRate": 6700,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "9294b1a9-d97d-4917-8646-af2767348fe6",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "73d77b2d-cb3c-4640-bd36-4dc01dc1bb27",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "a2ae569a-2ade-4b57-a2ec-186265b5e35d",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "88727de0-0945-414f-99d2-9f506bffbd7a",
+        "name": "F-4 Phantom II #4",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-4 Phantom II",
+        "latitude": 37.49971814259719,
+        "longitude": -102.26657566064691,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1217,
+        "currentFuel": 13890,
+        "maxFuel": 13890,
+        "fuelRate": 6700,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "28709844-ca73-4260-837c-c369f83564b7",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "58abd050-6c20-4e5d-b1bf-2e860dcec965",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "17b76b91-80cb-417c-ba0f-b25c14701227",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "07a42085-1f58-4e2f-8c70-59a06882878e",
+        "name": "F-4 Phantom II #324",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-4 Phantom II",
+        "latitude": 37.91654316044753,
+        "longitude": -101.73950536728375,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1217,
+        "currentFuel": 13890,
+        "maxFuel": 13890,
+        "fuelRate": 6700,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "0924f194-caf9-49ab-8040-0a61e6b25af9",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "be7971c5-f48e-4036-9d63-1fdd9e8fd8ea",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          },
+          {
+            "id": "58153cec-69e6-4f5e-a845-b9e3b510a8f9",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [],
+    "airbases": [],
+    "weapons": [],
+    "referencePoints": [
+      {
+        "id": "8e53ea08-4cf1-4d5d-8da3-4f95ef6640b7",
+        "name": "RP #2973",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 40.041091417381494,
+        "longitude": -100.56952359699301,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "561f079b-ed2d-414f-9baa-ec060b8549e1",
+        "name": "RP #2138",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 39.97984025059753,
+        "longitude": -96.69751473619345,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "4c8d4af6-5ce4-400d-b33c-64e196e8c7eb",
+        "name": "RP #3785",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 35.66119331151012,
+        "longitude": -100.39352402652898,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "b9203b04-c3f3-4bf1-947e-8dc0667d5ae8",
+        "name": "RP #2006",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 35.68717860490965,
+        "longitude": -96.36151355869768,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "6cfa5d91-c1e4-4ae5-816d-58a66cabb86b",
+        "name": "RP #45",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 40.02131097108665,
+        "longitude": -107.11354116773794,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "352ad04c-44ed-4fc2-91c6-02809d4f4a8f",
+        "name": "RP #46",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 40.02131097108665,
+        "longitude": -110.90555014055116,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "610c6bb6-14c4-497f-8928-b84f63ad67c1",
+        "name": "RP #44",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 35.64020104711625,
+        "longitude": -111.09755225209514,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "8a7a1487-d5c4-433a-ab1a-ec70383f7e95",
+        "name": "RP #43",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 35.405891668806234,
+        "longitude": -106.02553957832329,
+        "altitude": 0,
+        "sideColor": "blue"
+      }
+    ],
+    "missions": [
+      {
+        "id": "d0b9bfbf-130e-4ec1-b561-2080ba689640",
+        "name": "Patrol Mission #1",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "4f40ee26-b09b-4f96-b906-d55d58d466e5",
+          "88727de0-0945-414f-99d2-9f506bffbd7a"
+        ],
+        "assignedArea": [
+          {
+            "id": "8a7a1487-d5c4-433a-ab1a-ec70383f7e95",
+            "name": "RP #43",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 35.405891668806234,
+            "longitude": -106.02553957832329,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "610c6bb6-14c4-497f-8928-b84f63ad67c1",
+            "name": "RP #44",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 35.64020104711625,
+            "longitude": -111.09755225209514,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "6cfa5d91-c1e4-4ae5-816d-58a66cabb86b",
+            "name": "RP #45",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 40.02131097108665,
+            "longitude": -107.11354116773794,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "352ad04c-44ed-4fc2-91c6-02809d4f4a8f",
+            "name": "RP #46",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 40.02131097108665,
+            "longitude": -110.90555014055116,
+            "altitude": 0,
+            "sideColor": "blue"
+          }
+        ],
+        "active": true,
+        "patrolAreaGeometry": {
+          "disposed": false,
+          "pendingRemovals_": null,
+          "dispatching_": null,
+          "listeners_": null,
+          "revision_": 1,
+          "ol_uid": "2889",
+          "values_": null,
+          "extent_": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "extentRevision_": -1,
+          "simplifiedGeometryMaxMinSquaredTolerance": 0,
+          "simplifiedGeometryRevision": 0,
+          "layout": "XY",
+          "stride": 2,
+          "ends_": [
+            8
+          ],
+          "flatInteriorPointRevision_": -1,
+          "flatInteriorPoint_": null,
+          "maxDelta_": -1,
+          "maxDeltaRevision_": -1,
+          "orientedRevision_": -1,
+          "orientedFlatCoordinates_": null,
+          "flatCoordinates": [
+            -11802709.076941023,
+            4219177.923625713,
+            -12367322.945082337,
+            4251225.863543028,
+            -11923824.859856933,
+            4869039.615179471,
+            -12345949.367794026,
+            4869039.615179471
+          ]
+        },
+        "creationTime": 1699073110,
+        "timeLimit": 10800
+      },
+      {
+        "id": "413c7df8-f2c3-482d-a754-ea210b7a4cd7",
+        "name": "Patrol Mission #2",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "07a42085-1f58-4e2f-8c70-59a06882878e",
+          "752545a2-f914-434e-b17d-614be7e76996"
+        ],
+        "assignedArea": [
+          {
+            "id": "b9203b04-c3f3-4bf1-947e-8dc0667d5ae8",
+            "name": "RP #2006",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 35.68717860490965,
+            "longitude": -96.36151355869768,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "561f079b-ed2d-414f-9baa-ec060b8549e1",
+            "name": "RP #2138",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 39.97984025059753,
+            "longitude": -96.69751473619345,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "8e53ea08-4cf1-4d5d-8da3-4f95ef6640b7",
+            "name": "RP #2973",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 40.041091417381494,
+            "longitude": -100.56952359699301,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "4c8d4af6-5ce4-400d-b33c-64e196e8c7eb",
+            "name": "RP #3785",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 35.66119331151012,
+            "longitude": -100.39352402652898,
+            "altitude": 0,
+            "sideColor": "blue"
+          }
+        ],
+        "active": true,
+        "patrolAreaGeometry": {
+          "disposed": false,
+          "pendingRemovals_": null,
+          "dispatching_": null,
+          "listeners_": null,
+          "revision_": 1,
+          "ol_uid": "3118",
+          "values_": null,
+          "extent_": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "extentRevision_": -1,
+          "simplifiedGeometryMaxMinSquaredTolerance": 0,
+          "simplifiedGeometryRevision": 0,
+          "layout": "XY",
+          "stride": 2,
+          "ends_": [
+            8
+          ],
+          "flatInteriorPointRevision_": -1,
+          "flatInteriorPoint_": null,
+          "maxDelta_": -1,
+          "maxDeltaRevision_": -1,
+          "orientedRevision_": -1,
+          "orientedFlatCoordinates_": null,
+          "flatCoordinates": [
+            -10726914.621423353,
+            4257662.5644952655,
+            -10764318.101408124,
+            4863013.151977769,
+            -11195348.156139372,
+            4871915.37024507,
+            -11175755.973575482,
+            4254101.68228223
+          ]
+        },
+        "creationTime": 1699073110,
+        "timeLimit": 10800
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -100.25098053156897,
+      37.31846889379696
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 6.550561377232334
+  }
+}

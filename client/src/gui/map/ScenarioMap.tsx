@@ -1092,13 +1092,11 @@ export default function ScenarioMap({
       const status = (terminated as boolean || truncated as boolean);
       if (status) {
         console.log("status: ", status);
-        // truncated: true
-        // console.log("Game ended, located in handlePlayGameClick()");
-        // console.log("Info:", { terminated, truncated });
+        console.log("Game ended, located in handlePlayGameClick()");
+        console.log("Info:", { terminated, truncated });
         setIsGameOver(true);
       }
       gameEnded = status;
-      console.log("gameEnded: ", gameEnded);
       
       await delay(0);
     }

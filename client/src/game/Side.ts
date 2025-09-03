@@ -5,6 +5,7 @@ interface ISide {
   name: string;
   totalScore?: number;
   casualties?: number;
+  missionsAssigned?: number;
   missionsCompleted?: number;
   missionsSucceeded?: number;
   missionsFailed?: number
@@ -16,6 +17,7 @@ export default class Side {
   name: string;
   totalScore: number;
   casualties: number;
+  missionsAssigned: number;
   missionsCompleted: number;
   missionsSucceeded: number;
   missionsFailed: number;
@@ -26,6 +28,7 @@ export default class Side {
     this.name = parameters.name;
     this.totalScore = parameters.totalScore ?? 0;
     this.casualties = parameters.casualties ?? 0;
+    this.missionsAssigned = parameters.missionsAssigned ?? 0;
     this.missionsCompleted = parameters.missionsCompleted ?? 0;
     this.missionsSucceeded = parameters.missionsSucceeded ?? 0;
     this.missionsFailed = parameters.missionsFailed ?? 0;

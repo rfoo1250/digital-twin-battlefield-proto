@@ -10,12 +10,14 @@ import Box from "@mui/material/Box";
 import { useMediaQuery } from "@mui/material";
 import WelcomePopover from "@/WelcomePopover";
 import { useAuth0 } from "@auth0/auth0-react";
+import { runAllScenarios } from "@/run_recourse";
 
 export default function App() {
   const { isAuthenticated } = useAuth0();
   const [openWelcomePopover, setOpenWelcomePopover] = useState(
     import.meta.env.VITE_ENV === "production"
   );
+  const [status, setStatus] = useState("Ready to start simulations.");
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -39,26 +41,49 @@ export default function App() {
 
   theGame.loadScenario(JSON.stringify(armyDemoScenarioJson)); // loads default scenario for easier testing
 
+  const handleStartSimulations = () => {
+    setStatus("handleStartSimulations starts");
+    // NOTE: This will still freeze the UI while running, but at least the
+    // app renders first and the user initiates it. A more advanced
+    // solution would use Web Workers to prevent freezing.
+    runAllScenarios();
+    setStatus("handleStartSimulations ends!");
+  };
+  
   return (
     <Box className="App" sx={{ display: "flex" }}>
-      <ScenarioMap
-        center={transform(
-          theGame.mapView.currentCameraCenter,
-          "EPSG:4326",
-          DEFAULT_OL_PROJECTION_CODE
-        )}
-        zoom={theGame.mapView.currentCameraZoom}
-        game={theGame}
-        projection={projection}
-        mobileView={isMobile}
+    <ScenarioMap
+    center={transform(
+      theGame.mapView.currentCameraCenter,
+      "EPSG:4326",
+      DEFAULT_OL_PROJECTION_CODE
+      )}
+      zoom={theGame.mapView.currentCameraZoom}
+      game={theGame}
+      projection={projection}
+      mobileView={isMobile}
       />
-    </Box>
-  );
+      </Box>
+      );
+      
+  
+  
+  
 }
 
 /*
-<WelcomePopover
+    return (
+      <div>
+      <h1>Recourse Simulation Runner</h1>
+      <button onClick={handleStartSimulations}>
+      Start All Scenarios
+      </button>
+      <p>Status: {status}</p>
+      </div>
+      );
+      
+  <WelcomePopover
   open={openWelcomePopover}
   onClose={() => setOpenWelcomePopover(false)}
-/>
-*/
+  />
+    */

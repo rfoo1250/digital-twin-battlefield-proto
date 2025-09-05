@@ -6,7 +6,10 @@
  * The `{ eager: true }` option imports the modules directly,
  * so you don't have to deal with async functions.
  */
-const scenarioModules = import.meta.glob('../recourse/scenarioJsonFiles/*.json', { eager: true });
+// const scenarioModules = import.meta.glob('../scenarios/*.json', { eager: true });
+const scenarioModules = import.meta.glob('../../../recourse/scenarioJsonFiles/*.json', { eager: true });
+
+// console.log("Found scenario modules:", scenarioModules);
 
 // The 'scenarioModules' object looks like this:
 // {

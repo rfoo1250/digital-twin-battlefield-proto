@@ -1573,7 +1573,7 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
               variant="h6"
               noWrap
               component="a"
-              href="https://panopticon-ai.com/"
+              href="https://dmml.asu.edu/"
               target="_blank"
               sx={{
                 mr: 2,

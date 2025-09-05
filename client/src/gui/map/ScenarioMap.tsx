@@ -234,6 +234,8 @@ export default function ScenarioMap({
   });
   const [simulationLogsActive, setSimulationLogsActive] =
     useState<boolean>(false);
+  const [hasGameEnded, setHasGameEnded] = useState(false);
+
   const setCurrentScenarioTimeToContext = useContext(SetScenarioTimeContext);
   const setCurrentRecordingStepToContext = useContext(SetRecordingStepContext);
   const setCurrentGameStatusToContext = useContext(SetGameStatusContext);
@@ -262,7 +264,6 @@ export default function ScenarioMap({
   let routeMeasurementTooltip: Overlay | null = null;
   let routeMeasurementListener: EventsKey | undefined;
   let teleportingUnit = false;
-  let hasGameEnded = false;
 
   const map = new OlMap({
     layers: [
@@ -961,7 +962,7 @@ export default function ScenarioMap({
 
   async function handleStopRecordingScenarioClick() {
     game.recordingScenario = false;
-    // console.log("hasGameEnded: ", hasGameEnded);
+    console.log("[DEBUG] handleStopRecordingScenarioClick hasGameEnded: ", hasGameEnded);
     await game.exportRecourseRecording(hasGameEnded);
     // game.exportRecording();
   }
@@ -1010,11 +1011,11 @@ export default function ScenarioMap({
     setGamePaused();
     const [observation, reward, terminated, truncated, info] = stepGameAndDrawFrame();
     // safe to do this cuz they are returned as bool
-    hasGameEnded = (terminated || truncated) as boolean;
+    setHasGameEnded((terminated || truncated) as boolean);
     // logging as test
-    console.log("Located in handleStepGameClick()");
-    console.log("Game Step Info:", { observation });
-    console.log("Current time: ", game.currentScenario.currentTime);
+    console.log("[DEBUG] Located in handleStepGameClick()");
+    console.log("[DEBUG] Game Step Info:", { observation });
+    console.log("[DEBUG] Current time: ", game.currentScenario.currentTime);
   }
 
   function handlePauseGameClick() {
@@ -1080,7 +1081,7 @@ export default function ScenarioMap({
     if (isAlreadyOver) {
       console.log("Game was already over before starting loop.");
       setIsGameOver(true);
-      hasGameEnded = true;
+      setHasGameEnded(true);
       return;
     }
 
@@ -1091,9 +1092,8 @@ export default function ScenarioMap({
 
       const status = (terminated as boolean || truncated as boolean);
       if (status) {
-        console.log("status: ", status);
-        console.log("Game ended, located in handlePlayGameClick()");
-        console.log("Info:", { terminated, truncated });
+        console.log("[DEBUG] Game ended, located in handlePlayGameClick()");
+        console.log("[DEBUG] Info:", { terminated, truncated });
         setIsGameOver(true);
       }
       gameEnded = status;
@@ -1102,8 +1102,8 @@ export default function ScenarioMap({
     }
     
     // let know that the game has ended
-    hasGameEnded = gameEnded;
-    console.log("hasGameEnded: ", hasGameEnded);
+    setHasGameEnded(gameEnded);
+    console.log("[DEBUG] handlePlayGameClick hasGameEnded: ", hasGameEnded);
   }
 
   function stepGameForStepSize(

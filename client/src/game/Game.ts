@@ -765,8 +765,11 @@ export default class Game {
     if (assignedArea.length < 3) return;
 
     this.recordHistory();
-    const currentSideId = this.currentScenario.getSide(this.currentSideId)?.id;
-
+    const currentSide = this.currentScenario.getSide(this.currentSideId);
+    const currentSideId = currentSide?.id;
+    if (currentSide) {
+      currentSide.missionsAssigned = (currentSide.missionsAssigned || 0) + 1;
+    }
     // 1. Create the mission instance
     const patrolMission = new PatrolMission({
       id: randomUUID(),
@@ -833,7 +836,12 @@ export default class Game {
     assignedTargets: string[]
   ) {
     this.recordHistory();
-    const currentSideId = this.currentScenario.getSide(this.currentSideId)?.id;
+    const currentSide = this.currentScenario.getSide(this.currentSideId);
+    const currentSideId = currentSide?.id;
+    if (currentSide) {
+      currentSide.missionsAssigned = (currentSide.missionsAssigned || 0) + 1;
+    }
+
     const strikeMission = new StrikeMission({
       id: randomUUID(),
       name: missionName,
@@ -867,6 +875,11 @@ export default class Game {
     this.currentScenario.missions = this.currentScenario.missions.filter(
       (mission) => mission.id !== missionId
     );
+    
+    const side = this.currentScenario.getSide(this.currentSideId);
+    if (side) {
+      side.missionsAssigned = (side.missionsAssigned || 0) + 1;
+    }
   }
 
   moveAircraft(aircraftId: string, newLatitude: number, newLongitude: number) {
@@ -1589,6 +1602,10 @@ export default class Game {
         assignedUnitIds: mission.assignedUnitIds,
         active: mission.active,
       };
+      const side = this.currentScenario.getSide(mission.sideId);
+      if (side) {
+        side.missionsAssigned = (side.missionsAssigned || 0) + 1;
+      }
       if ("assignedArea" in mission) {
         const assignedArea: ReferencePoint[] = [];
         mission.assignedArea.forEach((point) => {
@@ -2357,12 +2374,12 @@ export default class Game {
 
   recordStep(limitFlag: boolean = true, force: boolean = false) {
     if (
-      limitFlag &&
       this.recordingScenario &&
       (this.playbackRecorder.shouldRecord(this.currentScenario.currentTime) ||
         force)
     ) {
       this.playbackRecorder.recordStep(
+        limitFlag,
         this.exportCurrentScenario(),
         this.currentScenario.currentTime
       );

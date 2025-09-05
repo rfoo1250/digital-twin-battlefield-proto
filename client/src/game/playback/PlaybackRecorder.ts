@@ -55,10 +55,10 @@ class PlaybackRecorder {
     this.recordingStartTime = scenario.currentTime;
   }
   
-  recordStep(currentStep: string, currentScenarioTime: number) {
+  recordStep(limitFlag: boolean, currentStep: string, currentScenarioTime: number) {
     this.recording += currentStep + "\n";
     this.lastRecordingTime = currentScenarioTime;
-    if (this.recording.length > CHARACTER_LIMIT) {
+    if (limitFlag && this.recording.length > CHARACTER_LIMIT) {
       this.exportRecording(currentScenarioTime, this.recordingStartTime);
       this.recordingStartTime = currentScenarioTime;
       this.recording = "";
@@ -98,6 +98,8 @@ class PlaybackRecorder {
     recordingStartTimeUnix: number = this.recordingStartTime,
     hasGameEnded: boolean
   ) {
+    console.log("[DEBUG] PlaybackRecorder.ts: exportRecourseRecording() called");
+    console.log("[DEBUG] this.recording.length", this.recording.length);
     if (this.recording.length === 0) {
       return;
     }
@@ -106,7 +108,7 @@ class PlaybackRecorder {
     const firstLine = lines[0];
     const lastLine = lines[lines.length - 1];
     // console.log(this.recording.split('\n')[0]); // this is the one
-    await generateRecourseCsv(firstLine, lastLine, hasGameEnded);        
+    await generateRecourseCsv(firstLine, lastLine, hasGameEnded);
     /*
     const jsonlDataStrUrl =
       "data:text/json;charset=utf-8," +

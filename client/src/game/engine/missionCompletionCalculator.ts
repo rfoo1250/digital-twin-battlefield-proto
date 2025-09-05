@@ -26,7 +26,10 @@ export function areAllMissionsCompleteFromScenario(scenario: Scenario, sideId: s
  * @returns boolean all assigned missions are complete 
  */
 export function areAllMissionsCompleteFromSide(side: Side): boolean {
-  if (side && side.missionsCompleted === side.missionsAssigned) {
+  
+  if (side 
+    && side.missionsCompleted > 0
+    && side.missionsCompleted === side.missionsAssigned) {
     return true;
   }
 

@@ -78,13 +78,13 @@ for filename in os.listdir(demo_folder):
         os.remove(f"{demo_folder}/{filename}")
 
 game.start_recording()
-game.record_step()
+game.record_step(limit_flag=True)
 steps = 35000
 for step in range(steps):
     action = simple_scripted_agent(observation)
     observation, reward, terminated, truncated, info = env.step(action=action)
     # env.unwrapped.pretty_print(observation)
-    game.record_step()
+    game.record_step(limit_flag=True)
 
 env.unwrapped.export_scenario(
     f"{demo_folder}/simple_demo_t{steps}.json"

@@ -1,6 +1,34 @@
 // this file needs refactoring, if python code successfully integrated/translated
 
+import Ship from "@/game/units/Ship";
+import Aircraft from "@/game/units/Aircraft";
+import Facility from "@/game/units/Facility";
 import { calculateMissionSuccessRateFromObject } from "@/game/engine/missionCompletionCalculator";
+
+/**
+ * Fetches only the headers from the server's CSV file.
+ * @returns A promise that resolves to an array of header strings.
+ */
+async function getServerCsvHeaders(): Promise<string[]> {
+ try {
+    const apiUrl = "http://127.0.0.1:8009/headers";
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch CSV headers: ${response.status} ${response.statusText}`);
+    }
+
+    const jsonData = await response.json();
+    
+    // The server now sends back { "headers": [...] }
+    return jsonData.headers || []; 
+
+  } catch (error) {
+    console.error("Error fetching CSV headers from the backend:", error);
+    return []; 
+  }
+}
+
 
 /**
  * Parses the raw text content of a CSV file into an array of objects.
@@ -152,6 +180,7 @@ export async function generateRecourseCsv(
   lastLine: string,
   hasGameEnded: boolean
 ) {
+  console.log("[DEBUG] recourseProcessor.ts: generateRecourseCsv() called");
   const jsonData = JSON.parse(firstLine);
 
   const { sides, aircraft, ships, facilities, airbases, missions } = jsonData.currentScenario;
@@ -169,6 +198,12 @@ export async function generateRecourseCsv(
   //TODO: put these in a data structure, that way we dont have to manually add variables
   
   // --- Overall Counts ---
+  const side_a_ships = ships.filter((s: any) => s.sideId === side_a_id);
+  const side_b_ships = ships.filter((s: any) => s.sideId === side_b_id);
+  const side_a_planes = aircraft.filter((a: any) => a.sideId === side_a_id);
+  const side_b_planes = aircraft.filter((a: any) => a.sideId === side_b_id);
+  const side_a_sam_sites = facilities.filter((f: any) => f.sideId === side_a_id);
+  const side_b_sam_sites = facilities.filter((f: any) => f.sideId === side_b_id);
   const side_a_total_ships = ships.filter((s: any) => s.sideId === side_a_id).length;
   const side_b_total_ships = ships.filter((s: any) => s.sideId === side_b_id).length;
   const side_a_total_planes = aircraft.filter((a: any) => a.sideId === side_a_id).length;
@@ -217,46 +252,87 @@ export async function generateRecourseCsv(
   const side_b_c17_globemaster_iii = countUnits(aircraft, side_b_id, 'C-17 Globemaster III');
   const side_a_f16_fighting_falcon = countUnits(aircraft, side_a_id, 'F-16 Fighting Falcon');
   const side_b_f16_fighting_falcon = countUnits(aircraft, side_b_id, 'F-16 Fighting Falcon');
-  const side_a_e3_sentry = countUnits(aircraft, side_a_id, 'E-3 Sentry');
-  const side_b_e3_sentry = countUnits(aircraft, side_b_id, 'E-3 Sentry');
-  const side_a_p8_poseidon = countUnits(aircraft, side_a_id, 'P-8 Poseidon');
-  const side_b_p8_poseidon = countUnits(aircraft, side_b_id, 'P-8 Poseidon');
-  const side_a_f14_tomcat = countUnits(aircraft, side_a_id, 'F-14 Tomcat');
-  const side_b_f14_tomcat = countUnits(aircraft, side_b_id, 'F-14 Tomcat');
-  const side_a_f4_phantom = countUnits(aircraft, side_a_id, 'F-4 Phantom II');
-  const side_b_f4_phantom = countUnits(aircraft, side_b_id, 'F-4 Phantom II');
   const side_a_f15_eagle = countUnits(aircraft, side_a_id, 'F-15 Eagle');
   const side_b_f15_eagle = countUnits(aircraft, side_b_id, 'F-15 Eagle');
+  const side_a_fa18_hornet = countUnits(aircraft, side_a_id, 'F/A-18 Hornet');
+  const side_b_fa18_hornet = countUnits(aircraft, side_b_id, 'F/A-18 Hornet');
+  const side_a_b52_stratofortress = countUnits(aircraft, side_a_id, 'B-52 Stratofortress');
+  const side_b_b52_stratofortress = countUnits(aircraft, side_b_id, 'B-52 Stratofortress');
+  const side_a_f4_phantom_ii = countUnits(aircraft, side_a_id, 'F-4 Phantom II');
+  const side_b_f4_phantom_ii = countUnits(aircraft, side_b_id, 'F-4 Phantom II');
+  const side_a_b1b_lancer = countUnits(aircraft, side_a_id, 'B-1B Lancer');
+  const side_b_b1b_lancer = countUnits(aircraft, side_b_id, 'B-1B Lancer');
   const side_a_c12_huron = countUnits(aircraft, side_a_id, 'C-12 Huron');
   const side_b_c12_huron = countUnits(aircraft, side_b_id, 'C-12 Huron');
-  const side_a_b52 = countUnits(aircraft, side_a_id, 'B-52 Stratofortress');
-  const side_b_b52 = countUnits(aircraft, side_b_id, 'B-52 Stratofortress');
+  const side_b_f14_tomcat = countUnits(aircraft, side_b_id, 'F-14 Tomcat');
+  const side_a_f14_tomcat = countUnits(aircraft, side_a_id, 'F-14 Tomcat');
 
   // These might change
   // --- Specific SAM Site Counts ---
   const side_a_s400_triumf = countUnits(facilities, side_a_id, 'S-400 Triumf');
   const side_b_s400_triumf = countUnits(facilities, side_b_id, 'S-400 Triumf');
+  const side_a_s300v4 = countUnits(facilities, side_a_id, 'S-300V4');
+  const side_b_s300v4 = countUnits(facilities, side_b_id, 'S-300V4');
+  const side_a_s500_prometey = countUnits(facilities, side_a_id, 'S-500 Prometey');
+  const side_b_s500_prometey = countUnits(facilities, side_b_id, 'S-500 Prometey');
+  const side_a_buk_m3 = countUnits(facilities, side_a_id, 'Buk-M3');
+  const side_b_buk_m3 = countUnits(facilities, side_b_id, 'Buk-M3');
+  const side_a_tor_m2 = countUnits(facilities, side_a_id, 'Tor-M2');
+  const side_b_tor_m2 = countUnits(facilities, side_b_id, 'Tor-M2');
+  const side_a_pantsir_s1 = countUnits(facilities, side_a_id, 'Pantsir-S1');
+  const side_b_pantsir_s1 = countUnits(facilities, side_b_id, 'Pantsir-S1');
+  const side_a_hq9 = countUnits(facilities, side_a_id, 'HQ-9');
+  const side_b_hq9 = countUnits(facilities, side_b_id, 'HQ-9');
+  const side_a_hq19 = countUnits(facilities, side_a_id, 'HQ-19');
+  const side_b_hq19 = countUnits(facilities, side_b_id, 'HQ-19');
+  const side_a_hq16 = countUnits(facilities, side_a_id, 'HQ-16');
+  const side_b_hq16 = countUnits(facilities, side_b_id, 'HQ-16');
+  const side_a_hq17 = countUnits(facilities, side_a_id, 'HQ-17');
+  const side_b_hq17 = countUnits(facilities, side_b_id, 'HQ-17');
+  const side_a_hq7 = countUnits(facilities, side_a_id, 'HQ-7');
+  const side_b_hq7 = countUnits(facilities, side_b_id, 'HQ-7');
   const side_a_mim104_patriot = countUnits(facilities, side_a_id, 'MIM-104 Patriot');
   const side_b_mim104_patriot = countUnits(facilities, side_b_id, 'MIM-104 Patriot');
-  const side_a_s300 = countUnits(facilities, side_a_id, 'S-300');
-  const side_b_s300 = countUnits(facilities, side_b_id, 'S-300');
-  const side_a_s500 = countUnits(facilities, side_a_id, 'S-500');
-  const side_b_s500 = countUnits(facilities, side_b_id, 'S-500');
+  const side_a_thaad = countUnits(facilities, side_a_id, 'THAAD');
+  const side_b_thaad = countUnits(facilities, side_b_id, 'THAAD');
+  const side_a_aster30 = countUnits(facilities, side_a_id, 'Aster 30');
+  const side_b_aster30 = countUnits(facilities, side_b_id, 'Aster 30');
+  const side_a_barak8 = countUnits(facilities, side_a_id, 'Barak 8');
+  const side_b_barak8 = countUnits(facilities, side_b_id, 'Barak 8');
+  const side_a_nasams = countUnits(facilities, side_a_id, 'NASAMS');
+  const side_b_nasams = countUnits(facilities, side_b_id, 'NASAMS');
   const side_a_total_airbases = airbases.filter((a: any) => a.sideId === side_a_id).length;
   const side_b_total_airbases = airbases.filter((a: any) => a.sideId === side_b_id).length;
   
+  let side_a_total_weapons_stored = 0;
+  for (const ship of side_a_ships) { // Use for...of to get each ship object
+    // ship.weapons is an array, so we need to loop through it too
+    for (const weapon of ship.weapons) { 
+      side_a_total_weapons_stored += weapon.currentQuantity;
+    }
+  }
+
+  let side_b_total_weapons_stored = 0;
+  for (const ship of side_b_ships) {
+    for (const weapon of ship.weapons) {
+      side_b_total_weapons_stored += weapon.currentQuantity;
+    }
+  }
+
   // These might change
   // --- Mission Counts ---
-  const side_a_total_missions = missions.filter((m: any) => m.sideId === side_a_id).length;
-  const side_b_total_missions = missions.filter((m: any) => m.sideId === side_b_id).length;
-  const side_a_patrol_missions = missions.filter((m: any) => m.sideId === side_a_id && m.name.includes('Patrol')).length;
-  const side_b_patrol_missions = missions.filter((m: any) => m.sideId === side_b_id && m.name.includes('Patrol')).length;
-  const side_a_strike_missions = missions.filter((m: any) => m.sideId === side_a_id && m.name.includes('Strike')).length;
-  const side_b_strike_missions = missions.filter((m: any) => m.sideId === side_b_id && m.name.includes('Strike')).length;
+  const side_a_total_missions_assigned = missions.filter((m: any) => m.sideId === side_a_id).length;
+  const side_b_total_missions_assigned = missions.filter((m: any) => m.sideId === side_b_id).length;
+  const side_a_patrol_missions_assigned = missions.filter((m: any) => m.sideId === side_a_id && m.name.includes('Patrol')).length;
+  const side_b_patrol_missions_assigned = missions.filter((m: any) => m.sideId === side_b_id && m.name.includes('Patrol')).length;
+  const side_a_strike_missions_assigned = missions.filter((m: any) => m.sideId === side_a_id && m.name.includes('Strike')).length;
+  const side_b_strike_missions_assigned = missions.filter((m: any) => m.sideId === side_b_id && m.name.includes('Strike')).length;
   
   const jsonResult = JSON.parse(lastLine);
   const scenarioResult = jsonResult.currentScenario;
   const sidesResult = scenarioResult.sides;
+
+  console.log("[DEBUG] hasGameEnded", hasGameEnded);
 
   if (hasGameEnded) {
     // process current outcome from missionSuccessRate and casualty rate
@@ -264,7 +340,11 @@ export async function generateRecourseCsv(
     const side_b_mission_success_rate = calculateMissionSuccessRateFromObject(scenarioResult, side_b_id);
     
     // Fetch existing CSV data
-    const { headers, data } = await server_processRecourseCsv();
+    const headers = await getServerCsvHeaders();
+    if (headers.length === 0) {
+        console.error("Could not retrieve CSV headers from the server. Aborting update.");
+        return;
+    }
     
     const side_a_total_initial_units = side_a_total_ships + side_a_total_planes + side_a_total_sam_sites + side_a_total_airbases;
     const side_b_total_initial_units = side_b_total_ships + side_b_total_planes + side_b_total_sam_sites + side_b_total_airbases;
@@ -327,38 +407,32 @@ export async function generateRecourseCsv(
       side_b_c17_globemaster_iii,
       side_a_f16_fighting_falcon,
       side_b_f16_fighting_falcon,
-      side_a_e3_sentry,
-      side_b_e3_sentry,
-      side_a_p8_poseidon,
-      side_b_p8_poseidon,
-      side_a_f14_tomcat,
-      side_b_f14_tomcat,
-      side_a_f4_phantom,
-      side_b_f4_phantom,
       side_a_f15_eagle,
       side_b_f15_eagle,
+      side_a_fa18_hornet,
+      side_b_fa18_hornet,
+      side_a_b52_stratofortress,
+      side_b_b52_stratofortress,
+      side_a_f4_phantom_ii,
+      side_b_f4_phantom_ii,
+      side_a_b1b_lancer,
+      side_b_b1b_lancer,
       side_a_c12_huron,
       side_b_c12_huron,
-      side_a_b52,
-      side_b_b52,
+      side_a_f14_tomcat,
+      side_b_f14_tomcat,
       
-      // --- SAM Sites ---
-      side_a_s400_triumf,
-      side_b_s400_triumf,
-      side_a_mim104_patriot,
-      side_b_mim104_patriot,
-      side_a_s300,
-      side_b_s300,
-      side_a_s500,
-      side_b_s500,
-      
+      // Weapons stored
+      side_a_total_weapons_stored,
+      side_b_total_weapons_stored,
+
       // --- Missions ---
-      side_a_total_missions,
-      side_b_total_missions,
-      side_a_patrol_missions,
-      side_b_patrol_missions,
-      side_a_strike_missions,
-      side_b_strike_missions,
+      side_a_total_missions_assigned,
+      side_b_total_missions_assigned,
+      side_a_patrol_missions_assigned,
+      side_b_patrol_missions_assigned,
+      side_a_strike_missions_assigned,
+      side_b_strike_missions_assigned,
     };
     
     updateCsvOnServer(newDataRow);

@@ -1,15 +1,25 @@
 // Does not work, need to be in Vite + React environment
 
 import Game from "@/game/Game"
+import Scenario from "@/game/Scenario"
 import { scenarios } from "@/utils/loadJson"
+
+const blankScenario = new Scenario({
+    id: "None",
+    name: "New Scenario",
+    startTime: 1699073110,
+    duration: 14400,
+    });
 
 function gameLoop(
     game: Game
 ): boolean {
     console.log("Game loop starts");
 
-    game.recordStep(false, true); // First line
     game.scenarioPaused = false;
+    game.recordingScenario = true;
+    game.recordStep(false, true); // First line
+    game.recordingScenario = false;
     let hasGameEnded = false;
 
     // Simple, separated check to distinguish between code logic
@@ -36,37 +46,28 @@ function gameLoop(
         hasGameEnded = status;
     }
 
+    game.recordingScenario = true;
     game.recordStep(false, true); // Last line
+    game.recordingScenario = false;
     game.scenarioPaused = true;
     console.log("Game loop ends");
     return hasGameEnded;
 }
 
-
-// Algorithmic recourse automation
-console.log("Algorithmic recourse automation starting...");
 // const blankScenario = scenarios['blank_scenario'];
 // const armyDemo = scenarios['army_demo_1'];
-
-
-for (const [scenarioName, scenarioJson] of Object.entries(scenarios)) {
-  console.log(`--- Running Scenario: ${scenarioName} ---`);
-
-  // It's likely you need to pass the JSON object, not its name
-  const game = new Game(scenarioJson);
-
-  // Simulate pressing the Start Recording button
-  game.startRecording();
-  
-  // Await the result of the async gameLoop
-  const hasGameEnded = gameLoop(game); // max speed
-
-  // Export recording if the game ended, using the scenario's name for the file
-  if (hasGameEnded) {
-    console.log(`Scenario ${scenarioName} ended. Exporting recording...`);
-    // It's good practice to pass the name for a unique filename
+export const runAllScenarios = () => {
+  console.log("runAllScenarios starts");
+  for (const [scenarioName, scenarioJson] of Object.entries(scenarios)) {
+    console.log(`--- Running Scenario: ${scenarioName} ---`);
+    console.log("scenarioJson", scenarioJson);
+    
+    const game = new Game(blankScenario);
+    game.loadScenario(JSON.stringify(scenarioJson));
+    game.startRecording();
+    const hasGameEnded = gameLoop(game);
     game.exportRecourseRecording(hasGameEnded); 
-  } else {
-    console.log(`Scenario ${scenarioName} did not end as expected.`);
+    
   }
-}
+  console.log("runAllScenarios ends");
+};

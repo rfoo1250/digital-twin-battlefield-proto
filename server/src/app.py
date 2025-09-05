@@ -1,59 +1,60 @@
 import csv
 import os
-from flask import Flask, jsonify, abort
+from flask import Flask, jsonify, abort, request
 from flask_cors import CORS
 
 # Initialize the Flask application
 app = Flask(__name__)
 
-# Enable Cross-Origin Resource Sharing (CORS) to allow your frontend
-# to make requests to this backend.
 CORS(app)
 
-# --- Configuration ---
-# Define the directory and filename for the CSV data.
-# Using a separate directory for data is a good practice.
-DATA_DIR = '../../recourse/results'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, '..', '..', 'recourse', 'results')
 CSV_FILENAME = 'algo_recourse_results.csv'
 CSV_FILE_PATH = os.path.join(DATA_DIR, CSV_FILENAME)
 
-# --- API Endpoint ---
+
+@app.route('/headers', methods=['GET'])
+def get_csv_headers():
+    """
+    API endpoint to efficiently read only the header row from the CSV file.
+    """
+    if not os.path.isfile(CSV_FILE_PATH):
+        abort(404, description=f"CSV file not found at: {os.path.normpath(CSV_FILE_PATH)}")
+
+    try:
+        with open(CSV_FILE_PATH, mode='r', encoding='utf-8', newline='') as csvfile:
+            # Use the basic csv.reader, as we only need the first line.
+            reader = csv.reader(csvfile)
+            try:
+                # Read just the first row and return it.
+                headers = next(reader)
+                return jsonify({'headers': headers})
+            except StopIteration:
+                # This handles the case where the file is completely empty.
+                return jsonify({'headers': []})
+    except Exception as e:
+        print(f"An error occurred while reading CSV headers: {e}")
+        abort(500, description="An internal error occurred while reading CSV headers.")
+
 @app.route('/data', methods=['GET'])
 def get_csv_data():
     """
-    API endpoint to read data from a CSV file and return it as JSON.
-    
-    This endpoint reads the CSV file specified by CSV_FILE_PATH.
-    It returns a JSON object with two keys:
-    - 'headers': A list of strings representing the column headers.
-    - 'data': A list of objects, where each object represents a row.
+    API endpoint to read all data from a CSV file and return it as JSON.
     """
-    # Check if the CSV file exists at the specified path.
-    # If not, return a 404 Not Found error.
     if not os.path.isfile(CSV_FILE_PATH):
-        abort(404, description=f"CSV file not found at: {CSV_FILE_PATH}")
+        abort(404, description=f"CSV file not found at: {os.path.normpath(CSV_FILE_PATH)}")
 
     try:
-        # Open and read the CSV file
         with open(CSV_FILE_PATH, mode='r', encoding='utf-8') as csvfile:
-            # Use csv.DictReader to read the data into a list of dictionaries.
-            # This is convenient as it automatically uses the first row as headers.
             reader = csv.DictReader(csvfile)
-            
-            # The fieldnames attribute gives us the headers.
             headers = reader.fieldnames or []
-            
-            # The reader object can be converted to a list of row dictionaries.
             data = list(reader)
-            
-            # Return the headers and data in a JSON response.
             return jsonify({
                 'headers': headers,
                 'data': data
             })
     except Exception as e:
-        # If any other error occurs during file processing,
-        # return a 500 Internal Server Error with a description.
         print(f"An error occurred while processing the CSV file: {e}")
         abort(500, description="An internal error occurred while processing the CSV file.")
 
@@ -96,6 +97,7 @@ def update_csv_data():
             # from your JSON to the correct columns based on the headers.
             writer = csv.DictWriter(csvfile, fieldnames=headers)
             writer.writerow(new_row_data)
+            csvfile.flush()
         
         # Return a success response.
         return jsonify({'status': 'success', 'message': 'CSV file updated successfully.'}), 200
@@ -105,6 +107,12 @@ def update_csv_data():
         print(f"An error occurred while updating the CSV file: {e}")
         abort(500, description="An internal error occurred while updating the CSV file.")
 
+@app.route('/health', methods=['GET'])
+def get_server_health():
+    return jsonify({
+        "status": "healthy",
+        "message": "Server is running fine"
+    }), 200
 
 # --- Main Execution Block ---
 if __name__ == '__main__':
@@ -115,7 +123,8 @@ if __name__ == '__main__':
 
 
 
-
+    # See where is the csv
+    print("CSV_FILE_PATH: ", CSV_FILE_PATH)
 
     # Start the Flask development server.
     # 'debug=True' enables auto-reloading when you save changes.

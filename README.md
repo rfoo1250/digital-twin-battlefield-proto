@@ -93,4 +93,4 @@ For the official documentation for Panopticon AI, please see the [docs](https://
 
 ## Licenses
 
-This project is derived from Panopticon AI, which is licensed under the [Apache License 2.0](https://github.com/Panopticon-AI-team/panopticon/blob/main/LICENSE).
+This project is derived from [Panopticon AI](https://panopticon-ai.com/), which is licensed under the [Apache License 2.0](https://github.com/Panopticon-AI-team/panopticon/blob/main/LICENSE).

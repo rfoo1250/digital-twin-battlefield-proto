@@ -1,4 +1,5 @@
 import json
+from uuid import uuid4
 
 from blade.units.Aircraft import Aircraft
 from blade.units.Ship import Ship
@@ -15,8 +16,8 @@ from blade.Relationships import Relationships
 from blade.Doctrine import Doctrine, DoctrineType, SideDoctrine
 
 HomeBase = Airbase | Ship
-
 Target = Aircraft | Facility | Weapon | Airbase | Ship
+Mission = PatrolMission | StrikeMission
 
 
 class Scenario:
@@ -28,6 +29,7 @@ class Scenario:
         duration: int = 1,
         sides: list[Side] = [],
         current_time: int = None,
+        end_time: int = None,
         time_compression: int = 1,
         aircraft: list[Aircraft] = None,
         ships: list[Ship] = None,
@@ -35,8 +37,8 @@ class Scenario:
         airbases: list[Airbase] = None,
         weapons: list[Weapon] = None,
         reference_points: list[ReferencePoint] = None,
-        missions: list[PatrolMission | StrikeMission] = None,
-        relationships: Relationships = Relationships(),
+        missions: list[Mission] = None,
+        relationships: Relationships = None,
         doctrine: Doctrine = None,
     ):
         self.id = id
@@ -44,7 +46,8 @@ class Scenario:
         self.start_time = start_time
         self.current_time = current_time if current_time is not None else start_time
         self.duration = duration
-        self.sides = sides
+        self.end_time = end_time if end_time is not None else self.start_time + self.duration
+        self.sides = sides if sides is not None else []
         self.time_compression = time_compression
         self.aircraft = aircraft if aircraft is not None else []
         self.ships = ships if ships is not None else []
@@ -53,7 +56,7 @@ class Scenario:
         self.weapons = weapons if weapons is not None else []
         self.reference_points = reference_points if reference_points is not None else []
         self.missions = missions if missions is not None else []
-        self.relationships = relationships
+        self.relationships = relationships if relationships is not None else Relationships({})
         self.doctrine = doctrine if doctrine is not None else self.get_default_doctrine()
 
     def get_default_doctrine(self) -> Doctrine:
@@ -86,93 +89,136 @@ class Scenario:
         if side_id not in self.doctrine:
             self.doctrine[side_id] = self.get_default_side_doctrine()
         if side_doctrine:
-            for key in side_doctrine:
+            for key, value in side_doctrine.items():
                 if key in self.doctrine[side_id]:
-                    self.doctrine[side_id][key] = side_doctrine[key]
+                    self.doctrine[side_id][key] = value
 
     def remove_side_doctrine(self, side_id: str) -> None:
         if side_id in self.doctrine:
             del self.doctrine[side_id]
 
     def get_side(self, side_id: str | None) -> Side | None:
-        for side in self.sides:
-            if side.id == side_id:
-                return side
-        return None
+        return next((side for side in self.sides if side.id == side_id), None)
 
     def get_side_name(self, side_id: str | None) -> str:
         side = self.get_side(side_id)
-        return side.name if side is not None else "N/A"
+        return side.name if side else "N/A"
 
     def get_side_color(self, side_id: str | None) -> SIDE_COLOR:
         side = self.get_side(side_id)
-        return side.color if side is not None else SIDE_COLOR.BLACK
+        return side.color if side else SIDE_COLOR.BLACK
 
     def get_aircraft(self, aircraft_id: str) -> Aircraft | None:
-        for aircraft in self.aircraft:
-            if aircraft.id == aircraft_id:
-                return aircraft
-        return None
+        return next((ac for ac in self.aircraft if ac.id == aircraft_id), None)
 
     def get_facility(self, facility_id: str) -> Facility | None:
-        for facility in self.facilities:
-            if facility.id == facility_id:
-                return facility
-        return None
+        return next((f for f in self.facilities if f.id == facility_id), None)
 
     def get_airbase(self, airbase_id: str) -> Airbase | None:
-        for airbase in self.airbases:
-            if airbase.id == airbase_id:
-                return airbase
-        return None
+        return next((ab for ab in self.airbases if ab.id == airbase_id), None)
 
     def get_ship(self, ship_id: str) -> Ship | None:
-        for ship in self.ships:
-            if ship.id == ship_id:
-                return ship
-        return None
+        return next((s for s in self.ships if s.id == ship_id), None)
 
     def get_weapon(self, weapon_id: str) -> Weapon | None:
-        for weapon in self.weapons:
-            if weapon.id == weapon_id:
-                return weapon
-        return None
+        return next((w for w in self.weapons if w.id == weapon_id), None)
 
     def get_target(self, target_id: str) -> Target | None:
-        for target in (
-            self.aircraft + self.ships + self.facilities + self.airbases + self.weapons
-        ):
-            if target.id == target_id:
-                return target
-        return None
+        all_targets = self.aircraft + self.ships + self.facilities + self.airbases + self.weapons
+        return next((t for t in all_targets if t.id == target_id), None)
 
     def get_reference_point(self, reference_point_id: str) -> ReferencePoint | None:
-        for reference_point in self.reference_points:
-            if reference_point.id == reference_point_id:
-                return reference_point
-        return None
+        return next((rp for rp in self.reference_points if rp.id == reference_point_id), None)
 
     def get_patrol_mission(self, mission_id: str) -> PatrolMission | None:
-        for mission in self.missions:
-            if isinstance(mission, PatrolMission) and mission.id == mission_id:
-                return mission
-        return None
+        return next((m for m in self.missions if isinstance(m, PatrolMission) and m.id == mission_id), None)
 
     def get_strike_mission(self, mission_id: str) -> StrikeMission | None:
-        for mission in self.missions:
-            if isinstance(mission, StrikeMission) and mission.id == mission_id:
-                return mission
-        return None
+        return next((m for m in self.missions if isinstance(m, StrikeMission) and m.id == mission_id), None)
 
     def get_all_patrol_missions(self) -> list[PatrolMission]:
-        return [
-            mission for mission in self.missions if isinstance(mission, PatrolMission)
-        ]
+        return [m for m in self.missions if isinstance(m, PatrolMission)]
 
     def get_all_strike_missions(self) -> list[StrikeMission]:
-        return [
-            mission for mission in self.missions if isinstance(mission, StrikeMission)
-        ]
+        return [m for m in self.missions if isinstance(m, StrikeMission)]
+
+    def get_mission_by_assigned_unit_id(self, unit_id: str) -> Mission | None:
+        return next((m for m in self.missions if unit_id in m.assigned_unit_ids), None)
+
+    def update_scenario_name(self, name: str):
+        self.name = name
+
+    def delete_weapon_from_aircraft(self, aircraft_id: str, weapon_id: str) -> list[Weapon]:
+        aircraft = self.get_aircraft(aircraft_id)
+        if aircraft:
+            aircraft.weapons = [w for w in aircraft.weapons if w.id != weapon_id]
+            return aircraft.weapons
+        return []
+
+    def update_aircraft_weapon_quantity(self, aircraft_id: str, weapon_id: str, increment: int) -> list[Weapon]:
+        aircraft = self.get_aircraft(aircraft_id)
+        if aircraft:
+            weapon = next((w for w in aircraft.weapons if w.id == weapon_id), None)
+            if weapon:
+                weapon.current_quantity += increment
+                if weapon.current_quantity < 0:
+                    weapon.current_quantity = 0
+            return aircraft.weapons
+        return []
+
+    def add_weapon_to_aircraft(self, aircraft_id: str, **kwargs) -> list[Weapon]:
+        aircraft = self.get_aircraft(aircraft_id)
+        if aircraft:
+            weapon_class_name = kwargs.get("weapon_class_name")
+            if not weapon_class_name or any(w.class_name == weapon_class_name for w in aircraft.weapons):
+                return aircraft.weapons
+            
+            new_weapon = Weapon(
+                id=str(uuid4()),
+                launcher_id="None",
+                name=weapon_class_name,
+                side_id=aircraft.side_id,
+                class_name=weapon_class_name,
+                latitude=0.0, longitude=0.0, altitude=10000.0, heading=90.0,
+                speed=kwargs.get("weapon_speed", 0),
+                current_fuel=kwargs.get("weapon_max_fuel", 0),
+                max_fuel=kwargs.get("weapon_max_fuel", 0),
+                fuel_rate=kwargs.get("weapon_fuel_rate", 0),
+                range=100,
+                side_color=aircraft.side_color,
+                target_id=None,
+                lethality=kwargs.get("weapon_lethality", 0),
+                max_quantity=1,
+                current_quantity=1,
+            )
+            aircraft.weapons.append(new_weapon)
+        return aircraft.weapons if aircraft else []
+
+    def update_aircraft(self, aircraft_id: str, **kwargs):
+        aircraft = self.get_aircraft(aircraft_id)
+        if aircraft:
+            for key, value in kwargs.items():
+                if hasattr(aircraft, key):
+                    setattr(aircraft, key, value)
+
+    def update_facility(self, facility_id: str, **kwargs):
+        facility = self.get_facility(facility_id)
+        if facility:
+            for key, value in kwargs.items():
+                if hasattr(facility, key):
+                    setattr(facility, key, value)
+
+    def update_airbase(self, airbase_id: str, airbase_name: str):
+        airbase = self.get_airbase(airbase_id)
+        if airbase:
+            airbase.name = airbase_name
+
+    def update_ship(self, ship_id: str, **kwargs):
+        ship = self.get_ship(ship_id)
+        if ship:
+            for key, value in kwargs.items():
+                if hasattr(ship, key):
+                    setattr(ship, key, value)
 
     def update_aircraft(
         self,

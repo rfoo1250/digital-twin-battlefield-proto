@@ -1,7 +1,7 @@
 import json
 import copy
 from uuid import uuid4
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Union, Callable
 from blade.units.Aircraft import Aircraft
 from blade.units.Airbase import Airbase
 from blade.units.Facility import Facility
@@ -33,7 +33,23 @@ from blade.engine.weaponEngagement import (
     weapon_engagement,
     weapon_can_engage_target,
 )
+from blade.engine.scoreCalculator import (
+    process_fuel_exhaustion,
+    process_patrol_mission_success,
+    process_strike_mission_success,
+)
+from blade.engine.missionCompletionCalculator import (
+    are_all_missions_complete,
+    increment_strike_mission_success,
+    increment_strike_mission_failure,
+    increment_patrol_mission_success,
+    increment_patrol_mission_failure,
+    calculate_side_mission_success_rate,
+)
+from blade.engine.casualtiesCalculator import increment_casualty
 
+DestructibleUnit = Union[Aircraft, Ship, Facility, Airbase]
+Target = Union[DestructibleUnit, Weapon]
 
 class Game:
 
@@ -57,6 +73,61 @@ class Game:
             "defaultZoom": 0,
             "currentCameraZoom": 0,
         }
+
+    def check_winning_conditions(self) -> bool:
+        """
+        Determines if the simulation has ended due to in-game victory events.
+        """
+        sides_with_threshold_success_rate = [
+            side for side in self.current_scenario.sides
+            if are_all_missions_complete(side)
+            and calculate_side_mission_success_rate(side) > 0.75
+        ]
+
+        if len(sides_with_threshold_success_rate) > 0:
+            print("sides_with_threshold_success_rate > 0")
+            return True  # A side has won
+
+        return False
+
+    def check_game_ended(self) -> bool:
+        """
+        Determines if the simulation has ended due to external limits, like time.
+        """
+        # The game ends if the current time exceeds the scenario's end time.
+        if self.current_scenario.current_time >= self.current_scenario.end_time:
+            print("[DEBUG]", self.current_scenario.end_time)
+            print("[DEBUG]", self.current_scenario.current_time)
+            return True
+        
+        return False
+    
+    def process_target_destruction(self, target: Target) -> None:
+        """
+        Centralized handler for removing any target from the game.
+        """
+        if isinstance(target, Weapon):
+            self.current_scenario.weapons = [w for w in self.current_scenario.weapons if w.id != target.id]
+        else:
+            self.process_casualty(target)
+
+    def process_casualty(self, unit: DestructibleUnit) -> None:
+        """
+        Handles the consequences of a unit being a casualty, including
+        scoring, logging, and removal from the scenario.
+        """
+        increment_casualty(self.current_scenario, unit)
+
+        # Remove the unit from the appropriate list
+        if isinstance(unit, Aircraft):
+            self.remove_aircraft(unit.id)
+        elif isinstance(unit, Ship):
+            self.current_scenario.ships = [s for s in self.current_scenario.ships if s.id != unit.id]
+        elif isinstance(unit, Facility):
+            self.current_scenario.facilities = [f for f in self.current_scenario.facilities if f.id != unit.id]
+        elif isinstance(unit, Airbase):
+            self.current_scenario.airbases = [a for a in self.current_scenario.airbases if a.id != unit.id]
+
 
     def remove_aircraft(self, aircraft_id: str) -> None:
         self.current_scenario.aircraft.remove(
@@ -141,36 +212,31 @@ class Game:
         mission_name: str,
         assigned_units: list[str],
         assigned_area: list[ReferencePoint],
-    ) -> None:
+        time_limit: int,
+    ) -> Optional[PatrolMission]:
         if len(assigned_area) < 3:
-            return
+            return None
+        
         current_side_id = self.current_scenario.get_side(self.current_side_id).id
-        mission = PatrolMission(
+        
+        patrol_mission = PatrolMission(
             id=str(uuid4()),
             name=mission_name,
-            side_id=current_side_id if current_side_id else self.current_side_id,
+            side_id=current_side_id,
             assigned_unit_ids=assigned_units,
             assigned_area=assigned_area,
             active=True,
+            creation_time=self.current_scenario.current_time,
+            time_limit=time_limit,
         )
-        self.current_scenario.missions.append(mission)
 
-    def update_patrol_mission(
-        self,
-        mission_id: str,
-        mission_name: str,
-        assigned_units: list[str],
-        assigned_area: list[ReferencePoint],
-    ) -> None:
-        patrol_mission = self.current_scenario.get_patrol_mission(mission_id)
-        if patrol_mission:
-            if mission_name and mission_name != "":
-                patrol_mission.name = mission_name
-            if assigned_units and len(assigned_units) > 0:
-                patrol_mission.assigned_unit_ids = assigned_units
-            if assigned_area and len(assigned_area) > 2:
-                patrol_mission.assigned_area = assigned_area
-                patrol_mission.update_patrol_area_geometry()
+        if patrol_mission.check_time_limit(
+            self.current_scenario.current_time, self.current_scenario.end_time
+        ):
+            return None
+
+        self.current_scenario.missions.append(patrol_mission)
+        return patrol_mission
 
     def create_strike_mission(
         self,
@@ -188,22 +254,6 @@ class Game:
             active=True,
         )
         self.current_scenario.missions.append(strike_mission)
-
-    def update_strike_mission(
-        self,
-        mission_id: str,
-        mission_name: str,
-        assigned_attackers: list[str],
-        assigned_targets: list[str],
-    ) -> None:
-        strike_mission = self.current_scenario.get_strike_mission(mission_id)
-        if strike_mission:
-            if mission_name and mission_name != "":
-                strike_mission.name = mission_name
-            if assigned_attackers and len(assigned_attackers) > 0:
-                strike_mission.assigned_unit_ids = assigned_attackers
-            if assigned_targets and len(assigned_targets) > 0:
-                strike_mission.assigned_target_ids = assigned_targets
 
     def delete_mission(self, mission_id: str) -> None:
         self.current_scenario.missions = [
@@ -473,6 +523,106 @@ class Game:
             ) and aircraft.target_id and aircraft.target_id != "":
                 aircraft_pursuit(self.current_scenario, aircraft)
 
+    def clear_completed_patrol_missions(self) -> None:
+        active_missions = []
+        for mission in self.current_scenario.missions:
+            if not isinstance(mission, PatrolMission):
+                active_missions.append(mission)
+                continue
+
+            is_mission_ongoing = True
+            current_time = self.current_scenario.current_time
+            mission_end_time = mission.get_mission_end_time()
+
+            assigned_units = [self.current_scenario.get_aircraft(uid) for uid in mission.assigned_unit_ids]
+            assigned_units = [u for u in assigned_units if u is not None]
+
+            if not assigned_units:
+                is_mission_ongoing = False
+                increment_patrol_mission_failure(self.current_scenario, mission)
+
+            if current_time >= mission_end_time:
+                is_mission_ongoing = False
+                hostiles_in_area = [
+                    ac for ac in self.current_scenario.aircraft
+                    if self.current_scenario.is_hostile(mission.side_id, ac.side_id) and
+                    mission.check_if_coordinates_is_within_patrol_area([ac.latitude, ac.longitude])
+                ]
+
+                if hostiles_in_area:
+                    increment_patrol_mission_failure(self.current_scenario, mission)
+                else:
+                    increment_patrol_mission_success(self.current_scenario, mission)
+
+            if is_mission_ongoing:
+                active_missions.append(mission)
+
+        self.current_scenario.missions = active_missions
+    
+    def update_patrol_mission_scoring(self) -> None:
+        PATROL_SCORING_INTERVAL = 300
+        active_patrol_missions = self.current_scenario.get_all_patrol_missions()
+
+        for mission in active_patrol_missions:
+            if self.current_scenario.current_time - (mission.last_scoring_time or 0) < PATROL_SCORING_INTERVAL:
+                continue
+
+            assigned_units = [self.current_scenario.get_aircraft(uid) for uid in mission.assigned_unit_ids]
+            is_mission_healthy = all(unit and not unit.rtb for unit in assigned_units)
+
+            if is_mission_healthy:
+                process_patrol_mission_success(self.current_scenario, mission)
+                mission.last_scoring_time = self.current_scenario.current_time
+
+    def clear_completed_strike_missions(self) -> None:
+        active_missions = []
+        for mission in self.current_scenario.missions:
+            if not isinstance(mission, StrikeMission):
+                active_missions.append(mission)
+                continue
+            
+            is_mission_ongoing = True
+            target = self.current_scenario.get_target(mission.assigned_target_ids[0])
+
+            if not target:
+                is_mission_ongoing = False
+                process_strike_mission_success(self.current_scenario, mission)
+                increment_strike_mission_success(self.current_scenario, mission)
+
+            attackers = [self.current_scenario.get_aircraft(uid) for uid in mission.assigned_unit_ids]
+            attackers = [u for u in attackers if u is not None]
+
+            if not attackers:
+                is_mission_ongoing = False
+                increment_strike_mission_failure(self.current_scenario, mission)
+            
+            if not is_mission_ongoing and self.current_scenario.check_side_doctrine(
+                mission.side_id, DoctrineType.AIRCRAFT_RTB_WHEN_STRIKE_MISSION_COMPLETE
+            ):
+                for attacker in attackers:
+                    self.aircraft_return_to_base(attacker.id)
+
+            if is_mission_ongoing:
+                active_missions.append(mission)
+        
+        self.current_scenario.missions = active_missions
+
+    def update_strike_mission(
+        self,
+        mission_id: str,
+        mission_name: str,
+        assigned_attackers: list[str],
+        assigned_targets: list[str],
+    ) -> None:
+        strike_mission = self.current_scenario.get_strike_mission(mission_id)
+        if strike_mission:
+            if mission_name and mission_name != "":
+                strike_mission.name = mission_name
+            if assigned_attackers and len(assigned_attackers) > 0:
+                strike_mission.assigned_unit_ids = assigned_attackers
+            if assigned_targets and len(assigned_targets) > 0:
+                strike_mission.assigned_target_ids = assigned_targets
+
     def update_units_on_patrol_mission(self):
         active_patrol_missions = list(
             filter(
@@ -504,52 +654,6 @@ class Game:
                             mission.generate_random_coordinates_within_patrol_area()
                         )
                         unit.route.append(random_waypoint_in_patrol_area)
-
-    def clear_completed_strike_missions(self) -> None:
-        def mission_filter(mission):
-            if isinstance(mission, StrikeMission):
-                is_mission_ongoing = True
-
-                target = self.current_scenario.get_target(
-                    mission.assigned_target_ids[0]
-                )
-
-                if not target:
-                    is_mission_ongoing = False
-
-                attackers = list(
-                    filter(
-                        lambda attacker: attacker is not None,
-                        [
-                            self.current_scenario.get_aircraft(attacker_id)
-                            for attacker_id in mission.assigned_unit_ids
-                        ],
-                    )
-                )
-
-                if len(attackers) < 1:
-                    is_mission_ongoing = False
-
-                all_attackers_expended = all(
-                    attacker.get_total_weapon_quantity() == 0 for attacker in attackers
-                )
-
-                if all_attackers_expended:
-                    is_mission_ongoing = False
-
-                if self.current_scenario.check_side_doctrine(
-                    mission.side_id, DoctrineType.AIRCRAFT_RTB_WHEN_STRIKE_MISSION_COMPLETE
-                ) and not is_mission_ongoing:
-                    for attacker in attackers:
-                        self.aircraft_return_to_base(attacker.id)
-
-                return is_mission_ongoing
-            else:
-                return True
-
-        self.current_scenario.missions = list(
-            filter(mission_filter, self.current_scenario.missions)
-        )
 
     def update_units_on_strike_mission(self):
         active_strike_missions = list(
@@ -702,7 +806,8 @@ class Game:
                 aircraft
             )
             if aircraft.current_fuel <= 0:
-                self.remove_aircraft(aircraft.id)
+                process_fuel_exhaustion(self.current_scenario, aircraft)
+                self.process_target_destruction(aircraft)
             elif (
                 self.current_scenario.check_side_doctrine(
                     aircraft.side_id, DoctrineType.AIRCRAFT_RTB_WHEN_OUT_OF_RANGE
@@ -752,7 +857,8 @@ class Game:
                 )
             ship.current_fuel -= ship.fuel_rate / 3600
             if ship.current_fuel <= 0:
-                self.current_scenario.ships.remove(ship)
+                process_fuel_exhaustion(self.current_scenario, ship)
+                self.process_target_destruction(ship)
 
     def update_onboard_weapon_positions(self) -> None:
         for aircraft in self.current_scenario.aircraft:
@@ -775,12 +881,18 @@ class Game:
         self.ship_auto_defense()
         self.aircraft_air_to_air_engagement()
 
+        self.clear_completed_patrol_missions()
         self.update_units_on_patrol_mission()
+        self.update_patrol_mission_scoring()
         self.clear_completed_strike_missions()
         self.update_units_on_strike_mission()
 
-        for weapon in self.current_scenario.weapons:
-            weapon_engagement(self.current_scenario, weapon)
+        for weapon in list(self.current_scenario.weapons):
+            weapon_engagement(
+                self.current_scenario,
+                weapon,
+                self.process_target_destruction,
+            )
 
         self.update_all_aircraft_position()
         self.update_all_ship_position()
@@ -807,9 +919,9 @@ class Game:
     def step(self, action) -> Tuple[Scenario, float, bool, bool, None]:
         self.handle_action(action)
         self.update_game_state()
-        terminated = False
+        terminated = self.check_winning_conditions()
         truncated = self.check_game_ended()
-        reward = 0
+        reward = 0 # should be changed for agent
         observation = self._get_observation()
         info = self._get_info()
         return observation, reward, terminated, truncated, info
@@ -820,9 +932,6 @@ class Game:
         self.current_side_id = self.current_scenario.sides[0].id
         self.scenario_paused = True
         self.current_attacker_id = ""
-
-    def check_game_ended(self) -> bool:
-        return False
 
     def export_scenario(self) -> dict:
         scenario_json_string = self.current_scenario.toJson()
@@ -850,6 +959,11 @@ class Game:
                     id=side["id"],
                     name=side["name"],
                     total_score=side["totalScore"],
+                    casualties=side["casualties"],
+                    missions_assigned=side["missionsAssigned"],
+                    missions_completed=side["missionsCompleted"],
+                    missions_succeeded=side["missionsSucceeded"],
+                    missions_failed=side["missionsFailed"],
                     color=side["color"],
                 )
             )
@@ -884,6 +998,7 @@ class Game:
                     aircraft_weapons.append(
                         Weapon(
                             id=weapon["id"],
+                            launcher_id=weapon["launcherId"],
                             name=weapon["name"],
                             side_id=weapon["sideId"],
                             class_name=weapon["className"],
@@ -939,6 +1054,7 @@ class Game:
                         aircraft_weapons.append(
                             Weapon(
                                 id=weapon["id"],
+                                launcher_id=weapon["launcherId"],
                                 name=weapon["name"],
                                 side_id=weapon["sideId"],
                                 class_name=weapon["className"],
@@ -1004,6 +1120,7 @@ class Game:
                     facility_weapons.append(
                         Weapon(
                             id=weapon["id"],
+                            launcher_id=weapon["launcherId"],
                             name=weapon["name"],
                             side_id=weapon["sideId"],
                             class_name=weapon["className"],
@@ -1042,6 +1159,7 @@ class Game:
             loaded_scenario.weapons.append(
                 Weapon(
                     id=weapon["id"],
+                    launcher_id=weapon["launcherId"],
                     name=weapon["name"],
                     side_id=weapon["sideId"],
                     class_name=weapon["className"],
@@ -1071,6 +1189,7 @@ class Game:
                         aircraft_weapons.append(
                             Weapon(
                                 id=weapon["id"],
+                                launcher_id=weapon["launcherId"],
                                 name=weapon["name"],
                                 side_id=weapon["sideId"],
                                 class_name=weapon["className"],
@@ -1120,6 +1239,7 @@ class Game:
                     ship_weapons.append(
                         Weapon(
                             id=weapon["id"],
+                            launcher_id=weapon["launcherId"],
                             name=weapon["name"],
                             side_id=weapon["sideId"],
                             class_name=weapon["className"],
@@ -1197,6 +1317,8 @@ class Game:
                             side_id=mission["sideId"],
                             assigned_unit_ids=mission["assignedUnitIds"],
                             assigned_area=assigned_area,
+                            creation_time=mission["creationTime"],
+                            time_limit=mission["timeLimit"],
                             active=mission["active"],
                         )
                     )
@@ -1218,11 +1340,16 @@ class Game:
     def start_recording(self):
         self.recorder.start_recording(self.current_scenario)
 
-    def record_step(self, force: bool = False):
+    def record_step(self, limit_flag: bool = True, force: bool = False):
         if self.recorder.should_record(self.current_scenario.current_time) or force:
             self.recorder.record_step(
-                json.dumps(self.export_scenario()), self.current_scenario.current_time
+                json.dumps(self.export_scenario()), 
+                self.current_scenario.current_time,
+                limit_flag
             )
 
     def export_recording(self):
         self.recorder.export_recording(self.current_scenario.current_time)
+
+    def export_recourse_recording(self, has_game_ended: bool):
+        self.recorder.export_recourse_recording(has_game_ended, self.current_scenario.current_time)

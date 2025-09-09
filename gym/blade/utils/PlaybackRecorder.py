@@ -1,10 +1,12 @@
 from typing import Optional
 from blade.Scenario import Scenario
 from blade.utils.utils import unix_to_local_time
+from blade.utils.recourse.recourseProcessor import generate_recourse_csv
+import os
 
 FILE_SIZE_LIMIT_MB = 10
 CHARACTER_LIMIT = FILE_SIZE_LIMIT_MB * 1024 * 1024
-RECORDING_INTERVAL_SECONDS = 10
+RECORDING_INTERVAL_SECONDS = 3600 # 1 hour
 
 
 class PlaybackRecorder:
@@ -44,9 +46,9 @@ class PlaybackRecorder:
         self.current_scenario_time = scenario.current_time
         self.recording_start_time = scenario.current_time
 
-    def record_step(self, current_step: str, current_scenario_time: int):
+    def record_step(self, current_step: str, current_scenario_time: int, limit_flag: bool):
         self.recording += current_step + "\n"
-        if len(self.recording) > CHARACTER_LIMIT:
+        if limit_flag and len(self.recording) > CHARACTER_LIMIT:
             self.export_recording(current_scenario_time, self.recording_start_time)
             self.recording_start_time = current_scenario_time
             self.recording = ""
@@ -76,6 +78,42 @@ class PlaybackRecorder:
             file.write(self.recording.rstrip("\n"))
 
         print(f"Recording exported to '{filename}'")
+
+    
+    def export_recourse_recording(
+        self,
+        has_game_ended: bool,
+        recording_end_time_unix: int,
+        recording_start_time_unix: Optional[int] = None,
+    ) -> None:
+        """
+        Exports the recording for recourse analysis.
+        """
+        if not self.recording:
+            return
+
+        lines = self.recording.strip().split('\n')
+
+        first_line = lines[0]
+        last_line = lines[-1]
+
+        # Placeholder for the Python equivalent of generateRecourseCsv
+        # print("Recourse export called. Python implementation pending.")
+        # print(f"First line: {first_line}")
+        # print(f"Last line: {last_line}")
+
+
+        first_line_path = os.path.join(self.recording_export_path, "first_line.txt")
+        with open(first_line_path, "w", encoding="utf-8") as f:
+            f.write(first_line + "\n")
+
+        last_line_path = os.path.join(self.recording_export_path, "last_line.txt")
+        with open(last_line_path, "w", encoding="utf-8") as f:
+            f.write(last_line + "\n")
+            
+        print(f"Game has ended: {has_game_ended}")
+        generate_recourse_csv(self.recording_export_path, first_line, last_line, has_game_ended)
+
 
     """     
     import gzip

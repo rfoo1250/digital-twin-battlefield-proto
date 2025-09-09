@@ -7,6 +7,7 @@ class Weapon:
     def __init__(
         self,
         id: str,
+        launcher_id: str,
         name: str,
         side_id: str,
         class_name: str,
@@ -29,6 +30,7 @@ class Weapon:
         current_quantity: int = 0,
     ):
         self.id = id
+        self.launcher_id = launcher_id
         self.name = name
         self.side_id = side_id
         self.class_name = class_name
@@ -49,11 +51,14 @@ class Weapon:
         self.side_color = convert_color_name_to_side_color(side_color)
 
     def get_engagement_range(self) -> float:
+        if self.fuel_rate == 0:
+            return float('inf') # Or handle as appropriate, maybe based on range
         return self.speed * (self.current_fuel / self.fuel_rate)
 
     def to_dict(self):
         return {
             "id": str(self.id),
+            "launcher_id": str(self.launcher_id),
             "name": self.name,
             "side_id": str(self.side_id),
             "class_name": self.class_name,
@@ -66,7 +71,7 @@ class Weapon:
             "max_fuel": self.max_fuel,
             "fuel_rate": self.fuel_rate,
             "range": self.range,
-            "target_id": str(self.target_id),
+            "target_id": str(self.target_id) if self.target_id else None,
             "lethality": self.lethality,
             "max_quantity": self.max_quantity,
             "current_quantity": self.current_quantity,

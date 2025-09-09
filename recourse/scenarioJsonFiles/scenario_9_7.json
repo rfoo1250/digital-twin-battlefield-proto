@@ -1,0 +1,213 @@
+{
+  "currentScenario": {
+    "id": "88e6ac10-07e9-4d97-a882-65bc3ce9547a",
+    "name": "New Scenario 6",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 3,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "ca1d3898-c019-4bf9-8a29-a4282ff17fec",
+        "name": "F-14 Tomcat #2939",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-14 Tomcat",
+        "latitude": 35.436641402726664,
+        "longitude": -119.95563683731406,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "73a1aa24-4392-48f1-b3ca-ccc064bd8eef",
+        "name": "C-12 Huron #2799",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "C-12 Huron",
+        "latitude": 35.85378587856923,
+        "longitude": -119.96990135072245,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 246,
+        "currentFuel": 4502,
+        "maxFuel": 4502,
+        "fuelRate": 2010,
+        "range": 30,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "92aab90f-795a-4f4b-8d3b-0a2f4f31a429",
+        "name": "B-1B Lancer #3440",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "B-1B Lancer",
+        "latitude": 36.314718576027474,
+        "longitude": -120.09114747011324,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 782,
+        "currentFuel": 265274,
+        "maxFuel": 265274,
+        "fuelRate": 33500,
+        "range": 80,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "aefb1da6-76d0-43d5-b760-cd930c9f36c0",
+        "name": "F-4 Phantom II #3878",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-4 Phantom II",
+        "latitude": 36.8756673741276,
+        "longitude": -120.09114747011324,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1217,
+        "currentFuel": 13890,
+        "maxFuel": 13890,
+        "fuelRate": 6700,
+        "range": 50,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "2545c35c-9df5-4672-967c-f275bce0c2c1",
+        "name": "B-52 Stratofortress #3227",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "B-52 Stratofortress",
+        "latitude": 37.468223550632516,
+        "longitude": -121.71014872452982,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 565,
+        "currentFuel": 312197,
+        "maxFuel": 312197,
+        "fuelRate": 33500,
+        "range": 100,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "b3f941d8-a88a-40b3-a870-e38213ef8e97",
+        "name": "F/A-18 Hornet #1385",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F/A-18 Hornet",
+        "latitude": 37.64343402962811,
+        "longitude": -120.24805548518331,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "86e8c7b1-11f7-4213-8340-08da421e10de",
+        "name": "F-15 Eagle #1912",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-15 Eagle",
+        "latitude": 38.463064462363235,
+        "longitude": -120.2195268664721,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1629,
+        "currentFuel": 36200,
+        "maxFuel": 36200,
+        "fuelRate": 6700,
+        "range": 120,
+        "route": [], "selected": false, "sideColor": "blue", "weapons": [],
+        "homeBaseId": "", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7",
+        "name": "F/A-18 Hornet #9501", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F/A-18 Hornet", "latitude": 33.55, "longitude": -118.45, "altitude": 10000, "heading": 315, "speed": 1201,
+        "currentFuel": 14400, "maxFuel": 14400, "fuelRate": 6700, "range": 100,
+        "route": [], "selected": false, "sideColor": "red", "weapons": [],
+        "homeBaseId": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5", "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8",
+        "name": "F/A-18 Hornet #9502", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F/A-18 Hornet", "latitude": 33.50, "longitude": -118.40, "altitude": 10000, "heading": 315, "speed": 1201,
+        "currentFuel": 14400, "maxFuel": 14400, "fuelRate": 6700, "range": 100,
+        "route": [], "selected": false, "sideColor": "red", "weapons": [],
+        "homeBaseId": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5", "rtb": false, "targetId": "", "desiredRoute": []
+      }
+    ],
+    "ships": [
+      {
+        "id": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+        "name": "Amphibious Assault Ship #9801", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Amphibious Assault Ship", "latitude": 33.4, "longitude": -118.3, "altitude": 0, "heading": 315, "speed": 21.7,
+        "currentFuel": 8400000, "maxFuel": 8400000, "fuelRate": 200000, "range": 27,
+        "route": [], "selected": false, "sideColor": "red", "weapons": [], "aircraft": [], "desiredRoute": []
+      },
+      {
+        "id": "e1f2a3b4-c5d6-e7f8-a9b0-c1d2e3f4a5b6",
+        "name": "Destroyer #9802", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer", "latitude": 33.45, "longitude": -118.35, "altitude": 0, "heading": 315, "speed": 34.8,
+        "currentFuel": 3500000, "maxFuel": 3500000, "fuelRate": 100000, "range": 1350,
+        "route": [], "selected": false, "sideColor": "red", "weapons": [], "aircraft": [], "desiredRoute": []
+      }
+    ],
+    "facilities": [],
+    "airbases": [],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      { "id": "b4c5d6e7-f8a9-b0c1-d2e3-f4a5b6c7d8e9", "name": "Strike B-1B Lancer", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7"], "assignedTargetIds": ["92aab90f-795a-4f4b-8d3b-0a2f4f31a429"], "active": true },
+      { "id": "a5b6c7d8-e9f0-a1b2-c3d4-e5f6a7b8c9d0", "name": "Strike F-15 Eagle", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8"], "assignedTargetIds": ["86e8c7b1-11f7-4213-8340-08da421e10de"], "active": true },
+      { "id": "96a7b8c9-d0e1-f2a3-b4c5-d6e7f8a9b0c1", "name": "Naval Intercept", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["e1f2a3b4-c5d6-e7f8-a9b0-c1d2e3f4a5b6"], "assignedTargetIds": ["b3f941d8-a88a-40b3-a870-e38213ef8e97"], "active": true }
+    ],
+    "relationships": {
+      "hostiles": { "a3a34644-5abe-459b-bf05-5e9cf643b47f": ["e6f0ae76-9d7d-4520-bc86-15e891523615"], "e6f0ae76-9d7d-4520-bc86-15e891523615": ["a3a34644-5abe-459b-bf05-5e9cf643b47f"] },
+      "allies": { "a3a34644-5abe-459b-bf05-5e9cf643b47f": [], "e6f0ae76-9d7d-4520-bc86-15e891523615": [] }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": { "Aircraft attack hostile aircraft": true, "Aircraft chase hostile aircraft": true, "Aircraft RTB when out of range of homebase": false, "Aircraft RTB when strike mission complete": false, "SAMs attack hostile aircraft": true, "Ships attack hostile aircraft": true },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": { "Aircraft attack hostile aircraft": true, "Aircraft chase hostile aircraft": true, "Aircraft RTB when out of range of homebase": false, "Aircraft RTB when strike mission complete": false, "SAMs attack hostile aircraft": true, "Ships attack hostile aircraft": true }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [0,0],
+    "currentCameraCenter": [-28.026647139596086, 6.417724587487484],
+    "defaultZoom": 5,
+    "currentCameraZoom": 5.001735148595708
+  }
+}

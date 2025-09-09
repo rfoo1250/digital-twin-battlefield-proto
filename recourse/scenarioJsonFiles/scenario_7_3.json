@@ -1,0 +1,346 @@
+{
+  "currentScenario": {
+    "id": "d43e7162-3faa-4e09-ace4-49d101d3d307",
+    "name": "Gulf Fury",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "fa-18-hornet-01",
+        "name": "F/A-18 Hornet #201",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F/A-18 Hornet",
+        "latitude": 25.05,
+        "longitude": -90.0,
+        "altitude": 10000,
+        "heading": 0,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "homeBaseId": "blue-carrier-01",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "fa-18-hornet-02",
+        "name": "F/A-18 Hornet #202",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F/A-18 Hornet",
+        "latitude": 24.95,
+        "longitude": -90.0,
+        "altitude": 10000,
+        "heading": 0,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "homeBaseId": "blue-carrier-01",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "f-16-falcon-01",
+        "name": "F-16 Fighting Falcon #501",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-16 Fighting Falcon",
+        "latitude": 22.5,
+        "longitude": -88.0,
+        "altitude": 10000,
+        "heading": 315,
+        "speed": 1303,
+        "currentFuel": 12000,
+        "maxFuel": 12000,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "red-airbase-yucatan",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "f-16-falcon-02",
+        "name": "F-16 Fighting Falcon #502",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-16 Fighting Falcon",
+        "latitude": 22.6,
+        "longitude": -87.9,
+        "altitude": 10000,
+        "heading": 315,
+        "speed": 1303,
+        "currentFuel": 12000,
+        "maxFuel": 12000,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "red-airbase-yucatan",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [
+      {
+        "id": "blue-carrier-01",
+        "name": "CVN BLUE #78",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aircraft Carrier",
+        "latitude": 25.0,
+        "longitude": -90.0,
+        "altitude": 0,
+        "heading": 90,
+        "speed": 25,
+        "currentFuel": 25200000,
+        "maxFuel": 25200000,
+        "fuelRate": 1000000,
+        "range": 27,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": []
+      },
+      {
+        "id": "blue-destroyer-01",
+        "name": "DDG BLUE #115",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Destroyer",
+        "latitude": 25.1,
+        "longitude": -90.2,
+        "altitude": 0,
+        "heading": 90,
+        "speed": 28,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": []
+      },
+      {
+        "id": "blue-destroyer-02",
+        "name": "DDG BLUE #116",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Destroyer",
+        "latitude": 24.9,
+        "longitude": -89.8,
+        "altitude": 0,
+        "heading": 90,
+        "speed": 28,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": []
+      },
+      {
+        "id": "red-destroyer-01",
+        "name": "DDG RED #201",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer",
+        "latitude": 23.0,
+        "longitude": -89.0,
+        "altitude": 0,
+        "heading": 315,
+        "speed": 30,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": []
+      },
+      {
+        "id": "red-corvette-01",
+        "name": "FSG RED #301",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Corvette",
+        "latitude": 23.2,
+        "longitude": -89.2,
+        "altitude": 0,
+        "heading": 315,
+        "speed": 26,
+        "currentFuel": 1400000,
+        "maxFuel": 1400000,
+        "fuelRate": 60000,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": []
+      },
+      {
+        "id": "red-corvette-02",
+        "name": "FSG RED #302",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Corvette",
+        "latitude": 22.8,
+        "longitude": -88.8,
+        "altitude": 0,
+        "heading": 315,
+        "speed": 26,
+        "currentFuel": 1400000,
+        "maxFuel": 1400000,
+        "fuelRate": 60000,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": []
+      }
+    ],
+    "facilities": [],
+    "airbases": [
+      {
+        "id": "red-airbase-yucatan",
+        "name": "Yucatan Air Base",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 21.0,
+        "longitude": -89.6,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "blue-sea-control-mission",
+        "name": "Sea Control",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "blue-destroyer-01",
+          "blue-destroyer-02",
+          "fa-18-hornet-01",
+          "fa-18-hornet-02"
+        ],
+        "assignedTargetIds": [
+          "red-destroyer-01"
+        ],
+        "active": true
+      },
+      {
+        "id": "red-anti-carrier-strike",
+        "name": "Anti-Carrier Strike",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "red-destroyer-01",
+          "red-corvette-01",
+          "red-corvette-02",
+          "f-16-falcon-01",
+          "f-16-falcon-02"
+        ],
+        "assignedTargetIds": [
+          "blue-carrier-01"
+        ],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      -90,
+      24
+    ],
+    "currentCameraCenter": [
+      -88.5,
+      23.5
+    ],
+    "defaultZoom": 6,
+    "currentCameraZoom": 6.5
+  }
+}

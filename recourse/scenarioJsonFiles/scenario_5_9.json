@@ -1,0 +1,339 @@
+{
+  "currentScenario": {
+    "id": "7324f17b-a107-4726-ba4a-984bea1e2938",
+    "name": "New Scenario",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 2,
+        "missionsCompleted": 2,
+        "missionsSucceeded": 0,
+        "missionsFailed": 2,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "d244495e-95f5-413c-9959-c40e0ff26b4a",
+        "name": "B-2 Spirit #3698",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "B-2 Spirit",
+        "latitude": 30.89676608353969,
+        "longitude": -89.20265435863082,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "453b63c3-df82-4327-bd6d-3c26ce8799ba",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.8,
+            "maxQuantity": 16,
+            "currentQuantity": 16
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "8f8b7c6a-5d4e-3c2b-1a98-f7e6d5c4b3a2",
+        "name": "B-1B Lancer #3301",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-1B Lancer",
+        "latitude": 28.5,
+        "longitude": -84.0,
+        "altitude": 10000,
+        "heading": 160,
+        "speed": 782,
+        "currentFuel": 200000,
+        "maxFuel": 265274,
+        "fuelRate": 33500,
+        "range": 80,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "7e6d5c4b-3a21-9876-5432-f1e9d8c7b6a5",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 160,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.8,
+            "maxQuantity": 24,
+            "currentQuantity": 0
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": true,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "6d5c4b3a-2109-8765-4321-e9d8c7b6a5f4",
+        "name": "F-15 Eagle #4402",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-15 Eagle",
+        "latitude": 28.7,
+        "longitude": -84.5,
+        "altitude": 10000,
+        "heading": 165,
+        "speed": 1629,
+        "currentFuel": 25000,
+        "maxFuel": 36200,
+        "fuelRate": 6700,
+        "range": 120,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "5c4b3a21-0987-6543-2109-d8c7b6a5f4e3",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 165,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 0
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": true,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [
+      {
+        "id": "eb412fd4-8bd8-4763-933b-d4df04b09c6d",
+        "name": "THAAD #1339",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "THAAD",
+        "latitude": 32.52325442864674,
+        "longitude": -86.75846337682171,
+        "altitude": 0,
+        "range": 200,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "f68c5863-ec80-40c3-b379-a56d116bb567",
+            "launcherId": "None",
+            "name": "MIM-104 Patriot",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "MIM-104 Patriot",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 3966,
+            "currentFuel": 1543,
+            "maxFuel": 1543,
+            "fuelRate": 300,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.9,
+            "maxQuantity": 8,
+            "currentQuantity": 8
+          }
+        ]
+      },
+      {
+        "id": "4b3a2109-8765-4321-0987-c7b6a5f4e3d2",
+        "name": "S-300V4 #5501",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "S-300V4",
+        "latitude": 29.18,
+        "longitude": -83.07,
+        "altitude": 0,
+        "range": 200,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "3a210987-6543-2109-8765-b6a5f4e3d2c1",
+            "launcherId": "None",
+            "name": "9M96 (S-300V4)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "9M96 (S-300V4)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2644,
+            "currentFuel": 1000,
+            "maxFuel": 1000,
+            "fuelRate": 200,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.85,
+            "maxQuantity": 4,
+            "currentQuantity": 1
+          }
+        ]
+      }
+    ],
+    "airbases": [
+      {
+        "id": "c6da1376-cbe2-47f6-863f-17d2eb450283",
+        "name": "Naval Air Station Pensacola #685",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Airfield",
+        "latitude": 30.3501,
+        "longitude": -87.3095,
+        "altitude": 0,
+        "sideColor": "blue",
+        "aircraft": []
+      },
+      {
+        "id": "fa41cc32-71e6-4d47-9909-d23521cd5e30",
+        "name": "Eglin Air Force Base #2154",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Airfield",
+        "latitude": 30.4833,
+        "longitude": -86.5254,
+        "altitude": 0,
+        "sideColor": "blue",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "21098765-4321-0987-6543-a5f4e3d2c1b9",
+        "name": "Strike Mission #801",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": ["8f8b7c6a-5d4e-3c2b-1a98-f7e6d5c4b3a2"],
+        "assignedTargetIds": ["fa41cc32-71e6-4d47-9909-d23521cd5e30"],
+        "active": false
+      },
+      {
+        "id": "09876543-2109-8765-4321-f4e3d2c1b9a8",
+        "name": "Escort Mission #802",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": ["6d5c4b3a-2109-8765-4321-e9d8c7b6a5f4"],
+        "assignedTargetIds": ["c6da1376-cbe2-47f6-863f-17d2eb450283"],
+        "active": false
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -84.35161665999222,
+      31.32433384418873
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 5.986284158814128
+  }
+}
+

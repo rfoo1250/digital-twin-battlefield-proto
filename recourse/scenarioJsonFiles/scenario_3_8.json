@@ -1,0 +1,271 @@
+{
+  "currentScenario": {
+    "id": "348a0a1e-e4a5-40eb-b972-506a7f392d08",
+    "name": "Stealth Bomber Intercept",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 2,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+        "name": "B-2 Spirit #9001",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-2 Spirit",
+        "latitude": 35.2,
+        "longitude": -114.5,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 225,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.8,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          }
+        ],
+        "homeBaseId": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+        "name": "F-22 Raptor #3033",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-22 Raptor",
+        "latitude": 35.25,
+        "longitude": -114.45,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 1303,
+        "currentFuel": 18000,
+        "maxFuel": 18000,
+        "fuelRate": 6700,
+        "range": 150,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9g",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 225,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 6,
+            "currentQuantity": 6
+          }
+        ],
+        "homeBaseId": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [
+      {
+        "id": "34963375-14a8-4807-8c38-95a5faed4b45",
+        "name": "Aster 30 #4757",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aster 30",
+        "latitude": 33.37405406291275,
+        "longitude": -113.36829353167052,
+        "altitude": 0,
+        "range": 50,
+        "sideColor": "blue",
+        "weapons": []
+      },
+      {
+        "id": "42e8a182-9245-4a70-85bf-89124b5a1696",
+        "name": "Aster 30 #1442",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aster 30",
+        "latitude": 33.511232771518934,
+        "longitude": -110.650528721222,
+        "altitude": 0,
+        "range": 50,
+        "sideColor": "blue",
+        "weapons": []
+      },
+      {
+        "id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b",
+        "name": "S-500 Prometey #7707",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "S-500 Prometey",
+        "latitude": 36.2,
+        "longitude": -115.0,
+        "altitude": 0,
+        "range": 200,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c",
+            "launcherId": "None",
+            "name": "77N6 (S-500 Prometey)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "77N6 (S-500 Prometey)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 4627,
+            "currentFuel": 2000,
+            "maxFuel": 2000,
+            "fuelRate": 500,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.9,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          }
+        ]
+      }
+    ],
+    "airbases": [
+      {
+        "id": "5f44a965-eae3-4938-967d-774937a7dcc2",
+        "name": "Luke Air Force Base #1926",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Airfield",
+        "latitude": 33.5386,
+        "longitude": -112.358,
+        "altitude": 0,
+        "sideColor": "blue",
+        "aircraft": []
+      },
+      {
+        "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
+        "name": "Nellis Air Force Base",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 36.236,
+        "longitude": -115.034,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d",
+        "name": "Strike Eastern SAM",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": ["1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"],
+        "assignedTargetIds": ["42e8a182-9245-4a70-85bf-89124b5a1696"],
+        "active": true
+      },
+      {
+        "id": "8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e",
+        "name": "Escort Spirit",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": ["3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f"],
+        "assignedTargetIds": [],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": ["e6f0ae76-9d7d-4520-bc86-15e891523615"],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": ["a3a34644-5abe-459b-bf05-5e9cf643b47f"]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [0, 0],
+    "currentCameraCenter": [-113.5, 34.5],
+    "defaultZoom": 5,
+    "currentCameraZoom": 7
+  }
+}

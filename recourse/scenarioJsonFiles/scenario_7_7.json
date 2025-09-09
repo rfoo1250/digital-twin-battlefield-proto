@@ -1,0 +1,215 @@
+{
+  "currentScenario": {
+    "id": "7b2b1a3d-4e8c-4f1e-8b1a-9e7f5d3a2b1c",
+    "name": "Operation Serpent's Coil",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "3e8a4b1d-2c7b-4d9a-8f1e-7b3d5c1a9e8f",
+        "name": "F/A-18 Hornet #601",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F/A-18 Hornet",
+        "latitude": 23.5,
+        "longitude": -82.0,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "b1a0c9d8-5f4e-4c3b-8a1e-7f6d5c4b3a2d",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "d9c7b6a5-4e3d-4c2b-8a1e-7f6d5c4b3a2d",
+        "name": "F/A-18 Hornet #602",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F/A-18 Hornet",
+        "latitude": 23.4,
+        "longitude": -81.9,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "b1a0c9d8-5f4e-4c3b-8a1e-7f6d5c4b3a2d",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [
+      {
+        "id": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+        "name": "Amphibious Assault Ship #1101",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Amphibious Assault Ship",
+        "latitude": 24.5,
+        "longitude": -84.0,
+        "altitude": 0,
+        "heading": 180,
+        "speed": 21.7,
+        "currentFuel": 8400000,
+        "maxFuel": 8400000,
+        "fuelRate": 200000,
+        "range": 27,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      },
+      {
+        "id": "f9e8d7c6-5b4a-3d2c-1b0a-9e8f7d6c5b4a",
+        "name": "Frigate #2205",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Frigate",
+        "latitude": 24.6,
+        "longitude": -84.1,
+        "altitude": 0,
+        "heading": 180,
+        "speed": 30.4,
+        "currentFuel": 2800000,
+        "maxFuel": 2800000,
+        "fuelRate": 80000,
+        "range": 150,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      }
+    ],
+    "facilities": [],
+    "airbases": [
+      {
+        "id": "b1a0c9d8-5f4e-4c3b-8a1e-7f6d5c4b3a2d",
+        "name": "San Antonio de los Baños Air Base",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 22.871,
+        "longitude": -82.509,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "c8b9c5ba-3af7-4094-add0-0125b92a718a",
+        "name": "Naval Strike Serpent",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "3e8a4b1d-2c7b-4d9a-8f1e-7b3d5c1a9e8f",
+          "d9c7b6a5-4e3d-4c2b-8a1e-7f6d5c4b3a2d"
+        ],
+        "assignedTargetIds": [
+          "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
+        ],
+        "active": true
+      },
+      {
+        "id": "cff2647a-299f-4636-b251-314db156380e",
+        "name": "Freedom of Navigation",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+          "f9e8d7c6-5b4a-3d2c-1b0a-9e8f7d6c5b4a"
+        ],
+        "assignedTargetIds": [],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -83.0,
+      24.0
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 6
+  }
+}

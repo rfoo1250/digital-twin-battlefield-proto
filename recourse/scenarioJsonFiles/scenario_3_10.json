@@ -1,0 +1,198 @@
+{
+  "currentScenario": {
+    "id": "348a0a1e-e4a5-40eb-b972-506a7f392d08",
+    "name": "Coordinated Strike",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 3,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "c1d2e3f4-a5b6-c7d8-e9f0-a1b2c3d4e5f6",
+        "name": "B-1B Lancer #7701",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-1B Lancer",
+        "latitude": 34.8,
+        "longitude": -116.5,
+        "altitude": 10000,
+        "heading": 230,
+        "speed": 782,
+        "currentFuel": 265274,
+        "maxFuel": 265274,
+        "fuelRate": 33500,
+        "range": 80,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-158 JASSM",
+            "latitude": 0, "longitude": 0, "altitude": 10000, "heading": 230, "speed": 1200,
+            "currentFuel": 18498, "maxFuel": 18498, "fuelRate": 1000, "range": 100,
+            "route": [], "sideColor": "red", "targetId": null, "lethality": 0.8,
+            "maxQuantity": 8, "currentQuantity": 8
+          }
+        ],
+        "homeBaseId": "a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4",
+        "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "e3f4a5b6-c7d8-e9f0-a1b2-c3d4e5f6a7b8",
+        "name": "F-14 Tomcat #3401",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-14 Tomcat",
+        "latitude": 34.85,
+        "longitude": -116.45,
+        "altitude": 10000,
+        "heading": 230,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "f4a5b6c7-d8e9-f0a1-b2c3-d4e5f6a7b8c9",
+            "launcherId": "None",
+            "name": "AIM-54 Phoenix",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-54 Phoenix",
+            "latitude": 0, "longitude": 0, "altitude": 10000, "heading": 230, "speed": 3500,
+            "currentFuel": 1000, "maxFuel": 1000, "fuelRate": 300, "range": 100,
+            "route": [], "sideColor": "red", "targetId": null, "lethality": 0.85,
+            "maxQuantity": 4, "currentQuantity": 4
+          }
+        ],
+        "homeBaseId": "a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4",
+        "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "a5b6c7d8-e9f0-a1b2-c3d4-e5f6a7b8c9d0",
+        "name": "F-14 Tomcat #3402",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-14 Tomcat",
+        "latitude": 34.75,
+        "longitude": -116.55,
+        "altitude": 10000,
+        "heading": 230,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "b6c7d8e9-f0a1-b2c3-d4e5-f6a7b8c9d0e1",
+            "launcherId": "None",
+            "name": "AIM-54 Phoenix",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-54 Phoenix",
+            "latitude": 0, "longitude": 0, "altitude": 10000, "heading": 230, "speed": 3500,
+            "currentFuel": 1000, "maxFuel": 1000, "fuelRate": 300, "range": 100,
+            "route": [], "sideColor": "red", "targetId": null, "lethality": 0.85,
+            "maxQuantity": 4, "currentQuantity": 4
+          }
+        ],
+        "homeBaseId": "a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4",
+        "rtb": false, "targetId": "", "desiredRoute": []
+      },
+      {
+        "id": "c7d8e9f0-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
+        "name": "F/A-18 Hornet #1811",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F/A-18 Hornet",
+        "latitude": 34.0,
+        "longitude": -114.5,
+        "altitude": 10000,
+        "heading": 260,
+        "speed": 1201,
+        "currentFuel": 14400,
+        "maxFuel": 14400,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "d8e9f0a1-b2c3-d4e5-f6a7-b8c9d0e1f2a3",
+            "launcherId": "None",
+            "name": "AGM-84 Harpoon",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-84 Harpoon",
+            "latitude": 0, "longitude": 0, "altitude": 10000, "heading": 260, "speed": 475,
+            "currentFuel": 700, "maxFuel": 700, "fuelRate": 150, "range": 100,
+            "route": [], "sideColor": "red", "targetId": null, "lethality": 0.8,
+            "maxQuantity": 2, "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4",
+        "rtb": false, "targetId": "", "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [
+      { "id": "34963375-14a8-4807-8c38-95a5faed4b45", "name": "Aster 30 #4757", "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f", "className": "Aster 30", "latitude": 33.37405406291275, "longitude": -113.36829353167052, "altitude": 0, "range": 50, "sideColor": "blue", "weapons": [] },
+      { "id": "42e8a182-9245-4a70-85bf-89124b5a1696", "name": "Aster 30 #1442", "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f", "className": "Aster 30", "latitude": 33.511232771518934, "longitude": -110.650528721222, "altitude": 0, "range": 50, "sideColor": "blue", "weapons": [] },
+      { "id": "b8c9d0e1-f2a3-b4c5-d6e7-f8a9b0c1d2e3", "name": "S-400 Triumf #4001", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "className": "S-400 Triumf", "latitude": 34.95, "longitude": -117.9, "altitude": 0, "range": 200, "sideColor": "red", "weapons": [] },
+      { "id": "c9d0e1f2-a3b4-c5d6-e7f8-a9b0c1d2e3f4", "name": "Pantsir-S1 #1011", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "className": "Pantsir-S1", "latitude": 34.88, "longitude": -117.85, "altitude": 0, "range": 10, "sideColor": "red", "weapons": [] }
+    ],
+    "airbases": [
+      { "id": "5f44a965-eae3-4938-967d-774937a7dcc2", "name": "Luke Air Force Base #1926", "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f", "className": "Airfield", "latitude": 33.5386, "longitude": -112.358, "altitude": 0, "sideColor": "blue", "aircraft": [] },
+      { "id": "a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4", "name": "Edwards Air Force Base", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "className": "Airfield", "latitude": 34.9054, "longitude": -117.8839, "altitude": 0, "sideColor": "red", "aircraft": [] }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      { "id": "d0e1f2a3-b4c5-d6e7-f8a9-b0c1d2e3f4a5", "name": "Strike Luke AFB", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["c1d2e3f4-a5b6-c7d8-e9f0-a1b2c3d4e5f6"], "assignedTargetIds": ["5f44a965-eae3-4938-967d-774937a7dcc2"], "active": true },
+      { "id": "e1f2a3b4-c5d6-e7f8-a9b0-c1d2e3f4a5b6", "name": "Escort Lancer", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["e3f4a5b6-c7d8-e9f0-a1b2-c3d4e5f6a7b8", "a5b6c7d8-e9f0-a1b2-c3d4-e5f6a7b8c9d0"], "assignedTargetIds": [], "active": true },
+      { "id": "f2a3b4c5-d6e7-f8a9-b0c1-d2e3f4a5b6c7", "name": "Suppress West SAM", "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615", "assignedUnitIds": ["c7d8e9f0-a1b2-c3d4-e5f6-a7b8c9d0e1f2"], "assignedTargetIds": ["34963375-14a8-4807-8c38-95a5faed4b45"], "active": true }
+    ],
+    "relationships": {
+      "hostiles": { "a3a34644-5abe-459b-bf05-5e9cf643b47f": ["e6f0ae76-9d7d-4520-bc86-15e891523615"], "e6f0ae76-9d7d-4520-bc86-15e891523615": ["a3a34644-5abe-459b-bf05-5e9cf643b47f"] },
+      "allies": { "a3a34644-5abe-459b-bf05-5e9cf643b47f": [], "e6f0ae76-9d7d-4520-bc86-15e891523615": [] }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": { "Aircraft attack hostile aircraft": true, "Aircraft chase hostile aircraft": true, "Aircraft RTB when out of range of homebase": false, "Aircraft RTB when strike mission complete": false, "SAMs attack hostile aircraft": true, "Ships attack hostile aircraft": true },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": { "Aircraft attack hostile aircraft": true, "Aircraft chase hostile aircraft": true, "Aircraft RTB when out of range of homebase": false, "Aircraft RTB when strike mission complete": false, "SAMs attack hostile aircraft": true, "Ships attack hostile aircraft": true }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": { "defaultCenter": [0, 0], "currentCameraCenter": [-115.0, 34.0], "defaultZoom": 5, "currentCameraZoom": 7 }
+}

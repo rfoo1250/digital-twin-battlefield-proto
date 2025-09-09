@@ -1,0 +1,389 @@
+{
+  "currentScenario": {
+    "id": "29e43aad-4acb-4c85-b6b8-6ae30328c4bd",
+    "name": "New Scenario - Shock and Awe",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 3,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "b2a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+        "name": "B-2 Spirit #5501",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-2 Spirit",
+        "latitude": 32.0,
+        "longitude": -75.0,
+        "altitude": 10000,
+        "heading": 235,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "c3b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 235,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "lethality": 0.8,
+            "maxQuantity": 16,
+            "currentQuantity": 16
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9",
+        "name": "B-2 Spirit #5502",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-2 Spirit",
+        "latitude": 32.2,
+        "longitude": -74.8,
+        "altitude": 10000,
+        "heading": 235,
+        "speed": 565,
+        "currentFuel": 166999,
+        "maxFuel": 166999,
+        "fuelRate": 33500,
+        "range": 50,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0",
+            "launcherId": "None",
+            "name": "AGM-158 JASSM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 235,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "lethality": 0.8,
+            "maxQuantity": 16,
+            "currentQuantity": 16
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "f2a3b4c5-d6e7-f8a9-b0c1-d2e3f4a5b6c7",
+        "name": "F-22 Raptor #2201",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-22 Raptor",
+        "latitude": 32.5,
+        "longitude": -75.5,
+        "altitude": 10000,
+        "heading": 235,
+        "speed": 1303,
+        "currentFuel": 18000,
+        "maxFuel": 18000,
+        "fuelRate": 6700,
+        "range": 150,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "a3b4c5d6-e7f8-a9b0-c1d2-e3f4a5b6c7d8",
+        "name": "F-22 Raptor #2202",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-22 Raptor",
+        "latitude": 32.7,
+        "longitude": -75.3,
+        "altitude": 10000,
+        "heading": 235,
+        "speed": 1303,
+        "currentFuel": 18000,
+        "maxFuel": 18000,
+        "fuelRate": 6700,
+        "range": 150,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [
+      {
+        "id": "a05b9137-4a43-460f-a4d4-d537384b208a",
+        "name": "Aircraft Carrier #913",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aircraft Carrier",
+        "latitude": 26.267897674562107,
+        "longitude": -84.13581646216709,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 30.4,
+        "currentFuel": 25200000,
+        "maxFuel": 25200000,
+        "fuelRate": 1000000,
+        "range": 250,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      },
+      {
+        "id": "c43abdef-5d78-4d7b-8a23-cb8c5fe780df",
+        "name": "Aircraft Carrier #3616",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aircraft Carrier",
+        "latitude": 25.631504466169076,
+        "longitude": -94.70953812037499,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 30.4,
+        "currentFuel": 25200000,
+        "maxFuel": 25200000,
+        "fuelRate": 1000000,
+        "range": 250,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      },
+      {
+        "id": "0b7100d5-69c5-47e2-b19e-7707f9f90fd8",
+        "name": "Amphibious Assault Ship #2220",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Amphibious Assault Ship",
+        "latitude": 28.855725177712714,
+        "longitude": -87.80543233423495,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 21.7,
+        "currentFuel": 8400000,
+        "maxFuel": 8400000,
+        "fuelRate": 200000,
+        "range": 250,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      },
+      {
+        "id": "b4c5d6e7-f8a9-b0c1-d2e3-f4a5b6c7d8e9",
+        "name": "Destroyer #8801",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer",
+        "latitude": 23.0,
+        "longitude": -88.0,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 34.8,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      },
+      {
+        "id": "c5d6e7f8-a9b0-c1d2-e3f4-a5b6c7d8e9f0",
+        "name": "Destroyer #8802",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer",
+        "latitude": 23.2,
+        "longitude": -87.8,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 34.8,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
+      }
+    ],
+    "facilities": [
+      {
+        "id": "d6e7f8a9-b0c1-d2e3-f4a5-b6c7d8e9f0a1",
+        "name": "S-500 Prometey #0101",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "S-500 Prometey",
+        "latitude": 23.5,
+        "longitude": -82.0,
+        "altitude": 0,
+        "range": 200,
+        "sideColor": "red",
+        "weapons": []
+      },
+      {
+        "id": "e7f8a9b0-c1d2-e3f4-a5b6-c7d8e9f0a1b2",
+        "name": "S-500 Prometey #0102",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "S-500 Prometey",
+        "latitude": 24.0,
+        "longitude": -81.0,
+        "altitude": 0,
+        "range": 200,
+        "sideColor": "red",
+        "weapons": []
+      }
+    ],
+    "airbases": [],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "miss1-a9b0-c1d2-e3f4-a5b6c7d8e9f0",
+        "name": "Bomber Strike",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "b2a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+          "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9"
+        ],
+        "assignedTargetIds": [
+          "a05b9137-4a43-460f-a4d4-d537384b208a",
+          "0b7100d5-69c5-47e2-b19e-7707f9f90fd8"
+        ],
+        "active": true
+      },
+      {
+        "id": "miss2-b0c1-d2e3-f4a5-b6c7d8e9f0a1",
+        "name": "Naval Strike",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "b4c5d6e7-f8a9-b0c1-d2e3-f4a5b6c7d8e9",
+          "c5d6e7f8-a9b0-c1d2-e3f4-a5b6c7d8e9f0"
+        ],
+        "assignedTargetIds": [
+          "c43abdef-5d78-4d7b-8a23-cb8c5fe780df"
+        ],
+        "active": true
+      },
+      {
+        "id": "miss3-c1d2-e3f4-a5b6-c7d8e9f0a1b2",
+        "name": "Fighter Sweep",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "f2a3b4c5-d6e7-f8a9-b0c1-d2e3f4a5b6c7",
+          "a3b4c5d6-e7f8-a9b0-c1d2-e3f4a5b6c7d8"
+        ],
+        "assignedTargetIds": [],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -89.07597418929295,
+      26.484126931029905
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 5.407506311009856
+  }
+}

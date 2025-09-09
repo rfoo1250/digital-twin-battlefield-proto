@@ -1,0 +1,239 @@
+{
+  "currentScenario": {
+    "id": "348a0a1e-e4a5-40eb-b972-506a7f392d08",
+    "name": "Ground Attack Scenario",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 0,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
+        "name": "A-10C Thunderbolt II #2112",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "A-10C Thunderbolt II",
+        "latitude": 34.0,
+        "longitude": -115.5,
+        "altitude": 10000,
+        "heading": 240,
+        "speed": 366,
+        "currentFuel": 11000,
+        "maxFuel": 11000,
+        "fuelRate": 6700,
+        "range": 20,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "e9d8c7b6-a543-210f-edcb-a9876543210f",
+            "launcherId": "None",
+            "name": "AGM-65 Maverick",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-65 Maverick",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 240,
+            "speed": 600,
+            "currentFuel": 200,
+            "maxFuel": 200,
+            "fuelRate": 120,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "d8c7b6a5-4321-0fed-dcba-9876543210fe",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 240,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
+        "homeBaseId": "c7b6a543-210f-edcb-a987-6543210fedc",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [],
+    "facilities": [
+      {
+        "id": "34963375-14a8-4807-8c38-95a5faed4b45",
+        "name": "Aster 30 #4757",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aster 30",
+        "latitude": 33.37405406291275,
+        "longitude": -113.36829353167052,
+        "altitude": 0,
+        "range": 50,
+        "sideColor": "blue",
+        "weapons": []
+      },
+      {
+        "id": "42e8a182-9245-4a70-85bf-89124b5a1696",
+        "name": "Aster 30 #1442",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Aster 30",
+        "latitude": 33.511232771518934,
+        "longitude": -110.650528721222,
+        "altitude": 0,
+        "range": 50,
+        "sideColor": "blue",
+        "weapons": []
+      },
+      {
+        "id": "b6a54321-0fed-cba9-8765-43210fedcba9",
+        "name": "Buk-M3 #5150",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Buk-M3",
+        "latitude": 34.9,
+        "longitude": -117.88,
+        "altitude": 0,
+        "range": 50,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "a543210f-edcb-a987-6543-210fedcba987",
+            "launcherId": "None",
+            "name": "9M317 (Buk-M3)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "9M317 (Buk-M3)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 1322,
+            "currentFuel": 700,
+            "maxFuel": 700,
+            "fuelRate": 150,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.8,
+            "maxQuantity": 6,
+            "currentQuantity": 6
+          }
+        ]
+      }
+    ],
+    "airbases": [
+      {
+        "id": "5f44a965-eae3-4938-967d-774937a7dcc2",
+        "name": "Luke Air Force Base #1926",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "Airfield",
+        "latitude": 33.5386,
+        "longitude": -112.358,
+        "altitude": 0,
+        "sideColor": "blue",
+        "aircraft": []
+      },
+      {
+        "id": "c7b6a543-210f-edcb-a987-6543210fedc",
+        "name": "Edwards Air Force Base",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 34.9054,
+        "longitude": -117.8839,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
+      }
+    ],
+    "weapons": [],
+    "referencePoints": [],
+    "missions": [
+      {
+        "id": "98765432-10fe-dcba-9876-543210fedcba",
+        "name": "Destroy SAM Target",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": ["f0e9d8c7-b6a5-4321-fedc-ba9876543210"],
+        "assignedTargetIds": ["34963375-14a8-4807-8c38-95a5faed4b45"],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": ["e6f0ae76-9d7d-4520-bc86-15e891523615"],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": ["a3a34644-5abe-459b-bf05-5e9cf643b47f"]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [0, 0],
+    "currentCameraCenter": [-114.5, 33.7],
+    "defaultZoom": 5,
+    "currentCameraZoom": 7
+  }
+}

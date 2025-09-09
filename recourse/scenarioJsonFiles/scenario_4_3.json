@@ -1,0 +1,372 @@
+{
+    "currentScenario": {
+    "id": "440d9a27-9176-425c-a992-14219f273857",
+    "name": "Scenario 4-3",
+    "startTime": 1699073110,
+    "currentTime": 1699073110,
+    "duration": 14400,
+    "endTime": 1699087510,
+    "sides": [
+      {
+        "id": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "name": "BLUE",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 1,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "blue"
+      },
+      {
+        "id": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "name": "RED",
+        "totalScore": 0,
+        "casualties": 0,
+        "missionsAssigned": 3,
+        "missionsCompleted": 0,
+        "missionsSucceeded": 0,
+        "missionsFailed": 0,
+        "color": "red"
+      }
+    ],
+    "timeCompression": 1,
+    "aircraft": [
+      {
+        "id": "55ad87ea-f9f2-4d13-92c3-69ed96f95c88",
+        "name": "F-14 Tomcat #1399",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-14 Tomcat",
+        "latitude": 18.714290635415793,
+        "longitude": -91.60202470687003,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [
+          {
+            "id": "0d57df81-df97-485a-b1fd-932fd652c5e6",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "blue",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "0f6bc382-d848-40ca-9571-b0d58671df9d",
+        "name": "F-14 Tomcat #63",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-14 Tomcat",
+        "latitude": 18.198920553133718,
+        "longitude": -91.10906141043473,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "ab1890b2-2211-459b-b775-4dcaec831e33",
+        "name": "F-14 Tomcat #3675",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "className": "F-14 Tomcat",
+        "latitude": 17.68202191554485,
+        "longitude": -90.4391359106649,
+        "altitude": 10000,
+        "heading": 90,
+        "speed": 1341,
+        "currentFuel": 16200,
+        "maxFuel": 16200,
+        "fuelRate": 6700,
+        "range": 200,
+        "route": [],
+        "selected": false,
+        "sideColor": "blue",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "b2e1c0a9-4f8d-4c7b-8a6d-9e3b1c0a8f7e",
+        "name": "F-16 Fighting Falcon #5501",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-16 Fighting Falcon",
+        "latitude": 24.5,
+        "longitude": -87.0,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 1303,
+        "currentFuel": 12000,
+        "maxFuel": 12000,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "c3f2d1b0-5e9c-4d8a-9b7e-0f4c2d1b9e8f",
+        "name": "F-16 Fighting Falcon #5502",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "F-16 Fighting Falcon",
+        "latitude": 24.6,
+        "longitude": -86.9,
+        "altitude": 10000,
+        "heading": 225,
+        "speed": 1303,
+        "currentFuel": 12000,
+        "maxFuel": 12000,
+        "fuelRate": 6700,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      },
+      {
+        "id": "d4a3e2c1-6f0b-4e99-8c8f-1a5d3e2c0f9a",
+        "name": "B-52 Stratofortress #1021",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "B-52 Stratofortress",
+        "latitude": 25.0,
+        "longitude": -88.0,
+        "altitude": 10000,
+        "heading": 215,
+        "speed": 565,
+        "currentFuel": 312197,
+        "maxFuel": 312197,
+        "fuelRate": 33500,
+        "range": 100,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "e5b4f3d2-7a1c-4f08-9d9a-2b6e4f3d1aa1",
+            "name": "AGM-86 ALCM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-86 ALCM",
+            "lethality": 0.75,
+            "maxQuantity": 12,
+            "currentQuantity": 12
+          }
+        ],
+        "homeBaseId": "",
+        "rtb": false,
+        "targetId": "",
+        "desiredRoute": []
+      }
+    ],
+    "ships": [
+      {
+        "id": "f6c5a4b3-8b2d-4017-aeab-3c7f5a4b2bb2",
+        "name": "Destroyer #DDG-1",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer",
+        "latitude": 22.0,
+        "longitude": -85.0,
+        "speed": 20,
+        "range": 1350,
+        "sideColor": "red"
+      },
+      {
+        "id": "a7d6b5c4-9c3e-4126-bfbc-4d8a6b5c3cc3",
+        "name": "Frigate #FFG-1",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Frigate",
+        "latitude": 21.9,
+        "longitude": -85.2,
+        "speed": 18,
+        "range": 150,
+        "sideColor": "red"
+      }
+    ],
+    "facilities": [],
+    "airbases": [],
+    "weapons": [],
+    "referencePoints": [
+      {
+        "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b",
+        "name": "RP #2885",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 21.090949456378752,
+        "longitude": -90.20253650403463,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "90ce401f-7d94-4e94-99f3-786f7800b193",
+        "name": "RP #3190",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "latitude": 19.943092190594086,
+        "longitude": -90.37317767292653,
+        "altitude": 0,
+        "sideColor": "blue"
+      },
+      {
+        "id": "b8e7c6a5-ad4f-4235-80cd-5e9b7c6a4dd4",
+        "name": "NAV-PATROL-1",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "latitude": 22.5,
+        "longitude": -85.5,
+        "altitude": 0,
+        "sideColor": "red"
+      },
+      {
+        "id": "c9f8d7b6-be5a-4344-91de-6f0c8d7b5ee5",
+        "name": "NAV-PATROL-2",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "latitude": 21.5,
+        "longitude": -84.5,
+        "altitude": 0,
+        "sideColor": "red"
+      }
+    ],
+    "missions": [
+      {
+        "id": "a64d19f9-9e8d-4fd4-a7d6-dab4f4255b84",
+        "name": "Patrol Mission #472",
+        "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+        "assignedUnitIds": [
+          "55ad87ea-f9f2-4d13-92c3-69ed96f95c88",
+          "ab1890b2-2211-459b-b775-4dcaec831e33",
+          "0f6bc382-d848-40ca-9571-b0d58671df9d"
+        ],
+        "assignedArea": [
+          {
+            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b"
+          },
+          {
+            "id": "90ce401f-7d94-4e94-99f3-786f7800b193"
+          }
+        ],
+        "active": true
+      },
+      {
+        "id": "da09e8c7-cf6b-4453-a2ef-7a1d9e8c6ff6",
+        "name": "Naval Patrol",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "f6c5a4b3-8b2d-4017-aeab-3c7f5a4b2bb2",
+          "a7d6b5c4-9c3e-4126-bfbc-4d8a6b5c3cc3"
+        ],
+        "assignedArea": [
+          {
+            "id": "b8e7c6a5-ad4f-4235-80cd-5e9b7c6a4dd4"
+          },
+          {
+            "id": "c9f8d7b6-be5a-4344-91de-6f0c8d7b5ee5"
+          }
+        ],
+        "active": true
+      },
+      {
+        "id": "eb1af9d8-da7c-4562-b3f0-8b2eaf9d7aa7",
+        "name": "Escort",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "b2e1c0a9-4f8d-4c7b-8a6d-9e3b1c0a8f7e",
+          "c3f2d1b0-5e9c-4d8a-9b7e-0f4c2d1b9e8f"
+        ],
+        "escorteeId": "d4a3e2c1-6f0b-4e99-8c8f-1a5d3e2c0f9a",
+        "active": true
+      },
+      {
+        "id": "fc2ba0e9-eb8d-4671-c4a1-9c3fba0e8bb8",
+        "name": "Strike Mission",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "assignedUnitIds": [
+          "d4a3e2c1-6f0b-4e99-8c8f-1a5d3e2c0f9a"
+        ],
+        "assignedTargetIds": [
+          "55ad87ea-f9f2-4d13-92c3-69ed96f95c88"
+        ],
+        "active": true
+      }
+    ],
+    "relationships": {
+      "hostiles": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [
+          "e6f0ae76-9d7d-4520-bc86-15e891523615"
+        ],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": [
+          "a3a34644-5abe-459b-bf05-5e9cf643b47f"
+        ]
+      },
+      "allies": {
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": [],
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": []
+      }
+    },
+    "doctrine": {
+      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+        "Aircraft attack hostile aircraft": true
+      },
+      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+        "Aircraft attack hostile aircraft": true
+      }
+    }
+  },
+  "currentSideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+  "selectedUnitId": "",
+  "mapView": {
+    "defaultCenter": [
+      0,
+      0
+    ],
+    "currentCameraCenter": [
+      -85.2027639204572,
+      20.576771056088745
+    ],
+    "defaultZoom": 5,
+    "currentCameraZoom": 6.077928425918058
+  }
+}
+

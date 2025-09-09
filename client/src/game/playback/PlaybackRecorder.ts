@@ -98,8 +98,8 @@ class PlaybackRecorder {
     recordingStartTimeUnix: number = this.recordingStartTime,
     hasGameEnded: boolean
   ) {
-    console.log("[DEBUG] PlaybackRecorder.ts: exportRecourseRecording() called");
-    console.log("[DEBUG] this.recording.length", this.recording.length);
+    // console.log("[DEBUG] PlaybackRecorder.ts: exportRecourseRecording() called");
+    // console.log("[DEBUG] this.recording.length", this.recording.length);
     if (this.recording.length === 0) {
       return;
     }

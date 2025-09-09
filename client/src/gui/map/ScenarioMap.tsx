@@ -962,7 +962,7 @@ export default function ScenarioMap({
 
   async function handleStopRecordingScenarioClick() {
     game.recordingScenario = false;
-    console.log("[DEBUG] handleStopRecordingScenarioClick hasGameEnded: ", hasGameEnded);
+    // console.log("[DEBUG] handleStopRecordingScenarioClick hasGameEnded: ", hasGameEnded);
     await game.exportRecourseRecording(hasGameEnded);
     // game.exportRecording();
   }
@@ -1092,8 +1092,8 @@ export default function ScenarioMap({
 
       const status = (terminated as boolean || truncated as boolean);
       if (status) {
-        console.log("[DEBUG] Game ended, located in handlePlayGameClick()");
-        console.log("[DEBUG] Info:", { terminated, truncated });
+        // console.log("[DEBUG] Game ended, located in handlePlayGameClick()");
+        // console.log("[DEBUG] Info:", { terminated, truncated });
         setIsGameOver(true);
       }
       gameEnded = status;
@@ -1103,7 +1103,7 @@ export default function ScenarioMap({
     
     // let know that the game has ended
     setHasGameEnded(gameEnded);
-    console.log("[DEBUG] handlePlayGameClick hasGameEnded: ", hasGameEnded);
+    // console.log("[DEBUG] handlePlayGameClick hasGameEnded: ", hasGameEnded);
   }
 
   function stepGameForStepSize(

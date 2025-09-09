@@ -180,7 +180,7 @@ export async function generateRecourseCsv(
   lastLine: string,
   hasGameEnded: boolean
 ) {
-  console.log("[DEBUG] recourseProcessor.ts: generateRecourseCsv() called");
+  // console.log("[DEBUG] recourseProcessor.ts: generateRecourseCsv() called");
   const jsonData = JSON.parse(firstLine);
 
   const { sides, aircraft, ships, facilities, airbases, missions } = jsonData.currentScenario;
@@ -332,7 +332,7 @@ export async function generateRecourseCsv(
   const scenarioResult = jsonResult.currentScenario;
   const sidesResult = scenarioResult.sides;
 
-  console.log("[DEBUG] hasGameEnded", hasGameEnded);
+  // console.log("[DEBUG] hasGameEnded", hasGameEnded);
 
   if (hasGameEnded) {
     // process current outcome from missionSuccessRate and casualty rate

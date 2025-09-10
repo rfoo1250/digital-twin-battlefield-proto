@@ -51,23 +51,6 @@ export default function App() {
   };
   
   return (
-    <div>
-    <h1>Recourse Simulation Runner</h1>
-    <button onClick={handleStartSimulations}>
-    Start All Scenarios
-    </button>
-    <p>Status: {status}</p>
-    </div>
-    );
-  
-  
-  
-  
-}
-
-/*
-  
-  return (
     <Box className="App" sx={{ display: "flex" }}>
     <ScenarioMap
     center={transform(
@@ -82,10 +65,27 @@ export default function App() {
       />
       </Box>
       );
+      
+}
 
 
-  <WelcomePopover
-  open={openWelcomePopover}
-  onClose={() => setOpenWelcomePopover(false)}
-  />
+/*
+
+    return (
+      <div>
+      <h1>Recourse Simulation Runner</h1>
+      <button onClick={handleStartSimulations}>
+      Start All Scenarios
+      </button>
+      <p>Status: {status}</p>
+      </div>
+      );
+    
+    
+    
+    
+    <WelcomePopover
+    open={openWelcomePopover}
+    onClose={() => setOpenWelcomePopover(false)}
+    />
     */

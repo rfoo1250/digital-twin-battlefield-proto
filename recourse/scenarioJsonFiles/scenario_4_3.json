@@ -130,7 +130,7 @@
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "className": "F-16 Fighting Falcon",
         "latitude": 24.5,
-        "longitude": -87.0,
+        "longitude": -87,
         "altitude": 10000,
         "heading": 225,
         "speed": 1303,
@@ -175,8 +175,8 @@
         "name": "B-52 Stratofortress #1021",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "className": "B-52 Stratofortress",
-        "latitude": 25.0,
-        "longitude": -88.0,
+        "latitude": 25,
+        "longitude": -88,
         "altitude": 10000,
         "heading": 215,
         "speed": 565,
@@ -190,9 +190,22 @@
         "weapons": [
           {
             "id": "e5b4f3d2-7a1c-4f08-9d9a-2b6e4f3d1aa1",
+            "launcherId": "None",
             "name": "AGM-86 ALCM",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AGM-86 ALCM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 215,
+            "speed": 490,
+            "currentFuel": 9000,
+            "maxFuel": 9000,
+            "fuelRate": 600,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.75,
             "maxQuantity": 12,
             "currentQuantity": 12
@@ -210,11 +223,21 @@
         "name": "Destroyer #DDG-1",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "className": "Destroyer",
-        "latitude": 22.0,
-        "longitude": -85.0,
-        "speed": 20,
+        "latitude": 22,
+        "longitude": -85,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 34.8,
+        "currentFuel": 3500000,
+        "maxFuel": 3500000,
+        "fuelRate": 100000,
         "range": 1350,
-        "sideColor": "red"
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
       },
       {
         "id": "a7d6b5c4-9c3e-4126-bfbc-4d8a6b5c3cc3",
@@ -223,9 +246,19 @@
         "className": "Frigate",
         "latitude": 21.9,
         "longitude": -85.2,
-        "speed": 18,
+        "altitude": 0,
+        "heading": 0,
+        "speed": 30.4,
+        "currentFuel": 2800000,
+        "maxFuel": 2800000,
+        "fuelRate": 80000,
         "range": 150,
-        "sideColor": "red"
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [],
+        "aircraft": [],
+        "desiredRoute": []
       }
     ],
     "facilities": [],
@@ -281,13 +314,66 @@
         ],
         "assignedArea": [
           {
-            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b"
+            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b",
+            "name": "RP #2885",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 21.090949456378752,
+            "longitude": -90.20253650403463,
+            "altitude": 0,
+            "sideColor": "blue"
           },
           {
-            "id": "90ce401f-7d94-4e94-99f3-786f7800b193"
+            "id": "90ce401f-7d94-4e94-99f3-786f7800b193",
+            "name": "RP #3190",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 19.943092190594086,
+            "longitude": -90.37317767292653,
+            "altitude": 0,
+            "sideColor": "blue"
           }
         ],
-        "active": true
+        "active": true,
+        "patrolAreaGeometry": {
+          "disposed": false,
+          "pendingRemovals_": null,
+          "dispatching_": null,
+          "listeners_": null,
+          "revision_": 1,
+          "ol_uid": "22668",
+          "values_": null,
+          "extent_": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "extentRevision_": -1,
+          "simplifiedGeometryMaxMinSquaredTolerance": 0,
+          "simplifiedGeometryRevision": 0,
+          "layout": "XY",
+          "stride": 2,
+          "ends_": [
+            8
+          ],
+          "flatInteriorPointRevision_": -1,
+          "flatInteriorPoint_": null,
+          "maxDelta_": -1,
+          "maxDeltaRevision_": -1,
+          "orientedRevision_": -1,
+          "orientedFlatCoordinates_": null,
+          "flatCoordinates": [
+            -9732444.467057552,
+            2176974.300344044,
+            -10041300.431890806,
+            2402726.6487803534,
+            -10060296.119920222,
+            2266290.6328933598,
+            -9649426.178013688,
+            2428747.9521795893
+          ]
+        },
+        "creationTime": 1699073110,
+        "timeLimit": 3600
       },
       {
         "id": "da09e8c7-cf6b-4453-a2ef-7a1d9e8c6ff6",
@@ -299,24 +385,27 @@
         ],
         "assignedArea": [
           {
-            "id": "b8e7c6a5-ad4f-4235-80cd-5e9b7c6a4dd4"
+            "id": "b8e7c6a5-ad4f-4235-80cd-5e9b7c6a4dd4",
+            "name": "NAV-PATROL-1",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "latitude": 22.5,
+            "longitude": -85.5,
+            "altitude": 0,
+            "sideColor": "red"
           },
           {
-            "id": "c9f8d7b6-be5a-4344-91de-6f0c8d7b5ee5"
+            "id": "c9f8d7b6-be5a-4344-91de-6f0c8d7b5ee5",
+            "name": "NAV-PATROL-2",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "latitude": 21.5,
+            "longitude": -84.5,
+            "altitude": 0,
+            "sideColor": "red"
           }
         ],
-        "active": true
-      },
-      {
-        "id": "eb1af9d8-da7c-4562-b3f0-8b2eaf9d7aa7",
-        "name": "Escort",
-        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-        "assignedUnitIds": [
-          "b2e1c0a9-4f8d-4c7b-8a6d-9e3b1c0a8f7e",
-          "c3f2d1b0-5e9c-4d8a-9b7e-0f4c2d1b9e8f"
-        ],
-        "escorteeId": "d4a3e2c1-6f0b-4e99-8c8f-1a5d3e2c0f9a",
-        "active": true
+        "active": true,
+        "creationTime": 1699073110,
+        "timeLimit": 3600
       },
       {
         "id": "fc2ba0e9-eb8d-4671-c4a1-9c3fba0e8bb8",
@@ -346,12 +435,22 @@
       }
     },
     "doctrine": {
-      "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
-        "Aircraft attack hostile aircraft": true
-      },
-      "e6f0ae76-9d7d-4520-bc86-15e891523615": {
-        "Aircraft attack hostile aircraft": true
-      }
+        "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
+          "Aircraft attack hostile aircraft": true,
+          "Aircraft chase hostile aircraft": true,
+          "Aircraft RTB when out of range of homebase": false,
+          "Aircraft RTB when strike mission complete": false,
+          "SAMs attack hostile aircraft": true,
+          "Ships attack hostile aircraft": true
+        },
+        "e6f0ae76-9d7d-4520-bc86-15e891523615": {
+          "Aircraft attack hostile aircraft": true,
+          "Aircraft chase hostile aircraft": true,
+          "Aircraft RTB when out of range of homebase": false,
+          "Aircraft RTB when strike mission complete": false,
+          "SAMs attack hostile aircraft": true,
+          "Ships attack hostile aircraft": true
+        }
     }
   },
   "currentSideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",

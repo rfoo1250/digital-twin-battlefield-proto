@@ -1,4 +1,3 @@
-// Does not work, need to be in Vite + React environment
 
 import Game from "@/game/Game"
 import Scenario from "@/game/Scenario"
@@ -56,18 +55,38 @@ function gameLoop(
 
 // const blankScenario = scenarios['blank_scenario'];
 // const armyDemo = scenarios['army_demo_1'];
-export const runAllScenarios = () => {
+export const runAllScenarios = async () => {
   console.log("runAllScenarios starts");
-  for (const [scenarioName, scenarioJson] of Object.entries(scenarios)) {
-    console.log(`--- Running Scenario: ${scenarioName} ---`);
-    console.log("scenarioJson", scenarioJson);
+
+    const chunkSize = 10;
+    const delayBetweenChunks = 1000; // 5 seconds in milliseconds
+    const scenarioEntries = Object.entries(scenarios);
     
-    const game = new Game(blankScenario);
-    game.loadScenario(JSON.stringify(scenarioJson));
-    game.startRecording();
-    const hasGameEnded = gameLoop(game);
-    game.exportRecourseRecording(hasGameEnded); 
-    
-  }
-  console.log("runAllScenarios ends");
+    console.log(`Starting to process ${scenarioEntries.length} scenarios in chunks of ${chunkSize}...`);
+
+    for (let i = 0; i < scenarioEntries.length; i += chunkSize) {
+        // 1. Get the next chunk of scenarios
+        const chunk = scenarioEntries.slice(i, i + chunkSize);
+        console.log(`--- Processing chunk ${Math.floor(i / chunkSize) + 1} (scenarios ${i + 1} to ${i + chunk.length}) ---`);
+
+        // 2. Process each scenario within the chunk sequentially
+        for (const [scenarioName, scenarioJson] of chunk) {
+            console.log(`Running Scenario: ${scenarioName}`);
+            
+            const game = new Game(blankScenario);
+            game.loadScenario(JSON.stringify(scenarioJson));
+            game.startRecording();
+            const hasGameEnded = gameLoop(game);
+            game.exportRecourseRecording(hasGameEnded);
+        }
+        console.log(`--- Finished processing chunk ---`);
+
+        // 3. If this is not the last chunk, pause before starting the next one
+        if (i + chunkSize < scenarioEntries.length) {
+            console.log(`Waiting for ${delayBetweenChunks / 1000} seconds before the next chunk...`);
+            await new Promise(resolve => setTimeout(resolve, delayBetweenChunks));
+        }
+    }
+
+    console.log("runAllScenarios ends");
 };

@@ -60,28 +60,32 @@ export default function App() {
     </div>
     );
   
+    
+    
+  }
   
-  
-  
-}
-
-/*
+  /*
   
   return (
-    <Box className="App" sx={{ display: "flex" }}>
-    <ScenarioMap
-    center={transform(
-      theGame.mapView.currentCameraCenter,
-      "EPSG:4326",
-      DEFAULT_OL_PROJECTION_CODE
-      )}
-      zoom={theGame.mapView.currentCameraZoom}
-      game={theGame}
-      projection={projection}
-      mobileView={isMobile}
-      />
-      </Box>
-      );
+      <Box className="App" sx={{ display: "flex" }}>
+      <ScenarioMap
+      center={transform(
+        theGame.mapView.currentCameraCenter,
+        "EPSG:4326",
+        DEFAULT_OL_PROJECTION_CODE
+        )}
+        zoom={theGame.mapView.currentCameraZoom}
+        game={theGame}
+        projection={projection}
+        mobileView={isMobile}
+        />
+        </Box>
+        );
+  
+
+
+
+
 
 
   <WelcomePopover

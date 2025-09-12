@@ -213,7 +213,7 @@ export default function AirbaseCard(props: Readonly<AirbaseCardProps>) {
             mr: 0.5,
           }}
         />
-        View Aicraft
+        View Aircraft
       </ListItemButton>
       <ListItemButton onClick={_handleTeleportAirbase}>
         <TelegramIcon sx={{ mr: 0.5 }} /> Edit Location

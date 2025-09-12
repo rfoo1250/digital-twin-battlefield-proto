@@ -125,6 +125,18 @@
             "name": "AIM-120 AMRAAM",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 230,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.65,
             "maxQuantity": 6,
             "currentQuantity": 6
@@ -135,6 +147,18 @@
             "name": "AIM-9 Sidewinder",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 230,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.6,
             "maxQuantity": 2,
             "currentQuantity": 2
@@ -169,6 +193,18 @@
             "name": "AIM-120 AMRAAM",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 230,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.65,
             "maxQuantity": 6,
             "currentQuantity": 6
@@ -179,6 +215,18 @@
             "name": "AIM-9 Sidewinder",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 230,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.6,
             "maxQuantity": 2,
             "currentQuantity": 2
@@ -213,6 +261,18 @@
             "name": "AGM-158 JASSM",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 190,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.8,
             "maxQuantity": 16,
             "currentQuantity": 16
@@ -243,6 +303,18 @@
             "name": "HQ-9",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
             "className": "HQ-9",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 2644,
+            "currentFuel": 2000,
+            "maxFuel": 2000,
+            "fuelRate": 400,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
             "lethality": 0.85,
             "maxQuantity": 8,
             "currentQuantity": 8
@@ -275,8 +347,8 @@
         "id": "68647cc7-d865-4afc-959a-730d10414e6f",
         "name": "RP-RED-SWEEP-1",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-        "latitude": 23.0,
-        "longitude": -88.0,
+        "latitude": 23,
+        "longitude": -88,
         "altitude": 0,
         "sideColor": "red"
       },
@@ -284,8 +356,8 @@
         "id": "28eee0e3-2cbd-4ef8-8cdc-71efc1487dcc",
         "name": "RP-RED-SWEEP-2",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-        "latitude": 21.0,
-        "longitude": -89.0,
+        "latitude": 21,
+        "longitude": -89,
         "altitude": 0,
         "sideColor": "red"
       }
@@ -302,13 +374,66 @@
         ],
         "assignedArea": [
           {
-            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b"
+            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b",
+            "name": "RP #2885",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 21.090949456378752,
+            "longitude": -90.20253650403463,
+            "altitude": 0,
+            "sideColor": "blue"
           },
           {
-            "id": "90ce401f-7d94-4e94-99f3-786f7800b193"
+            "id": "90ce401f-7d94-4e94-99f3-786f7800b193",
+            "name": "RP #3190",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 19.943092190594086,
+            "longitude": -90.37317767292653,
+            "altitude": 0,
+            "sideColor": "blue"
           }
         ],
-        "active": true
+        "active": true,
+        "patrolAreaGeometry": {
+          "disposed": false,
+          "pendingRemovals_": null,
+          "dispatching_": null,
+          "listeners_": null,
+          "revision_": 1,
+          "ol_uid": "22668",
+          "values_": null,
+          "extent_": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "extentRevision_": -1,
+          "simplifiedGeometryMaxMinSquaredTolerance": 0,
+          "simplifiedGeometryRevision": 0,
+          "layout": "XY",
+          "stride": 2,
+          "ends_": [
+            8
+          ],
+          "flatInteriorPointRevision_": -1,
+          "flatInteriorPoint_": null,
+          "maxDelta_": -1,
+          "maxDeltaRevision_": -1,
+          "orientedRevision_": -1,
+          "orientedFlatCoordinates_": null,
+          "flatCoordinates": [
+            -9732444.467057552,
+            2176974.300344044,
+            -10041300.431890806,
+            2402726.6487803534,
+            -10060296.119920222,
+            2266290.6328933598,
+            -9649426.178013688,
+            2428747.9521795893
+          ]
+        },
+        "creationTime": 1699073110,
+        "timeLimit": 3600
       },
       {
         "id": "d5ec0727-ccd4-4374-b7c3-bd58e0c6ec48",
@@ -320,10 +445,22 @@
         ],
         "assignedArea": [
           {
-            "id": "68647cc7-d865-4afc-959a-730d10414e6f"
+            "id": "68647cc7-d865-4afc-959a-730d10414e6f",
+            "name": "RP-RED-SWEEP-1",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "latitude": 23,
+            "longitude": -88,
+            "altitude": 0,
+            "sideColor": "red"
           },
           {
-            "id": "28eee0e3-2cbd-4ef8-8cdc-71efc1487dcc"
+            "id": "28eee0e3-2cbd-4ef8-8cdc-71efc1487dcc",
+            "name": "RP-RED-SWEEP-2",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "latitude": 21,
+            "longitude": -89,
+            "altitude": 0,
+            "sideColor": "red"
           }
         ],
         "active": true
@@ -357,11 +494,20 @@
     },
     "doctrine": {
       "a3a34644-5abe-459b-bf05-5e9cf643b47f": {
-        "Aircraft attack hostile aircraft": true
+        "Aircraft attack hostile aircraft": true,
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
       },
       "e6f0ae76-9d7d-4520-bc86-15e891523615": {
         "Aircraft attack hostile aircraft": true,
-        "SAMs attack hostile aircraft": true
+        "Aircraft chase hostile aircraft": true,
+        "Aircraft RTB when out of range of homebase": false,
+        "Aircraft RTB when strike mission complete": false,
+        "SAMs attack hostile aircraft": true,
+        "Ships attack hostile aircraft": true
       }
     }
   },
@@ -380,4 +526,3 @@
     "currentCameraZoom": 6.077928425918058
   }
 }
-

@@ -118,7 +118,30 @@
         "route": [],
         "selected": false,
         "sideColor": "red",
-        "weapons": [],
+        "weapons": [
+          {
+            "id": "e5b4f3d2-7a1c-4f08-9d9a-2b6e4f3d1aa1",
+            "launcherId": "None",
+            "name": "AGM-86 ALCM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AGM-86 ALCM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 240,
+            "speed": 490,
+            "currentFuel": 9000,
+            "maxFuel": 9000,
+            "fuelRate": 600,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.75,
+            "maxQuantity": 12,
+            "currentQuantity": 12
+          }
+        ],
         "homeBaseId": "",
         "rtb": false,
         "targetId": "",
@@ -182,7 +205,30 @@
         "altitude": 0,
         "range": 50,
         "sideColor": "red",
-        "weapons": []
+        "weapons": [
+          {
+            "id": "9M317 (Buk-M3)",
+            "launcherId": "None",
+            "name": "9M317 (Buk-M3)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "9M317 (Buk-M3)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 1322,
+            "currentFuel": 700,
+            "maxFuel": 700,
+            "fuelRate": 150,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.8,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          }
+        ]
       }
     ],
     "airbases": [],
@@ -235,7 +281,8 @@
           "ab1890b2-2211-459b-b775-4dcaec831e33",
           "0f6bc382-d848-40ca-9571-b0d58671df9d"
         ],
-        "assignedArea": [{
+        "assignedArea": [
+          {
             "id": "3b2bc053-0c3f-47b0-bc47-b643651c6c3e",
             "name": "RP #1599",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",

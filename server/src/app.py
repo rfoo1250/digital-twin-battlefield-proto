@@ -10,7 +10,7 @@ CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, '..', '..', 'recourse', 'results')
-CSV_FILENAME = 'algo_recourse_results.csv'
+CSV_FILENAME = 'algo_recourse_results_test.csv'
 CSV_FILE_PATH = os.path.join(DATA_DIR, CSV_FILENAME)
 
 

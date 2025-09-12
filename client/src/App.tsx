@@ -51,41 +51,46 @@ export default function App() {
   };
   
   return (
-    <Box className="App" sx={{ display: "flex" }}>
-    <ScenarioMap
-    center={transform(
-      theGame.mapView.currentCameraCenter,
-      "EPSG:4326",
-      DEFAULT_OL_PROJECTION_CODE
-      )}
-      zoom={theGame.mapView.currentCameraZoom}
-      game={theGame}
-      projection={projection}
-      mobileView={isMobile}
-      />
-      </Box>
-      );
-      
+    <div>
+    <h1>Recourse Simulation Runner</h1>
+    <button onClick={handleStartSimulations}>
+    Start All Scenarios
+    </button>
+    <p>Status: {status}</p>
+    </div>
+    );
+  
+  
+  
+  
 }
 
-
 /*
+  
+  return (
+      <Box className="App" sx={{ display: "flex" }}>
+      <ScenarioMap
+      center={transform(
+        theGame.mapView.currentCameraCenter,
+        "EPSG:4326",
+        DEFAULT_OL_PROJECTION_CODE
+        )}
+        zoom={theGame.mapView.currentCameraZoom}
+        game={theGame}
+        projection={projection}
+        mobileView={isMobile}
+        />
+        </Box>
+        );
+  
 
-    return (
-      <div>
-      <h1>Recourse Simulation Runner</h1>
-      <button onClick={handleStartSimulations}>
-      Start All Scenarios
-      </button>
-      <p>Status: {status}</p>
-      </div>
-      );
-    
-    
-    
-    
-    <WelcomePopover
-    open={openWelcomePopover}
-    onClose={() => setOpenWelcomePopover(false)}
-    />
+
+
+
+
+
+  <WelcomePopover
+  open={openWelcomePopover}
+  onClose={() => setOpenWelcomePopover(false)}
+  />
     */

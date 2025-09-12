@@ -1615,13 +1615,14 @@ export default function Toolbar(props: Readonly<ToolBarProps>) {
           </Stack>
           <Box sx={{ flexGrow: 1 }} />
           <HealthCheck />
-          <Divider
+          {/* Divider and Login & Logout Prompt will not be needed for DT rn */}
+          {/* <Divider
             orientation="vertical"
             variant="middle"
             flexItem
             sx={{ borderColor: COLOR_PALETTE.DARK_GRAY, mr: 1.6 }}
-          />
-          <LoginLogout />
+          /> */}
+          {/* <LoginLogout /> */}
         </MapToolbar>
       </AppBar>
       {/** Side Drawer */}

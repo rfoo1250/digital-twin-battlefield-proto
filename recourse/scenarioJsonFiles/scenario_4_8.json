@@ -107,7 +107,7 @@
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "className": "B-1B Lancer",
         "latitude": 23.5,
-        "longitude": -89.0,
+        "longitude": -89,
         "altitude": 10000,
         "heading": 270,
         "speed": 782,
@@ -141,7 +141,52 @@
         "route": [],
         "selected": false,
         "sideColor": "red",
-        "weapons": [],
+        "weapons": [
+          {
+            "id": "ceb7c18d-e802-4db6-8402-2d1de549ad63",
+            "launcherId": "None",
+            "name": "AIM-120 AMRAAM",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-120 AMRAAM",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 270,
+            "speed": 2600,
+            "currentFuel": 480,
+            "maxFuel": 480,
+            "fuelRate": 350,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.65,
+            "maxQuantity": 4,
+            "currentQuantity": 4
+          },
+          {
+            "id": "0f8946fd-e93c-40c8-b09f-7da16e57050a",
+            "launcherId": "None",
+            "name": "AIM-9 Sidewinder",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "AIM-9 Sidewinder",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 270,
+            "speed": 1500,
+            "currentFuel": 100,
+            "maxFuel": 100,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.6,
+            "maxQuantity": 2,
+            "currentQuantity": 2
+          }
+        ],
         "homeBaseId": "",
         "rtb": false,
         "targetId": "",
@@ -156,11 +201,34 @@
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "className": "S-400 Triumf",
         "latitude": 22.5,
-        "longitude": -88.0,
+        "longitude": -88,
         "altitude": 0,
         "range": 200,
         "sideColor": "red",
-        "weapons": []
+        "weapons": [
+          {
+            "id": "3937c887-1dc2-45c9-8312-7fdac043cdfa",
+            "launcherId": "None",
+            "name": "48N6 (S-400 Triumf)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "48N6 (S-400 Triumf)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 3966,
+            "currentFuel": 1543,
+            "maxFuel": 1543,
+            "fuelRate": 300,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.9,
+            "maxQuantity": 8,
+            "currentQuantity": 8
+          }
+        ]
       },
       {
         "id": "f1e3d5c7-8b0a-4d9c-a2b8-6e4d0c8e2a1b",
@@ -172,7 +240,30 @@
         "altitude": 0,
         "range": 10,
         "sideColor": "red",
-        "weapons": []
+        "weapons": [
+          {
+            "id": "57E6E (Pantsir-S1)",
+            "launcherId": "None",
+            "name": "57E6E (Pantsir-S1)",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "57E6E (Pantsir-S1)",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 0,
+            "heading": 0,
+            "speed": 2313,
+            "currentFuel": 250,
+            "maxFuel": 250,
+            "fuelRate": 80,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.7,
+            "maxQuantity": 12,
+            "currentQuantity": 12
+          }
+        ]
       }
     ],
     "airbases": [],
@@ -225,9 +316,84 @@
           "ab1890b2-2211-459b-b775-4dcaec831e33",
           "0f6bc382-d848-40ca-9571-b0d58671df9d"
         ],
-        "assignedArea": [],
+        "assignedArea": [
+          {
+            "id": "1b36cff1-84f5-46f5-80f8-375b56b4f79b",
+            "name": "RP #2885",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 21.090949456378752,
+            "longitude": -90.20253650403463,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "90ce401f-7d94-4e94-99f3-786f7800b193",
+            "name": "RP #3190",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 19.943092190594086,
+            "longitude": -90.37317767292653,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "4674a9ec-d96f-42bd-afbe-a441309b42bb",
+            "name": "RP #929",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 21.308883216586153,
+            "longitude": -86.68227018692713,
+            "altitude": 0,
+            "sideColor": "blue"
+          },
+          {
+            "id": "3b2bc053-0c3f-47b0-bc47-b643651c6c3e",
+            "name": "RP #1599",
+            "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
+            "latitude": 19.187082687178872,
+            "longitude": -87.4280361660227,
+            "altitude": 0,
+            "sideColor": "blue"
+          }
+        ],
         "active": true,
-        "patrolAreaGeometry": {},
+        "patrolAreaGeometry": {
+          "disposed": false,
+          "pendingRemovals_": null,
+          "dispatching_": null,
+          "listeners_": null,
+          "revision_": 1,
+          "ol_uid": "22668",
+          "values_": null,
+          "extent_": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "extentRevision_": -1,
+          "simplifiedGeometryMaxMinSquaredTolerance": 0,
+          "simplifiedGeometryRevision": 0,
+          "layout": "XY",
+          "stride": 2,
+          "ends_": [
+            8
+          ],
+          "flatInteriorPointRevision_": -1,
+          "flatInteriorPoint_": null,
+          "maxDelta_": -1,
+          "maxDeltaRevision_": -1,
+          "orientedRevision_": -1,
+          "orientedFlatCoordinates_": null,
+          "flatCoordinates": [
+            -9732444.467057552,
+            2176974.300344044,
+            -10041300.431890806,
+            2402726.6487803534,
+            -10060296.119920222,
+            2266290.6328933598,
+            -9649426.178013688,
+            2428747.9521795893
+          ]
+        },
         "creationTime": 1699073110,
         "timeLimit": 3600
       },

@@ -18,6 +18,6 @@ export function incrementCasualty(scenario: Scenario, lostUnit: CasualtyUnit) {
     const side = scenario.getSide(lostUnit.sideId);
     if (side) {
         side.casualties = (side.casualties || 0) + 1;
-        console.log(`${side.name} suffered a casualty. Total Casualties: ${side.casualties}`);
+        // console.log(`${side.name} suffered a casualty. Total Casualties: ${side.casualties}`);
     }
 }

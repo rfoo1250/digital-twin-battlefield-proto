@@ -80,7 +80,6 @@ export const runAllScenarios = async () => {
             game.exportRecourseRecording(hasGameEnded);
         }
         console.log(`--- Finished processing chunk ---`);
-
         // 3. If this is not the last chunk, pause before starting the next one
         if (i + chunkSize < scenarioEntries.length) {
             console.log(`Waiting for ${delayBetweenChunks / 1000} seconds before the next chunk...`);

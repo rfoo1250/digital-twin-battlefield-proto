@@ -10,9 +10,10 @@ CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, '..', '..', 'recourse', 'results')
-CSV_FILENAME = 'algo_recourse_results_test.csv'
+CSV_FILENAME = 'algo_recourse_results.csv'
 CSV_FILE_PATH = os.path.join(DATA_DIR, CSV_FILENAME)
 
+file_counter = 0
 
 @app.route('/headers', methods=['GET'])
 def get_csv_headers():
@@ -66,6 +67,8 @@ def update_csv_data():
     It expects a POST request with a JSON body representing the new row.
     The keys in the JSON object should correspond to the headers in the CSV.
     """
+    # Just a counter
+    global file_counter
     # Get the JSON data from the request body.
     new_row_data = request.get_json()
 
@@ -99,6 +102,7 @@ def update_csv_data():
             writer.writerow(new_row_data)
             csvfile.flush()
         
+        file_counter += 1
         # Return a success response.
         return jsonify({'status': 'success', 'message': 'CSV file updated successfully.'}), 200
 
@@ -109,9 +113,13 @@ def update_csv_data():
 
 @app.route('/health', methods=['GET'])
 def get_server_health():
+    global file_counter
+    files_amount = file_counter
+    file_counter = 0
     return jsonify({
         "status": "healthy",
-        "message": "Server is running fine"
+        "message": "Server is running fine",
+        "files": files_amount,
     }), 200
 
 # --- Main Execution Block ---
@@ -121,7 +129,7 @@ if __name__ == '__main__':
     """
 
 
-
+    # Startup
 
     # See where is the csv
     print("CSV_FILE_PATH: ", CSV_FILE_PATH)

@@ -47,7 +47,7 @@ export function incrementStrikeMissionSuccess(scenario: Scenario, mission: Strik
   if (side) {
     side.missionsCompleted = (side.missionsCompleted || 0) + 1;
     side.missionsSucceeded = (side.missionsSucceeded || 0) + 1;
-    console.log(`${side.name} completed a successful strike mission. Total Succeeded: ${side.missionsSucceeded}`);
+    // console.log(`${side.name} completed a successful strike mission. Total Succeeded: ${side.missionsSucceeded}`);
 }
 }
 
@@ -62,7 +62,7 @@ export function incrementStrikeMissionFailure(scenario: Scenario, mission: Strik
   if (side) {
     side.missionsCompleted = (side.missionsCompleted || 0) + 1;
     side.missionsFailed = (side.missionsFailed || 0) + 1;
-    console.log(`${side.name} failed a strike mission. Total Failed: ${side.missionsFailed}`);
+    // console.log(`${side.name} failed a strike mission. Total Failed: ${side.missionsFailed}`);
   }
 }
 
@@ -78,7 +78,7 @@ export function incrementPatrolMissionSuccess(scenario: Scenario, mission: Patro
   if (side) {
     side.missionsCompleted = (side.missionsCompleted || 0) + 1; // This line was added
     side.missionsSucceeded = (side.missionsSucceeded || 0) + 1;
-    console.log(`${side.name} completed a successful patrol mission. Total Succeeded: ${side.missionsSucceeded}`);
+    // console.log(`${side.name} completed a successful patrol mission. Total Succeeded: ${side.missionsSucceeded}`);
   }
 }
 
@@ -93,7 +93,7 @@ export function incrementPatrolMissionFailure(scenario: Scenario, mission: Patro
   if (side) {
     side.missionsCompleted = (side.missionsCompleted || 0) + 1;
     side.missionsFailed = (side.missionsFailed || 0) + 1;
-    console.log(`${side.name} failed a patrol mission. Total Failed: ${side.missionsFailed}`);
+    // console.log(`${side.name} failed a patrol mission. Total Failed: ${side.missionsFailed}`);
   }
 }
 

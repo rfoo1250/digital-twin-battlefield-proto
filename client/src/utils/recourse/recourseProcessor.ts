@@ -185,6 +185,8 @@ export async function generateRecourseCsv(
 
   const { sides, aircraft, ships, facilities, airbases, missions } = jsonData.currentScenario;
 
+  const scenarioName = jsonData.currentScenario.name;
+
   const side_a = sides[0];
   const side_b = sides[1];
   let side_a_id = side_a.id;
@@ -362,6 +364,9 @@ export async function generateRecourseCsv(
     console.log("side_a_outcome: ", side_a_outcome);
     
     const newDataRow = {
+      // Scenario name
+      scenarioName,
+      
       // Outcomes
       side_a_outcome,
       side_b_outcome,

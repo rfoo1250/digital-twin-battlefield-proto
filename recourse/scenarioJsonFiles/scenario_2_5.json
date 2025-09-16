@@ -1,9 +1,9 @@
 {
   "currentScenario": {
     "id": "8bc3dbe7-d541-478a-9781-0a6ef72cd316",
-    "name": "Scenario 2-1",
+    "name": "Scenario 2-5",
     "startTime": 1699073110,
-    "currentTime": 1699073111,
+    "currentTime": 1699073110,
     "duration": 14400,
     "endTime": 1699087510,
     "sides": [
@@ -42,7 +42,7 @@
         "altitude": 10000,
         "heading": 90,
         "speed": 1303,
-        "currentFuel": 17998.13888888889,
+        "currentFuel": 18000,
         "maxFuel": 18000,
         "fuelRate": 6700,
         "range": 150,
@@ -56,8 +56,8 @@
             "name": "AIM-120 AMRAAM",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-120 AMRAAM",
-            "latitude": 34.14627719571418,
-            "longitude": -112.66910842813179,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 2600,
@@ -78,8 +78,8 @@
             "name": "AIM-9 Sidewinder",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-9 Sidewinder",
-            "latitude": 34.14627719571418,
-            "longitude": -112.66910842813179,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 1500,
@@ -100,8 +100,8 @@
             "name": "AGM-65 Maverick",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AGM-65 Maverick",
-            "latitude": 34.14627719571418,
-            "longitude": -112.66910842813179,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 600,
@@ -132,7 +132,7 @@
         "altitude": 10000,
         "heading": 90,
         "speed": 1303,
-        "currentFuel": 17998.13888888889,
+        "currentFuel": 18000,
         "maxFuel": 18000,
         "fuelRate": 6700,
         "range": 150,
@@ -146,8 +146,8 @@
             "name": "AIM-120 AMRAAM",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-120 AMRAAM",
-            "latitude": 35.73917352182124,
-            "longitude": -113.00843579946368,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 2600,
@@ -168,8 +168,8 @@
             "name": "AIM-9 Sidewinder",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-9 Sidewinder",
-            "latitude": 35.73917352182124,
-            "longitude": -113.00843579946368,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 1500,
@@ -190,8 +190,8 @@
             "name": "AGM-65 Maverick",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AGM-65 Maverick",
-            "latitude": 35.73917352182124,
-            "longitude": -113.00843579946368,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 600,
@@ -222,7 +222,7 @@
         "altitude": 10000,
         "heading": 90,
         "speed": 1303,
-        "currentFuel": 17998.13888888889,
+        "currentFuel": 18000,
         "maxFuel": 18000,
         "fuelRate": 6700,
         "range": 150,
@@ -236,8 +236,8 @@
             "name": "AIM-120 AMRAAM",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-120 AMRAAM",
-            "latitude": 33.73343337469264,
-            "longitude": -117.50652573844864,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 2600,
@@ -258,8 +258,8 @@
             "name": "AIM-9 Sidewinder",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AIM-9 Sidewinder",
-            "latitude": 33.73343337469264,
-            "longitude": -117.50652573844864,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 1500,
@@ -280,8 +280,8 @@
             "name": "AGM-65 Maverick",
             "sideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
             "className": "AGM-65 Maverick",
-            "latitude": 33.73343337469264,
-            "longitude": -117.50652573844864,
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
             "speed": 600,
@@ -302,94 +302,45 @@
         "targetId": "",
         "desiredRoute": []
       },
-      {
-        "id": "60d5ff8c-d5bd-454b-be0e-f0a62574178f",
-        "name": "KC-135R Stratotanker #1325",
+       {
+        "id": "9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d",
+        "name": "B-1B Lancer #4321",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-        "className": "KC-135R Stratotanker",
-        "latitude": 32.895232786944575,
-        "longitude": -110.44404677244934,
+        "className": "B-1B Lancer",
+        "latitude": 33.0,
+        "longitude": -118.0,
         "altitude": 10000,
-        "heading": 307.76571563150134,
-        "speed": 461,
-        "currentFuel": 199990.69444444444,
-        "maxFuel": 200000,
+        "heading": 270,
+        "speed": 782,
+        "currentFuel": 265274,
+        "maxFuel": 265274,
         "fuelRate": 33500,
-        "range": 50,
-        "route": [
-          [
-            33.2316731044609,
-            -110.96488872189666
-          ]
-        ],
+        "range": 80,
+        "route": [],
         "selected": false,
         "sideColor": "red",
         "weapons": [
-          {
-            "id": "032b6dd0-c5ec-41af-ae42-f7a914bdfc5a",
+           {
+            "id": "f1e2d3c4-b5a6-7890-1234-567890fedcba",
             "launcherId": "None",
-            "name": "AIM-120 AMRAAM",
+            "name": "AGM-158 JASSM",
             "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-            "className": "AIM-120 AMRAAM",
-            "latitude": 32.895232786944575,
-            "longitude": -110.44404677244934,
+            "className": "AGM-158 JASSM",
+            "latitude": 0,
+            "longitude": 0,
             "altitude": 10000,
             "heading": 90,
-            "speed": 2600,
-            "currentFuel": 480,
-            "maxFuel": 480,
-            "fuelRate": 350,
+            "speed": 1200,
+            "currentFuel": 18498,
+            "maxFuel": 18498,
+            "fuelRate": 1000,
             "range": 100,
             "route": [],
             "sideColor": "red",
             "targetId": null,
-            "lethality": 0.65,
-            "maxQuantity": 4,
-            "currentQuantity": 4
-          },
-          {
-            "id": "3eca9039-c63b-4e3b-bc77-dbcac70e8474",
-            "launcherId": "None",
-            "name": "AIM-9 Sidewinder",
-            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-            "className": "AIM-9 Sidewinder",
-            "latitude": 32.895232786944575,
-            "longitude": -110.44404677244934,
-            "altitude": 10000,
-            "heading": 90,
-            "speed": 1500,
-            "currentFuel": 100,
-            "maxFuel": 100,
-            "fuelRate": 80,
-            "range": 100,
-            "route": [],
-            "sideColor": "red",
-            "targetId": null,
-            "lethality": 0.6,
-            "maxQuantity": 2,
-            "currentQuantity": 2
-          },
-          {
-            "id": "af47738b-55d2-4aa9-9bef-feac6aaf1b0b",
-            "launcherId": "None",
-            "name": "AGM-65 Maverick",
-            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
-            "className": "AGM-65 Maverick",
-            "latitude": 32.895232786944575,
-            "longitude": -110.44404677244934,
-            "altitude": 10000,
-            "heading": 90,
-            "speed": 600,
-            "currentFuel": 200,
-            "maxFuel": 200,
-            "fuelRate": 120,
-            "range": 100,
-            "route": [],
-            "sideColor": "red",
-            "targetId": null,
-            "lethality": 0.7,
-            "maxQuantity": 2,
-            "currentQuantity": 2
+            "lethality": 0.8,
+            "maxQuantity": 16,
+            "currentQuantity": 16
           }
         ],
         "homeBaseId": "",
@@ -398,7 +349,51 @@
         "desiredRoute": []
       }
     ],
-    "ships": [],
+    "ships": [
+      {
+        "id": "e5f4a3b2-c1d0-9e8f-7a6b-5c4d3e2f1a0b",
+        "name": "Destroyer #8765",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Destroyer",
+        "latitude": 32.5,
+        "longitude": -117.8,
+        "altitude": 0.0,
+        "heading": 0.0,
+        "speed": 34.8,
+        "currentFuel": 3500000.0,
+        "maxFuel": 3500000.0,
+        "fuelRate": 100000.0,
+        "range": 1350,
+        "route": [],
+        "selected": false,
+        "sideColor": "red",
+        "weapons": [
+          {
+            "id": "d1c0b9a8-7e6f-5a4b-3c2d-1e0f9a8b7c6d",
+            "launcherId": "None",
+            "name": "RIM-174 Standard SM-6",
+            "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+            "className": "RIM-174 Standard SM-6",
+            "latitude": 0,
+            "longitude": 0,
+            "altitude": 10000,
+            "heading": 90,
+            "speed": 2313,
+            "currentFuel": 1100,
+            "maxFuel": 1100,
+            "fuelRate": 300,
+            "range": 100,
+            "route": [],
+            "sideColor": "red",
+            "targetId": null,
+            "lethality": 0.9,
+            "maxQuantity": 96,
+            "currentQuantity": 96
+          }
+        ],
+        "aircraft": []
+      }
+    ],
     "facilities": [],
     "airbases": [
       {
@@ -411,20 +406,31 @@
         "altitude": 0,
         "sideColor": "blue",
         "aircraft": []
+      },
+      {
+        "id": "4d3e2f1a-0b9a-8c7d-6e5f-4a3b2c1d0e9f",
+        "name": "Marine Corps Air Station Miramar",
+        "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+        "className": "Airfield",
+        "latitude": 32.8683,
+        "longitude": -117.1424,
+        "altitude": 0,
+        "sideColor": "red",
+        "aircraft": []
       }
     ],
     "weapons": [],
     "referencePoints": [],
     "missions": [
-      {
-        "id": "af48604a-e60b-43ef-8442-173ddc14b567",
-        "name": "Strike Mission #479",
+        {
+        "id": "fedcba98-7654-3210-fedc-ba9876543210",
+        "name": "Seek and Destroy Raptor",
         "sideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
         "assignedUnitIds": [
-          "60d5ff8c-d5bd-454b-be0e-f0a62574178f"
+          "9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d"
         ],
         "assignedTargetIds": [
-          "9424ada3-e3cb-4c1b-b679-f725abecdf2e"
+          "f0d14b42-e673-4f8b-9f6f-34979f211e6a"
         ],
         "active": true
       }
@@ -462,7 +468,7 @@
       }
     }
   },
-  "currentSideId": "e6f0ae76-9d7d-4520-bc86-15e891523615",
+  "currentSideId": "a3a34644-5abe-459b-bf05-5e9cf643b47f",
   "selectedUnitId": "",
   "mapView": {
     "defaultCenter": [
@@ -470,10 +476,10 @@
       0
     ],
     "currentCameraCenter": [
-      -112.68934434246331,
-      34.327271487189165
+      -111.91646651885452,
+      33.76057421105908
     ],
     "defaultZoom": 5,
-    "currentCameraZoom": 7.238819910299661
+    "currentCameraZoom": 9.01659768807744
   }
 }

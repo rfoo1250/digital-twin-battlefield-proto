@@ -435,6 +435,10 @@ export async function generateRecourseCsv(
       side_b_strike_missions_assigned,
     };
     
+    // if new data row is empty, print a warning
+    const scenario_name = jsonData.currentScenario.name;
+    console.warn(`newDataRow for ${scenario_name} is empty`);
+
     updateCsvOnServer(newDataRow);
     // constructAndDownloadCsv(headers, existingCsvData, newDataRow);
   } else {

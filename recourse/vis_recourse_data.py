@@ -6,7 +6,7 @@ CSV_PATH = 'results/algo_recourse_results.csv'
 
 # Read the CSV data from the file
 try:
-    df = pd.read_csv(CSV_PATH)
+    df_original = pd.read_csv(CSV_PATH)
 except FileNotFoundError:
     print("Error: 'algo_recourse_results.csv' not found.")
     print("Please make sure the file is in the same directory as the script.")
@@ -24,6 +24,9 @@ def assign_scenario_group(row_index):
     else:
         # If we have more rows than expected, assign to the last group
         return f"Scenario {scenario_group_order[-1]}"
+
+# Create duplicate
+df = df_original.copy(deep=True)
 
 # Create scenario group column based on row index
 df['scenario_group'] = df.index.map(assign_scenario_group)
@@ -139,4 +142,68 @@ for i, group in enumerate(scenario_group_order):
     print(f"Scenario {group}: Rows {start_row}-{end_row} ({actual_rows} rows with data)")
 
 # Show the plot
-plt.show()
+# plt.show()
+
+print("plot image done!")
+
+import statsmodels.api as sm
+
+df = df_original.copy(deep=True)
+
+
+# X = df.loc[:11, ['side_a_total_ships','side_b_total_ships','side_a_total_planes','side_b_total_planes','side_a_total_sam_sites','side_b_total_sam_sites']]
+# X = df['side_a_total_ships','side_b_total_ships','side_a_total_planes','side_b_total_planes','side_a_total_sam_sites','side_b_total_sam_sites']
+# X = df[top_3_vars]
+
+result_cols = ['side_a_outcome', 'side_b_outcome']
+to_ignore_cols = result_cols + ['side_a_total_fuel_available', 'side_b_total_fuel_available','side_a_total_weapons_stored','side_b_total_weapons_stored']
+# variable_cols = ['side_a_total_ships', 'side_b_total_ships', 'side_a_total_planes', 
+#                  'side_b_total_planes', 'side_a_total_sam_sites', 'side_b_total_sam_sites']
+
+
+# 1. The main loop to iterate through the DataFrame in chunks of 10
+# The 'step' argument in range() is set to 10.
+for i in range(0, len(df), 10):
+    
+    # 2. Slice the DataFrame to get the current 10-row chunk
+    # .iloc is used for integer-location based indexing.
+    chunk_df = df.iloc[i : i+10]
+    
+    print(f"--- Analyzing Rows {i} to {i+9} ---")
+    
+    variable_cols = [col for col in chunk_df.columns if col not in to_ignore_cols]
+    top_5_vars = chunk_df[variable_cols].std().sort_values(ascending=False).head(5).index.tolist()
+    variable_cols = top_5_vars
+
+    # 3. Add a check to ensure there's enough data for regression
+    # You need more rows than variables to run the model.
+    # The number of variables is len(variable_cols) + 1 (for the constant).
+    if len(chunk_df) <= (len(variable_cols) + 1):
+        print("Not enough data in this chunk to run analysis. Skipping.\n")
+        continue
+
+    # Define X and y using the current chunk_df
+    X = chunk_df[variable_cols]
+    X = sm.add_constant(X)
+    
+    # Loop through your result columns as before
+    for result_col in result_cols:
+        print(f"--- Regression Analysis for: {result_col} ---")
+        
+        y = chunk_df[result_col]
+        
+        # Drop rows with missing values for this specific analysis
+        # This prevents errors if a row in the chunk is empty
+        y_cleaned = y.dropna()
+        X_cleaned = X.loc[y_cleaned.index]
+
+        # Check again after dropping NaNs
+        if len(y_cleaned) <= X_cleaned.shape[1]:
+            print(f"Not enough valid data for '{result_col}' in this chunk. Skipping.\n")
+            continue
+        
+        model = sm.OLS(y_cleaned, X_cleaned)
+        results = model.fit()
+        
+        print(results.summary())
+        print("\n" + "="*80 + "\n")

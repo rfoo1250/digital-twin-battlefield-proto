@@ -119,11 +119,22 @@ export default function ScenarioMap({
   projection,
   mobileView,
 }: Readonly<ScenarioMapProps>) {
+  // checking env key
+  const MAPTILER_DEFAULT_KEY = import.meta.env.VITE_MAPTILER_DEFAULT_KEY;
+  if (!MAPTILER_DEFAULT_KEY) {
+    console.error('MAPTILER_DEFAULT_KEY not found in environment variables');
+    return null;
+  }
+  
   const mapRef = useRef<HTMLDivElement | null>(null);
   const defaultProjection = getProjection(DEFAULT_OL_PROJECTION_CODE);
   const [drawerOpen, setDrawerOpen] = useState(true);
+  const mapTilerBasicUrl = `https://api.maptiler.com/tiles/basic/{z}/{x}/{y}.png?key=${MAPTILER_DEFAULT_KEY}`;
   const [baseMapLayers, setBaseMapLayers] = useState(
-    new BaseMapLayers(projection)
+    new BaseMapLayers(
+      projection,
+      mapTilerBasicUrl
+    )
   );
   const [aircraftLayer, setAircraftLayer] = useState(
     new AircraftLayer(projection, 3)
